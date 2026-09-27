@@ -148,8 +148,8 @@
   }
   .dispatch-shell.active{display:flex;flex-direction:column;}
   .d-topbar{
-    position:fixed;top:34px;left:0;right:0;height:56px;background:var(--bg);z-index:10;
-    display:flex;align-items:center;justify-content:space-between;padding:12px 28px;
+    height:56px;flex:0 0 56px;background:var(--bg);z-index:10;
+    display:flex;align-items:center;justify-content:space-between;padding:0 28px;
     box-sizing:border-box;
   }
   .d-topbar .brand{font-size:17px;letter-spacing:.2px;}
@@ -158,9 +158,10 @@
   .d-topbar .actions{display:flex;gap:14px;align-items:center;}
   .d-topbar .actions .icon-btn{width:28px;height:28px;}
   .d-body{
+    flex:1 1 auto;
+    min-height:0;
     display:flex;gap:18px;width:100%;
-    padding:70px 24px 20px;
-    height:calc(100vh - 34px);
+    padding:6px 24px 20px;
     box-sizing:border-box;
     align-items:stretch;
     overflow:hidden;
@@ -263,8 +264,9 @@
 
   /* order detail desktop */
   .d-detail-body{
-    display:flex;gap:16px;width:100%;padding:88px 26px 26px;align-items:flex-start;
-    height:calc(100vh - 34px);box-sizing:border-box;overflow:hidden;
+    flex:1 1 auto;min-height:0;
+    display:flex;gap:18px;width:100%;padding:6px 24px 20px;align-items:stretch;
+    box-sizing:border-box;overflow:hidden;
   }
   .d-detail-side{
     width:72px;flex:0 0 72px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);
