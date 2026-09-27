@@ -516,6 +516,108 @@
   .sm-modal-btn-cancel{background:none;border:none;font-size:14px;color:#666;font-weight:500;padding:10px 16px;cursor:pointer;}
   .sm-modal-btn-submit{background:#000;color:#fff;border:none;border-radius:999px;font-size:14px;font-weight:600;padding:10px 24px;cursor:pointer;}
 
+  /* ============ VEHICLE CATALOGUE ============ */
+  .v-main-card{
+    flex:1;min-width:0;background:#fff;border:1px solid var(--border);
+    border-radius:22px;padding:26px 32px 24px;
+    height:100%;display:flex;flex-direction:column;
+    box-sizing:border-box;overflow:hidden;
+  }
+  .v-title{
+    font-size:18px;font-weight:700;color:#111;margin:0 0 18px 0;letter-spacing:-.2px;
+  }
+  .v-search-box{
+    position:relative;width:100%;margin-bottom:20px;
+  }
+  .v-search-box input{
+    width:100%;height:44px;border-radius:24px;border:1px solid #e2e2e2;
+    background:#fff;padding:0 46px 0 20px;font-size:14px;color:#111;
+    font-family:inherit;outline:none;box-sizing:border-box;
+    transition:border-color .18s ease, box-shadow .18s ease;
+  }
+  .v-search-box input::placeholder{color:#a0a0a0;font-weight:400;}
+  .v-search-box input:focus{border-color:#111;box-shadow:0 0 0 1px #111;}
+  .v-search-icon{
+    position:absolute;right:18px;top:50%;transform:translateY(-50%);
+    pointer-events:none;color:#222;display:flex;align-items:center;justify-content:center;
+  }
+  .v-search-icon svg{width:18px;height:18px;}
+  .v-table-head{
+    display:flex;align-items:center;padding:0 20px;margin-bottom:12px;
+    color:#8e8e93;font-size:13px;font-weight:500;
+  }
+  .v-rows-list{
+    flex:1 1 auto;min-height:0;overflow-y:auto;display:flex;flex-direction:column;
+    gap:9px;padding-right:4px;
+  }
+  .v-rows-list::-webkit-scrollbar{width:5px;}
+  .v-rows-list::-webkit-scrollbar-thumb{background:#d4d4d4;border-radius:10px;}
+  .v-row{
+    display:flex;align-items:center;background:#fff;border:1px solid #e6e6e6;
+    border-radius:14px;padding:12px 20px;cursor:pointer;
+    transition:background-color .16s ease, border-color .16s ease, transform .16s ease, box-shadow .16s ease;
+    animation:rowIn .32s cubic-bezier(.22,.85,.32,1) both;
+  }
+  .v-row:hover{
+    background:#fafafa;border-color:#d4d4d4;transform:translateY(-1px);
+    box-shadow:0 4px 12px rgba(0,0,0,0.035);
+  }
+  .v-row.selected{
+    border-color:#111;background:#fafbfc;box-shadow:0 4px 14px rgba(0,0,0,0.06);
+  }
+  .v-col-id{width:22%;flex:0 0 22%;font-size:14px;font-weight:700;color:#111;}
+  .v-col-no{width:20%;flex:0 0 20%;font-size:14px;font-weight:700;color:#111;}
+  .v-col-type{width:20%;flex:0 0 20%;font-size:14px;font-weight:700;color:#111;}
+  .v-col-trips{width:20%;flex:0 0 20%;font-size:14px;font-weight:700;color:#111;}
+  .v-col-status{width:18%;flex:0 0 18%;text-align:right;}
+
+  .v-status-pill{
+    display:inline-flex;align-items:center;justify-content:center;
+    padding:4px 14px;border-radius:16px;font-size:12px;font-weight:600;letter-spacing:.1px;
+    white-space:nowrap;
+  }
+  .v-status-pill.operating{
+    background:#d5edd8;color:#166534;
+  }
+  .v-status-pill.not-working{
+    background:#f1f3f5;color:#495057;border:1px solid #e1e4e8;
+  }
+
+  .v-details-panel{
+    width:330px;flex:0 0 330px;height:100%;display:flex;flex-direction:column;
+    box-sizing:border-box;padding:8px 8px 4px 10px;
+    overflow-y:auto;
+  }
+  .v-detail-header{
+    display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;
+    padding:0 2px;
+  }
+  .v-detail-id{
+    font-size:19px;font-weight:700;color:#111;letter-spacing:.1px;
+  }
+  .v-detail-specs{
+    display:flex;flex-direction:column;gap:15px;margin-bottom:24px;padding:0 2px;
+  }
+  .v-spec-row{
+    display:flex;justify-content:space-between;align-items:center;font-size:13.5px;
+  }
+  .v-spec-row .k{color:#6c757d;font-weight:400;}
+  .v-spec-row .v{color:#111;font-weight:700;text-align:right;}
+  
+  .v-image-card{
+    background:#fff;border:1px solid var(--border);border-radius:24px;
+    padding:20px;display:flex;align-items:center;justify-content:center;
+    margin-top:auto;box-shadow:0 2px 12px rgba(0,0,0,0.025);
+    min-height:220px;overflow:hidden;
+  }
+  .v-truck-img{
+    width:100%;max-width:280px;height:auto;object-fit:contain;display:block;
+    transition:transform .2s ease;
+  }
+  .v-truck-img:hover{
+    transform:scale(1.02);
+  }
+
   /* ============ TABLET-STYLE (Loader) ============ */
   .device-tablet{
     display:none;max-width:834px;margin:0 auto;background:#fff;min-height:calc(100vh - 34px);
@@ -815,6 +917,7 @@ function render(){
   if(route.name==='store-dashboard'){ app.innerHTML = storeDashboardScreen(); attachStoreDashboard(); return; }
   if(route.name==='dispatch-list'){ app.innerHTML = dispatchListScreen(route.nav||'live'); attachDispatchList(); return; }
   if(route.name==='dispatch-order'){ app.innerHTML = dispatchOrderScreen(route.uid); attachDispatchOrder(); return; }
+  if(route.name==='dispatch-vehicles'){ app.innerHTML = dispatchVehiclesScreen(route.vid); attachDispatchVehicles(); return; }
   if(route.name==='loader-list'){ app.innerHTML = loaderListScreen(); attachLoaderList(); return; }
   if(route.name==='loader-load'){ app.innerHTML = loaderLoadScreen(route.loadId); attachLoaderLoad(route.loadId); return; }
   if(route.name==='loader-checklist'){ app.innerHTML = loaderChecklistScreen(route.loadId, route.orderId); attachLoaderChecklist(route.loadId, route.orderId); return; }
@@ -1050,8 +1153,12 @@ function storeDashboardScreen(){
 function attachStoreDashboard(){
   document.querySelectorAll('[data-snav]').forEach(el=>{
     el.addEventListener('click', ()=>{
-      storeActiveNav = el.dataset.snav;
-      render();
+      if (el.dataset.snav === 'vehicles') {
+        nav({name:'dispatch-vehicles', role:'store-manager', fromStore:true});
+      } else {
+        storeActiveNav = el.dataset.snav;
+        render();
+      }
     });
   });
 
@@ -1218,7 +1325,13 @@ function dispatchListScreen(activeNav){
 }
 function attachDispatchList(){
   document.querySelectorAll('.d-nav-item').forEach(el=>{
-    el.addEventListener('click', ()=> nav({name:'dispatch-list', nav:el.dataset.nav}));
+    el.addEventListener('click', ()=>{
+      if (el.dataset.nav === 'fleet') {
+        nav({name:'dispatch-vehicles', role:'dispatch'});
+      } else {
+        nav({name:'dispatch-list', nav:el.dataset.nav});
+      }
+    });
   });
   document.querySelectorAll('.d-row').forEach(el=>{
     el.addEventListener('click', ()=> nav({name:'dispatch-order', uid:el.dataset.uid}));
@@ -1369,6 +1482,179 @@ function attachDispatchOrder(){
       }
     });
   }
+}
+
+/* ================= DISPATCH: VEHICLE CATALOGUE ================= */
+const vehiclesCatalog = [
+  { uid: 'v-1', id: 'VEH-Y78S5', no: 'KD-2477', type: 'Lorry', trips: '01/02', status: 'Operating', driverId: 'DRV-Y62US', driverContact: '078 344 1120', img: 'isuzu_truck.png' },
+  { uid: 'v-2', id: 'VEH-Y78S5', no: 'KD-2477', type: 'Lorry', trips: '01/02', status: 'Operating', driverId: 'DRV-Y64US', driverContact: '078 344 1155', img: 'isuzu_truck.png' },
+  { uid: 'v-3', id: 'VEH-Y78S5', no: 'KD-2477', type: 'Lorry', trips: '01/02', status: 'Operating', driverId: 'DRV-Y66US', driverContact: '078 344 1198', img: 'isuzu_truck.png' },
+  { uid: 'v-4', id: 'VEH-Y78S5', no: 'KD-2477', type: 'Lorry', trips: '01/02', status: 'Not Working', driverId: 'DRV-Y67US', driverContact: '078 344 1234', img: 'isuzu_truck.png' },
+  { uid: 'v-5', id: 'VEH-Y78S5', no: 'KD-2477', type: 'Lorry', trips: '01/02', status: 'Operating', driverId: 'DRV-Y68US', driverContact: '078 344 1270', img: 'isuzu_truck.png' },
+  { uid: 'v-6', id: 'VEH-Y82K1', no: 'KD-2480', type: 'Lorry', trips: '02/02', status: 'Operating', driverId: 'DRV-Y70US', driverContact: '078 344 1312', img: 'isuzu_truck.png' },
+  { uid: 'v-7', id: 'VEH-Y85M3', no: 'KD-2488', type: 'Van',   trips: '03/03', status: 'Operating', driverId: 'DRV-Y72US', driverContact: '078 344 1380', img: 'isuzu_truck.png' }
+];
+
+let selectedVehicleUid = 'v-4';
+let vehicleSearchQuery = '';
+
+function dispatchVehiclesScreen(vid){
+  if(vid) selectedVehicleUid = vid;
+  const selectedVehicle = vehiclesCatalog.find(v=>v.uid === selectedVehicleUid) || vehiclesCatalog[3];
+  
+  const query = (vehicleSearchQuery || '').toLowerCase().trim();
+  const filteredVehicles = vehiclesCatalog.filter(v => {
+    if(!query) return true;
+    return v.id.toLowerCase().includes(query) ||
+           v.no.toLowerCase().includes(query) ||
+           v.type.toLowerCase().includes(query) ||
+           v.status.toLowerCase().includes(query) ||
+           v.driverId.toLowerCase().includes(query);
+  });
+
+  return `
+  <div class="dispatch-shell active">
+    <div class="d-topbar">
+      <div class="brand"><span class="wp-logo">WAYPOINT</span><span class="wp-role">&nbsp;DISPATCH</span></div>
+      <div class="actions">
+        <button class="icon-btn" title="Search">${ICON.search}</button>
+        <button class="icon-btn" title="Account">${ICON.account}</button>
+      </div>
+    </div>
+    <div class="d-detail-body">
+      <div class="d-detail-side">
+        <button class="back-btn" id="vBackBtn" title="Back">${ICON.arrowLeft}</button>
+      </div>
+      <div class="v-main-card">
+        <h2 class="v-title">Vehicle catalogue</h2>
+        <div class="v-search-box">
+          <input type="text" id="vSearchInput" placeholder="Search vehicle" value="${vehicleSearchQuery}" />
+          <span class="v-search-icon">${ICON.search}</span>
+        </div>
+        <div class="v-table-head">
+          <span class="v-col-id">Vehicle ID</span>
+          <span class="v-col-no">Vehicle No.</span>
+          <span class="v-col-type">Vehicle type</span>
+          <span class="v-col-trips">Available trips</span>
+          <span class="v-col-status">Live Status</span>
+        </div>
+        <div class="v-rows-list" id="vRowsList">
+          ${filteredVehicles.length === 0 ? `
+            <div style="text-align:center;padding:48px 20px;color:#888;font-size:14px;">No vehicles found matching "${vehicleSearchQuery}"</div>
+          ` : filteredVehicles.map(v => {
+            const isSelected = v.uid === selectedVehicle.uid;
+            const isOperating = v.status === 'Operating';
+            return `
+            <div class="v-row ${isSelected ? 'selected' : ''}" data-vuid="${v.uid}">
+              <span class="v-col-id">${v.id}</span>
+              <span class="v-col-no">${v.no}</span>
+              <span class="v-col-type">${v.type}</span>
+              <span class="v-col-trips">${v.trips}</span>
+              <span class="v-col-status">
+                <span class="v-status-pill ${isOperating ? 'operating' : 'not-working'}">${v.status}</span>
+              </span>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+      <div class="v-details-panel">
+        <div class="v-detail-header">
+          <span class="v-detail-id">${selectedVehicle.id}</span>
+          <span class="v-status-pill ${selectedVehicle.status === 'Operating' ? 'operating' : 'not-working'}">${selectedVehicle.status}</span>
+        </div>
+        <div class="v-detail-specs">
+          <div class="v-spec-row"><span class="k">Vehicle No.</span><span class="v">${selectedVehicle.no}</span></div>
+          <div class="v-spec-row"><span class="k">Vehicle type</span><span class="v">${selectedVehicle.type}</span></div>
+          <div class="v-spec-row"><span class="k">Available trips</span><span class="v">${selectedVehicle.trips}</span></div>
+          <div class="v-spec-row"><span class="k">Driver ID</span><span class="v">${selectedVehicle.driverId}</span></div>
+          <div class="v-spec-row"><span class="k">Driver Contact</span><span class="v">${selectedVehicle.driverContact}</span></div>
+        </div>
+        <div class="v-image-card">
+          <img src="${selectedVehicle.img}" alt="${selectedVehicle.type}" class="v-truck-img" />
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function attachDispatchVehicles(){
+  const backBtn = document.getElementById('vBackBtn');
+  if(backBtn){
+    backBtn.addEventListener('click', ()=>{
+      if(route.fromStore){
+        nav({name:'store-dashboard', role:'store-manager'});
+      } else {
+        nav({name:'dispatch-list', nav:'live', role:'dispatch'});
+      }
+    });
+  }
+
+  const searchInput = document.getElementById('vSearchInput');
+  if(searchInput){
+    searchInput.addEventListener('input', (e)=>{
+      vehicleSearchQuery = e.target.value;
+      const vList = document.getElementById('vRowsList');
+      if(!vList) return;
+      const query = vehicleSearchQuery.toLowerCase().trim();
+      const filtered = vehiclesCatalog.filter(v => {
+        if(!query) return true;
+        return v.id.toLowerCase().includes(query) ||
+               v.no.toLowerCase().includes(query) ||
+               v.type.toLowerCase().includes(query) ||
+               v.status.toLowerCase().includes(query) ||
+               v.driverId.toLowerCase().includes(query);
+      });
+      vList.innerHTML = filtered.length === 0 ? `
+        <div style="text-align:center;padding:48px 20px;color:#888;font-size:14px;">No vehicles found matching "${vehicleSearchQuery}"</div>
+      ` : filtered.map(v => {
+        const isSelected = v.uid === selectedVehicleUid;
+        const isOperating = v.status === 'Operating';
+        return `
+        <div class="v-row ${isSelected ? 'selected' : ''}" data-vuid="${v.uid}">
+          <span class="v-col-id">${v.id}</span>
+          <span class="v-col-no">${v.no}</span>
+          <span class="v-col-type">${v.type}</span>
+          <span class="v-col-trips">${v.trips}</span>
+          <span class="v-col-status">
+            <span class="v-status-pill ${isOperating ? 'operating' : 'not-working'}">${v.status}</span>
+          </span>
+        </div>`;
+      }).join('');
+      attachVehicleRowClicks();
+    });
+  }
+
+  function attachVehicleRowClicks(){
+    document.querySelectorAll('.v-row').forEach(row => {
+      row.addEventListener('click', ()=>{
+        selectedVehicleUid = row.dataset.vuid;
+        document.querySelectorAll('.v-row').forEach(r => r.classList.toggle('selected', r.dataset.vuid === selectedVehicleUid));
+        const sv = vehiclesCatalog.find(v => v.uid === selectedVehicleUid);
+        if(!sv) return;
+        const headerId = document.querySelector('.v-detail-id');
+        const headerPill = document.querySelector('.v-detail-header .v-status-pill');
+        if(headerId) headerId.textContent = sv.id;
+        if(headerPill){
+          headerPill.textContent = sv.status;
+          headerPill.className = `v-status-pill ${sv.status === 'Operating' ? 'operating' : 'not-working'}`;
+        }
+        const specs = document.querySelector('.v-detail-specs');
+        if(specs){
+          specs.innerHTML = `
+            <div class="v-spec-row"><span class="k">Vehicle No.</span><span class="v">${sv.no}</span></div>
+            <div class="v-spec-row"><span class="k">Vehicle type</span><span class="v">${sv.type}</span></div>
+            <div class="v-spec-row"><span class="k">Available trips</span><span class="v">${sv.trips}</span></div>
+            <div class="v-spec-row"><span class="k">Driver ID</span><span class="v">${sv.driverId}</span></div>
+            <div class="v-spec-row"><span class="k">Driver Contact</span><span class="v">${sv.driverContact}</span></div>
+          `;
+        }
+        const img = document.querySelector('.v-truck-img');
+        if(img) img.src = sv.img;
+      });
+    });
+  }
+
+  attachVehicleRowClicks();
 }
 
 /* ================= LOADER: ASSIGNED LOADS ================= */
