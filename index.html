@@ -618,6 +618,175 @@
     transform:scale(1.02);
   }
 
+  /* ============ PLANNING: CLUSTERING & STAGING ============ */
+  .cluster-main-card{
+    flex:1;min-width:0;background:#fff;border:1px solid var(--border);
+    border-radius:22px;padding:22px 26px 20px;
+    height:100%;display:flex;flex-direction:column;
+    box-sizing:border-box;overflow:hidden;
+  }
+  .cluster-header-bar{
+    display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:12px;
+  }
+  .cluster-header-left{
+    display:flex;align-items:center;gap:10px;
+  }
+  .cluster-back-arrow{
+    width:32px;height:32px;border-radius:50%;border:none;background:none;
+    display:inline-flex;align-items:center;justify-content:center;cursor:pointer;
+    color:#111;transition:background-color .18s, transform .16s;padding:0;
+  }
+  .cluster-back-arrow:hover{
+    background:rgba(0,0,0,0.06);transform:translateX(-2px);
+  }
+  .cluster-title{
+    font-size:18px;font-weight:700;color:#111;letter-spacing:-.2px;
+  }
+  .cluster-count-badge{
+    font-size:13px;color:#888;font-weight:500;margin-left:6px;
+  }
+  .cluster-sub-identity{
+    font-size:15px;color:#444;font-weight:500;margin-left:4px;
+  }
+  .cluster-table-head{
+    display:flex;align-items:center;padding:0 20px;margin-bottom:10px;
+    color:#8e8e93;font-size:13px;font-weight:500;
+  }
+  .cluster-list-scroll{
+    flex:1 1 auto;min-height:0;overflow-y:auto;padding-right:4px;
+    display:flex;flex-direction:column;gap:8px;
+  }
+  .cluster-list-scroll::-webkit-scrollbar{width:5px;}
+  .cluster-list-scroll::-webkit-scrollbar-thumb{background:#d4d4d4;border-radius:10px;}
+  .cluster-row{
+    display:flex;align-items:center;background:#fff;border:1px solid #e5e5ea;
+    border-radius:14px;padding:12px 20px;cursor:pointer;
+    transition:background-color .15s ease, border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+    animation:rowIn .32s cubic-bezier(.22,.85,.32,1) both;
+  }
+  .cluster-row:hover{
+    background:#fafafa;border-color:#d1d1d6;transform:translateY(-1px);
+    box-shadow:0 4px 12px rgba(0,0,0,0.035);
+  }
+  .cluster-col-id{width:18%;flex:0 0 18%;font-size:14px;font-weight:700;color:#111;}
+  .cluster-col-identity{width:26%;flex:0 0 26%;font-size:14px;font-weight:600;color:#222;}
+  .cluster-col-orders{flex:1;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .cluster-col-action{width:32px;flex:0 0 32px;display:flex;align-items:center;justify-content:flex-end;color:#222;}
+  .cluster-col-action svg{transition:transform .18s ease;}
+  .cluster-row:hover .cluster-col-action svg{transform:translateX(3px);}
+
+  .cluster-pill{
+    display:inline-flex;align-items:center;justify-content:center;
+    padding:4px 12px;border-radius:14px;font-size:12px;font-weight:600;letter-spacing:.1px;
+    white-space:nowrap;
+  }
+  .cluster-pill.ambient{background:#d5edd8;color:#166534;}
+  .cluster-pill.chilled{background:#e0f2fe;color:#0369a1;}
+  .cluster-pill.textile{background:#f3e8ff;color:#7e22ce;}
+  .cluster-pill.fragile{background:#fef3c7;color:#b45309;}
+  .cluster-total-txt{color:#888;font-size:12.5px;font-weight:500;margin-left:6px;}
+
+  .cluster-subhead-row{
+    display:flex;justify-content:space-between;align-items:center;
+    margin:18px 0 10px;padding:0 4px;
+  }
+  .cluster-subhead-title{font-size:14px;font-weight:700;color:#111;}
+  .cluster-subhead-count{font-size:12px;color:#888;font-weight:500;}
+
+  /* Cluster Summary Panel Progress */
+  .cluster-progress-block{margin-top:auto;padding-top:20px;border-top:1px solid #f0f0f0;}
+  .cluster-progress-labels{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;margin-bottom:8px;}
+  .cluster-progress-labels span:first-child{color:#444;font-weight:500;}
+  .cluster-progress-labels span:last-child{color:#111;font-weight:700;}
+  .cluster-progress-bar{width:100%;height:6px;background:#e5e5ea;border-radius:4px;overflow:hidden;}
+  .cluster-progress-fill{height:100%;background:#111;border-radius:4px;transition:width .4s ease;}
+
+  /* Planning: Staging Screen */
+  .staging-subhead{
+    display:flex;align-items:center;padding:0 6px 14px;margin-bottom:4px;
+    font-size:14px;color:#111;
+  }
+  .staging-subhead-title{font-size:16px;font-weight:700;color:#111;margin-right:24px;}
+  .staging-select-all{
+    display:inline-flex;align-items:center;gap:8px;cursor:pointer;
+    font-size:13.5px;font-weight:500;color:#333;user-select:none;
+  }
+  .staging-selected-count{
+    margin-left:auto;font-size:13px;font-weight:600;color:#666;
+  }
+  .staging-check-circle{
+    width:18px;height:18px;border-radius:50%;border:1.8px solid #999;
+    display:inline-flex;align-items:center;justify-content:center;
+    flex:0 0 18px;transition:border-color .15s ease, background-color .15s ease;
+    box-sizing:border-box;cursor:pointer;
+  }
+  .staging-check-circle.checked{
+    border-color:#111;
+  }
+  .staging-check-circle.checked::after{
+    content:'';width:10px;height:10px;border-radius:50%;background:#111;
+  }
+  .staging-order-card{
+    display:flex;align-items:center;background:#fff;border:1px solid #e5e5ea;
+    border-radius:16px;padding:14px 20px;margin-bottom:10px;cursor:pointer;
+    transition:background-color .15s, border-color .15s, transform .15s, box-shadow .15s;
+    animation:rowIn .32s cubic-bezier(.22,.85,.32,1) both;
+  }
+  .staging-order-card:hover{
+    background:#fafafa;border-color:#d1d1d6;transform:translateY(-1px);
+    box-shadow:0 4px 12px rgba(0,0,0,0.035);
+  }
+  .staging-order-card.selected{
+    border-color:#111;background:#fafbfc;
+  }
+  .staging-col-info{width:32%;flex:0 0 32%;min-width:0;padding-right:12px;}
+  .staging-oid{font-size:14px;font-weight:700;color:#111;line-height:1.2;}
+  .staging-store{font-size:13.5px;font-weight:600;color:#222;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:2px;}
+  .staging-since{font-size:11.5px;color:#888;margin-top:2px;}
+  .staging-col-metrics{width:16%;flex:0 0 16%;display:flex;flex-direction:column;gap:3px;font-size:13px;color:#333;font-weight:500;}
+  .staging-col-pills{width:26%;flex:0 0 26%;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .staging-pill-constraint{
+    background:#f1f3f5;color:#495057;border:1px solid #e1e4e8;
+    padding:4px 12px;border-radius:14px;font-size:12px;font-weight:600;
+  }
+  .staging-col-time{flex:1;text-align:right;font-size:13px;font-weight:600;color:#333;}
+  .staging-bottom-bar{
+    display:flex;justify-content:flex-end;gap:14px;padding:16px 12px 6px;margin-top:auto;
+  }
+  .staging-btn-deffer{
+    background:#e2e2e8;color:#222;font-size:13.5px;font-weight:600;
+    border:none;border-radius:24px;padding:9px 28px;cursor:pointer;
+    transition:background-color .18s, transform .16s;
+  }
+  .staging-btn-deffer:hover{background:#d4d4dc;transform:translateY(-1px);}
+  .staging-btn-stage{
+    background:#000;color:#fff;font-size:13.5px;font-weight:600;
+    border:none;border-radius:24px;padding:9px 34px;cursor:pointer;
+    transition:background-color .18s, transform .16s, box-shadow .18s;
+  }
+  .staging-btn-stage:hover{background:#222;transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,0.18);}
+  .staging-btn-stage:active,.staging-btn-deffer:active{transform:translateY(0) scale(.99);}
+
+  /* Staging right-hand rail */
+  .staging-assign-rail{
+    width:42px;flex:0 0 42px;background:#fff;border:1px solid var(--border);
+    border-radius:20px;display:flex;align-items:center;justify-content:center;
+    padding:16px 0;cursor:pointer;height:100%;box-sizing:border-box;
+    transition:background-color .18s, border-color .18s, box-shadow .18s;
+  }
+  .staging-assign-rail:hover{
+    background:#f7f7f8;border-color:#b5b5b5;box-shadow:0 2px 10px rgba(0,0,0,0.03);
+  }
+  .staging-rail-content{
+    display:flex;align-items:center;gap:8px;
+    writing-mode:vertical-rl;transform:rotate(180deg);
+    font-size:13px;font-weight:600;color:#333;letter-spacing:.2px;
+    user-select:none;
+  }
+  .staging-rail-content svg{
+    transform:rotate(90deg);flex-shrink:0;
+  }
+
   /* ============ TABLET-STYLE (Loader) ============ */
   .device-tablet{
     display:none;max-width:834px;margin:0 auto;background:#fff;min-height:calc(100vh - 34px);
@@ -918,6 +1087,8 @@ function render(){
   if(route.name==='dispatch-list'){ app.innerHTML = dispatchListScreen(route.nav||'live'); attachDispatchList(); return; }
   if(route.name==='dispatch-order'){ app.innerHTML = dispatchOrderScreen(route.uid); attachDispatchOrder(); return; }
   if(route.name==='dispatch-vehicles'){ app.innerHTML = dispatchVehiclesScreen(route.vid); attachDispatchVehicles(); return; }
+  if(route.name==='dispatch-clustering'){ app.innerHTML = dispatchClusteringScreen(); attachDispatchClustering(); return; }
+  if(route.name==='dispatch-staging'){ app.innerHTML = dispatchStagingScreen(route.clusterId); attachDispatchStaging(route.clusterId); return; }
   if(route.name==='loader-list'){ app.innerHTML = loaderListScreen(); attachLoaderList(); return; }
   if(route.name==='loader-load'){ app.innerHTML = loaderLoadScreen(route.loadId); attachLoaderLoad(route.loadId); return; }
   if(route.name==='loader-checklist'){ app.innerHTML = loaderChecklistScreen(route.loadId, route.orderId); attachLoaderChecklist(route.loadId, route.orderId); return; }
@@ -1249,7 +1420,7 @@ const dispatchNavItems = [
   {key:'deferred', label:'Deffered Orders', group:'DISPATCH', icon:'navDeferred'},
   {key:'planning', label:'Planning', group:'DISPATCH', icon:'navPlanning'},
   {key:'fleet', label:'Fleet', group:'MANAGEMENT', icon:'navFleet'},
-  {key:'loading', label:'Loading', group:'MANAGEMENT', icon:'navLoading'},
+  {key:'loading', label:'Stores', group:'MANAGEMENT', icon:'navLoading'},
   {key:'tracker', label:'Tracker', group:'MANAGEMENT', icon:'navTracker'},
 ];
 
@@ -1326,10 +1497,12 @@ function dispatchListScreen(activeNav){
 function attachDispatchList(){
   document.querySelectorAll('.d-nav-item').forEach(el=>{
     el.addEventListener('click', ()=>{
-      if (el.dataset.nav === 'fleet') {
+      if (el.dataset.nav === 'planning') {
+        nav({name:'dispatch-clustering', role:'dispatch'});
+      } else if (el.dataset.nav === 'fleet') {
         nav({name:'dispatch-vehicles', role:'dispatch'});
       } else {
-        nav({name:'dispatch-list', nav:el.dataset.nav});
+        nav({name:'dispatch-list', nav:el.dataset.nav, role:'dispatch'});
       }
     });
   });
@@ -1655,6 +1828,431 @@ function attachDispatchVehicles(){
   }
 
   attachVehicleRowClicks();
+}
+
+/* ================= PLANNING: CLUSTERING & STAGING DATA ================= */
+const clustersData = [
+  {
+    id: 'CLS-BF785',
+    identity: 'Colombo - Fresh',
+    total: 26,
+    resolved: false,
+    pills: [
+      { type: 'Ambient', count: 18, pillClass: 'ambient' },
+      { type: 'Chilled', count: 8, pillClass: 'chilled' }
+    ]
+  },
+  {
+    id: 'CLS-GH56I',
+    identity: 'Gampaha - Fresh',
+    total: 26,
+    resolved: false,
+    pills: [
+      { type: 'Ambient', count: 10, pillClass: 'ambient' },
+      { type: 'Chilled', count: 8, pillClass: 'chilled' }
+    ]
+  },
+  {
+    id: 'CLS-UH79A',
+    identity: 'Kurunegala - Fresh',
+    total: 26,
+    resolved: false,
+    pills: [
+      { type: 'Ambient', count: 10, pillClass: 'ambient' },
+      { type: 'Chilled', count: 8, pillClass: 'chilled' }
+    ]
+  },
+  {
+    id: 'CLS-CL555',
+    identity: 'Colombo - Style',
+    total: 7,
+    resolved: false,
+    pills: [
+      { type: 'Textile', count: 7, pillClass: 'textile' }
+    ]
+  },
+  {
+    id: 'CLS-TS67Y',
+    identity: 'Colombo - Tech',
+    total: 3,
+    resolved: false,
+    pills: [
+      { type: 'Fragile', count: 3, pillClass: 'fragile' }
+    ]
+  },
+  {
+    id: 'CLS-GH56I',
+    identity: 'Gampaha - Style',
+    total: 24,
+    resolved: true,
+    pills: [
+      { type: 'Textile', count: 7, pillClass: 'textile' }
+    ]
+  }
+];
+
+const stagingOrdersData = [
+  {
+    id: 'FRS-3TX7',
+    store: 'Colombo 08 - Waypoint Fresh',
+    since: '5 days since last',
+    volume: '2.4m³',
+    weight: '600 kg',
+    type: 'Ambient',
+    typeClass: 'ambient',
+    constraint: 'Van only',
+    time: '04:00 - 06:30 AM',
+    selected: true
+  },
+  {
+    id: 'FRS-3TX7',
+    store: 'Colombo 12 - Waypoint Fresh',
+    since: '5 days since last',
+    volume: '2.4m³',
+    weight: '600 kg',
+    type: 'Chilled',
+    typeClass: 'chilled',
+    constraint: 'Van only',
+    time: '04:00 - 06:30 AM',
+    selected: true
+  },
+  {
+    id: 'FRS-3TX7',
+    store: 'Dehiwala - Waypoint Fresh',
+    since: '5 days since last',
+    volume: '2.4m³',
+    weight: '600 kg',
+    type: 'Chilled',
+    typeClass: 'chilled',
+    constraint: 'Any',
+    time: '04:00 - 06:30 AM',
+    selected: false
+  },
+  {
+    id: 'FRS-3TX7',
+    store: 'Colombo 11 - Waypoint Fresh',
+    since: '5 days since last',
+    volume: '2.6m³',
+    weight: '680 kg',
+    type: 'Ambient',
+    typeClass: 'ambient',
+    constraint: 'Any',
+    time: '04:00 - 06:30 AM',
+    selected: false
+  }
+];
+
+function renderDispatchSidebar(activeKey){
+  const navHtml = ['DISPATCH','MANAGEMENT'].map(group=>`
+    <div class="group-label">${group}</div>
+    ${dispatchNavItems.filter(n=>n.group===group).map(n=>`
+      <div class="d-nav-item ${n.key===activeKey?'active':''}" data-nav="${n.key}">
+        ${ICON[n.icon] || ''}<span>${n.label}</span>
+      </div>`).join('')}
+  `).join('');
+
+  return `
+    <div class="d-sidebar">
+      <button class="icon-btn panel-toggle-btn" title="Toggle sidebar">${ICON.panelLeft}</button>
+      ${navHtml}
+    </div>`;
+}
+
+function attachDispatchSidebar(container){
+  const c = container || document;
+  c.querySelectorAll('.d-nav-item').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const k = el.dataset.nav;
+      if (k === 'planning') {
+        nav({name:'dispatch-clustering', role:'dispatch'});
+      } else if (k === 'fleet') {
+        nav({name:'dispatch-vehicles', role:'dispatch'});
+      } else {
+        nav({name:'dispatch-list', nav:k, role:'dispatch'});
+      }
+    });
+  });
+  const leftToggle = c.querySelector('.d-sidebar .panel-toggle-btn');
+  const sidebar = c.querySelector('.d-sidebar');
+  if (leftToggle && sidebar) {
+    leftToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      sidebar.classList.toggle('collapsed');
+    });
+  }
+}
+
+/* ================= SCREEN 1: PLANNING - CLUSTERING ================= */
+function dispatchClusteringScreen(){
+  const activeClusters = clustersData.filter(c => !c.resolved);
+  const resolvedClusters = clustersData.filter(c => c.resolved);
+
+  return `
+  <div class="dispatch-shell active">
+    <div class="d-topbar">
+      <div class="brand"><span class="wp-logo">WAYPOINT</span><span class="wp-role">&nbsp;DISPATCH</span></div>
+      <div class="actions">
+        <button class="icon-btn" title="Search">${ICON.search}</button>
+        <button class="icon-btn" title="Account">${ICON.account}</button>
+      </div>
+    </div>
+    <div class="d-body">
+      ${renderDispatchSidebar('planning')}
+      <div class="cluster-main-card">
+        <div class="cluster-header-bar">
+          <div class="cluster-header-left">
+            <button class="cluster-back-arrow" id="clusteringBackBtn" title="Back to Live Orders">${ICON.arrowLeft}</button>
+            <span class="cluster-title">Clusters</span>
+            <span class="cluster-count-badge">12 Clusters Identified</span>
+          </div>
+          <div class="d-filters" style="margin-bottom:0;">
+            <span class="lbl">Filter by</span>
+            <div class="d-select"><span>Brand</span>${ICON.chevronDown}</div>
+            <div class="d-select"><span>District</span>${ICON.chevronDown}</div>
+          </div>
+        </div>
+
+        <div class="cluster-table-head">
+          <span class="cluster-col-id">Cluster ID</span>
+          <span class="cluster-col-identity">Identity</span>
+          <span class="cluster-col-orders">Orders</span>
+          <span class="cluster-col-action"></span>
+        </div>
+
+        <div class="cluster-list-scroll">
+          ${activeClusters.map(c => `
+            <div class="cluster-row" data-cid="${c.id}">
+              <span class="cluster-col-id">${c.id}</span>
+              <span class="cluster-col-identity">${c.identity}</span>
+              <div class="cluster-col-orders">
+                ${c.pills.map(p => `<span class="cluster-pill ${p.pillClass}">${p.count} ${p.type}</span>`).join('')}
+                <span class="cluster-total-txt">Total ${c.total}</span>
+              </div>
+              <span class="cluster-col-action">${ICON.arrowRight}</span>
+            </div>
+          `).join('')}
+
+          <div class="cluster-subhead-row">
+            <span class="cluster-subhead-title">Resolved Clusters</span>
+            <span class="cluster-subhead-count">1 Resolved</span>
+          </div>
+
+          ${resolvedClusters.map(c => `
+            <div class="cluster-row" data-cid="${c.id}">
+              <span class="cluster-col-id">${c.id}</span>
+              <span class="cluster-col-identity">${c.identity}</span>
+              <div class="cluster-col-orders">
+                ${c.pills.map(p => `<span class="cluster-pill ${p.pillClass}">${p.count} ${p.type}</span>`).join('')}
+                <span class="cluster-total-txt">Total ${c.total}</span>
+              </div>
+              <span class="cluster-col-action">${ICON.arrowRight}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="d-summary" id="clusterSummary">
+        <div class="d-summary-head">
+          <h3>Cluster Summary</h3>
+          <button class="icon-btn panel-toggle-btn" id="clusterSummaryToggle" title="Toggle summary">${ICON.panelRight}</button>
+        </div>
+        <div class="stat-block">
+          <p class="big">05</p>
+          <div class="biglabel">Total Clusters<br>Identified</div>
+        </div>
+        <div class="stat"><span>Unresolved Clusters</span><span>03</span></div>
+        <div class="stat"><span>Partially Resolved Clusters</span><span>02</span></div>
+        <div class="stat"><span>Resolved Clusters</span><span>01</span></div>
+
+        <div class="cluster-progress-block">
+          <div class="cluster-progress-labels">
+            <span>Cluster Resolve Progress</span>
+            <span>67%</span>
+          </div>
+          <div class="cluster-progress-bar">
+            <div class="cluster-progress-fill" style="width:67%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function attachDispatchClustering(){
+  attachDispatchSidebar();
+
+  const backBtn = document.getElementById('clusteringBackBtn');
+  if(backBtn){
+    backBtn.addEventListener('click', ()=> nav({name:'dispatch-list', nav:'live', role:'dispatch'}));
+  }
+
+  document.querySelectorAll('.cluster-row').forEach(row => {
+    row.addEventListener('click', ()=>{
+      const cid = row.dataset.cid || 'CLS-BF785';
+      nav({name:'dispatch-staging', clusterId:cid, role:'dispatch'});
+    });
+  });
+
+  const rightToggle = document.getElementById('clusterSummaryToggle');
+  const summary = document.getElementById('clusterSummary');
+  if(rightToggle && summary){
+    rightToggle.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      summary.classList.toggle('collapsed');
+    });
+  }
+}
+
+/* ================= SCREEN 2: PLANNING - STAGING ================= */
+function dispatchStagingScreen(clusterId){
+  const cid = clusterId || 'CLS-BF785';
+  const cluster = clustersData.find(c => c.id === cid) || clustersData[0];
+  const selectedCount = stagingOrdersData.filter(o => o.selected).length;
+  const allSelected = selectedCount === stagingOrdersData.length;
+
+  return `
+  <div class="dispatch-shell active">
+    <div class="d-topbar">
+      <div class="brand"><span class="wp-logo">WAYPOINT</span><span class="wp-role">&nbsp;DISPATCH</span></div>
+      <div class="actions">
+        <button class="icon-btn" title="Search">${ICON.search}</button>
+        <button class="icon-btn" title="Account">${ICON.account}</button>
+      </div>
+    </div>
+    <div class="d-body">
+      ${renderDispatchSidebar('planning')}
+      <div class="cluster-main-card">
+        <div class="cluster-header-bar">
+          <div class="cluster-header-left">
+            <button class="cluster-back-arrow" id="stagingBackBtn" title="Back to Clusters">${ICON.arrowLeft}</button>
+            <span class="cluster-title">${cluster.id}</span>
+            <span class="cluster-sub-identity">${cluster.identity}</span>
+          </div>
+          <div class="d-filters" style="margin-bottom:0;">
+            <span class="lbl">Filter by</span>
+            <div class="d-select"><span>Temperature</span>${ICON.chevronDown}</div>
+            <div class="d-select"><span>Status</span>${ICON.chevronDown}</div>
+          </div>
+        </div>
+
+        <div class="staging-subhead">
+          <span class="staging-subhead-title">Stage Orders</span>
+          <label class="staging-select-all" id="stagingSelectAll">
+            <span class="staging-check-circle ${allSelected?'checked':''}" id="stagingSelectAllCircle"></span>
+            <span>Select all</span>
+          </label>
+          <span class="staging-selected-count" id="stagingSelectedCount">${selectedCount} Selected</span>
+        </div>
+
+        <div class="cluster-list-scroll" id="stagingOrdersList">
+          ${stagingOrdersData.map((o, idx) => `
+            <div class="staging-order-card ${o.selected ? 'selected' : ''}" data-idx="${idx}">
+              <span class="staging-check-circle ${o.selected ? 'checked' : ''}"></span>
+              <div class="staging-col-info">
+                <div class="staging-oid">${o.id}</div>
+                <div class="staging-store">${o.store}</div>
+                <div class="staging-since">${o.since}</div>
+              </div>
+              <div class="staging-col-metrics">
+                <span>${o.volume}</span>
+                <span>${o.weight}</span>
+              </div>
+              <div class="staging-col-pills">
+                <span class="cluster-pill ${o.typeClass}">${o.type}</span>
+                <span class="staging-pill-constraint">${o.constraint}</span>
+              </div>
+              <div class="staging-col-time">${o.time}</div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="staging-bottom-bar">
+          <button class="staging-btn-deffer" id="stagingDefferBtn">Deffer</button>
+          <button class="staging-btn-stage" id="stagingStageBtn">Stage</button>
+        </div>
+      </div>
+
+      <div class="staging-assign-rail" id="stagingAssignRail" title="Load Assigning">
+        <div class="staging-rail-content">${ICON.arrowLeft} <span>Load Assigning</span></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function attachDispatchStaging(clusterId){
+  attachDispatchSidebar();
+
+  const backBtn = document.getElementById('stagingBackBtn');
+  if(backBtn){
+    backBtn.addEventListener('click', ()=> nav({name:'dispatch-clustering', role:'dispatch'}));
+  }
+
+  function updateStagingUI(){
+    const cards = document.querySelectorAll('.staging-order-card');
+    cards.forEach(card => {
+      const idx = parseInt(card.dataset.idx, 10);
+      const isSel = !!stagingOrdersData[idx].selected;
+      card.classList.toggle('selected', isSel);
+      const circle = card.querySelector('.staging-check-circle');
+      if(circle) circle.classList.toggle('checked', isSel);
+    });
+
+    const selectedCount = stagingOrdersData.filter(o => o.selected).length;
+    const allSelected = selectedCount === stagingOrdersData.length;
+    const countEl = document.getElementById('stagingSelectedCount');
+    if(countEl) countEl.textContent = `${selectedCount} Selected`;
+    const selectAllCircle = document.getElementById('stagingSelectAllCircle');
+    if(selectAllCircle) selectAllCircle.classList.toggle('checked', allSelected);
+  }
+
+  document.querySelectorAll('.staging-order-card').forEach(card => {
+    card.addEventListener('click', ()=>{
+      const idx = parseInt(card.dataset.idx, 10);
+      stagingOrdersData[idx].selected = !stagingOrdersData[idx].selected;
+      updateStagingUI();
+    });
+  });
+
+  const selectAll = document.getElementById('stagingSelectAll');
+  if(selectAll){
+    selectAll.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const allSelected = stagingOrdersData.every(o => o.selected);
+      stagingOrdersData.forEach(o => o.selected = !allSelected);
+      updateStagingUI();
+    });
+  }
+
+  const stageBtn = document.getElementById('stagingStageBtn');
+  if(stageBtn){
+    stageBtn.addEventListener('click', ()=>{
+      const selCount = stagingOrdersData.filter(o => o.selected).length;
+      if(selCount === 0){
+        showToast('Please select at least one order to stage.');
+      } else {
+        showToast(`${selCount} order(s) staged successfully!`);
+      }
+    });
+  }
+
+  const defferBtn = document.getElementById('stagingDefferBtn');
+  if(defferBtn){
+    defferBtn.addEventListener('click', ()=>{
+      const selCount = stagingOrdersData.filter(o => o.selected).length;
+      if(selCount === 0){
+        showToast('Please select at least one order to deffer.');
+      } else {
+        showToast(`${selCount} order(s) moved to Deffered!`);
+      }
+    });
+  }
+
+  const rail = document.getElementById('stagingAssignRail');
+  if(rail){
+    rail.addEventListener('click', ()=>{
+      showToast('Proceeding to Load Assigning...');
+    });
+  }
 }
 
 /* ================= LOADER: ASSIGNED LOADS ================= */
