@@ -364,6 +364,125 @@
     opacity:1;transform:translateX(-50%) translateY(0);
   }
 
+  /* ============ STORE MANAGER LOGIN & PORTAL ============ */
+  .sm-login-shell{
+    min-height:calc(100vh - 34px);
+    display:flex;align-items:center;justify-content:center;
+    padding:20px 24px;box-sizing:border-box;background:var(--bg);
+  }
+  .sm-login-container{
+    width:100%;max-width:1020px;
+    display:flex;align-items:center;justify-content:space-between;
+    gap:48px;margin:0 auto;
+  }
+  .sm-login-media{
+    flex:1 1 50%;max-width:485px;display:flex;align-items:center;justify-content:center;
+  }
+  .sm-login-media-card{
+    width:100%;height:auto;aspect-ratio:475/547;
+    max-height:calc(100vh - 84px);
+    border-radius:26px;overflow:hidden;
+    box-shadow:0 12px 36px rgba(0,0,0,0.08);
+    position:relative;background:#111;
+  }
+  .sm-login-media-card img{
+    width:100%;height:100%;object-fit:cover;display:block;
+  }
+  .sm-login-form-area{
+    flex:1 1 50%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:10px 20px;
+  }
+  .sm-login-box{
+    width:100%;max-width:390px;
+  }
+  .sm-login-box h1{
+    font-size:38px;font-weight:600;color:#000;text-align:center;margin:0 0 10px;
+    letter-spacing:-0.5px;
+  }
+  .sm-login-box .sm-sub{
+    font-size:16px;color:#666;text-align:center;margin:0 0 32px;font-weight:400;
+  }
+  .sm-input-group{
+    background:#f4f4f4;border:1px solid #e2e2e2;border-radius:12px;
+    padding:10px 16px 8px;margin-bottom:14px;
+    display:flex;flex-direction:column;
+    transition:border-color .18s ease, background-color .18s ease, box-shadow .18s ease;
+  }
+  .sm-input-group:focus-within{
+    border-color:#000;background:#fff;box-shadow:0 0 0 1px #000;
+  }
+  .sm-input-group label{
+    font-size:11px;color:#888;margin-bottom:3px;font-weight:500;
+  }
+  .sm-input-group input{
+    border:none;background:transparent;font-family:inherit;font-size:14px;font-weight:500;
+    color:#000;outline:none;padding:0;
+  }
+  .sm-forgot-row{
+    text-align:right;margin-top:2px;margin-bottom:24px;
+  }
+  .sm-forgot-link{
+    font-size:13px;color:#888;text-decoration:none;font-weight:400;transition:color .18s ease;
+  }
+  .sm-forgot-link:hover{color:#000;}
+  .sm-signin-btn{
+    width:100%;background:#000;color:#fff;border:none;border-radius:12px;
+    padding:14px 20px;font-size:15px;font-weight:600;cursor:pointer;
+    transition:background-color .18s ease, transform .16s ease, box-shadow .18s ease;
+    margin-bottom:26px;display:flex;align-items:center;justify-content:center;
+  }
+  .sm-signin-btn:hover{background:#222;transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,0.15);}
+  .sm-signin-btn:active{transform:translateY(0);}
+  .sm-footer-text{
+    text-align:center;font-size:13px;color:#888;
+  }
+  .sm-footer-text a{
+    color:#333;font-weight:700;text-decoration:none;margin-left:4px;
+  }
+  .sm-footer-text a:hover{color:#000;text-decoration:underline;}
+  @media(max-width:840px){
+    .sm-login-container{flex-direction:column;gap:24px;}
+    .sm-login-media{max-width:320px;}
+  }
+
+  /* Store Portal Dashboard styles */
+  .store-shell{
+    max-width:1160px;margin:0 auto;padding:16px 24px 40px;box-sizing:border-box;min-height:calc(100vh - 34px);
+  }
+  .store-topbar{
+    display:flex;align-items:center;justify-content:space-between;padding:14px 0 20px;border-bottom:1px solid #e2e2e2;
+  }
+  .store-topbar .brand{font-size:18px;}
+  .store-badge{
+    background:#eaf8eb;color:#1e7e34;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;display:inline-flex;align-items:center;gap:6px;
+  }
+  .store-kpi-grid{
+    display:grid;grid-template-columns:repeat(auto-fit, minmax(210px, 1fr));gap:16px;margin:24px 0;
+  }
+  .store-kpi-card{
+    background:#fff;border:1px solid var(--border);border-radius:18px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.02);
+  }
+  .store-kpi-card .num{font-size:36px;font-weight:700;color:#000;margin:0 0 4px;}
+  .store-kpi-card .lbl{font-size:13px;color:#666;font-weight:500;}
+  .store-card{
+    background:#fff;border:1px solid var(--border);border-radius:22px;padding:24px 28px;margin-bottom:24px;box-shadow:0 2px 10px rgba(0,0,0,.02);
+  }
+  .store-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
+  .store-card-head h2{font-size:18px;font-weight:600;margin:0;}
+  .store-order-item{
+    display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:#f9f9f9;border:1px solid #e8e8e8;border-radius:14px;margin-bottom:10px;
+    transition:background-color .15s ease, transform .15s ease;
+  }
+  .store-order-item:hover{background:#f1f4f6;transform:translateY(-1px);}
+  .store-order-item .so-id{font-weight:700;font-size:14px;color:#000;width:140px;}
+  .store-order-item .so-details{flex:1;font-size:13px;color:#555;}
+  .store-btn-action{
+    background:#000;color:#fff;border:none;border-radius:999px;padding:8px 18px;font-size:13px;font-weight:600;cursor:pointer;
+    transition:background-color .18s ease;
+  }
+  .store-btn-action:hover{background:#222;}
+  .store-btn-action.done{background:#15803d;}
+
   /* ============ TABLET-STYLE (Loader) ============ */
   .device-tablet{
     display:none;max-width:834px;margin:0 auto;background:#fff;min-height:calc(100vh - 34px);
@@ -526,6 +645,7 @@
     <button data-role="dispatch" onclick="switchRole('dispatch')">Dispatch</button>
     <button data-role="loader" onclick="switchRole('loader')">Loader</button>
     <button data-role="driver" onclick="switchRole('driver')">Driver</button>
+    <button data-role="store-manager" onclick="switchRole('store-manager')">Store Manager</button>
   </div>
   <button class="rb-logout" onclick="logout()">Log out</button>
 </div>
@@ -643,6 +763,7 @@ function switchRole(role){
   if(role==='dispatch') nav({name:'login', role:'dispatch'});
   if(role==='loader') nav({name:'login', role:'loader'});
   if(role==='driver') nav({name:'login', role:'driver'});
+  if(role==='store-manager') nav({name:'store-login', role:'store-manager'});
 }
 function logout(){ nav({name:'landing'}); }
 
@@ -657,6 +778,8 @@ function render(){
 
   if(route.name==='landing'){ app.innerHTML = landingScreen(); return; }
   if(route.name==='login'){ app.innerHTML = loginScreen(route.role); return; }
+  if(route.name==='store-login'){ app.innerHTML = storeLoginScreen(); attachStoreLogin(); return; }
+  if(route.name==='store-dashboard'){ app.innerHTML = storeDashboardScreen(); attachStoreDashboard(); return; }
   if(route.name==='dispatch-list'){ app.innerHTML = dispatchListScreen(route.nav||'live'); attachDispatchList(); return; }
   if(route.name==='dispatch-order'){ app.innerHTML = dispatchOrderScreen(route.uid); attachDispatchOrder(); return; }
   if(route.name==='loader-list'){ app.innerHTML = loaderListScreen(); attachLoaderList(); return; }
@@ -682,6 +805,7 @@ function landingScreen(){
           <button class="signin-btn" onclick="switchRole('dispatch')">Continue as Dispatch</button>
           <button class="signin-btn" onclick="switchRole('loader')">Continue as Loader</button>
           <button class="signin-btn" onclick="switchRole('driver')">Continue as Driver</button>
+          <button class="signin-btn" onclick="switchRole('store-manager')">Continue as Store Manager</button>
         </div>
       </div>
     </div>
@@ -719,6 +843,152 @@ function loginScreen(role){
       </div>
     </div>
   </div>`;
+}
+
+/* ================= STORE MANAGER: LOGIN ================= */
+function storeLoginScreen(){
+  return `
+  <div class="sm-login-shell">
+    <div class="sm-login-container">
+      <div class="sm-login-media">
+        <div class="sm-login-media-card">
+          <img src="store_login_img.png" alt="Waypoint Store" />
+        </div>
+      </div>
+      <div class="sm-login-form-area">
+        <div class="sm-login-box">
+          <h1>Welcome</h1>
+          <p class="sm-sub">Please Sign In to use the platform</p>
+          <div class="sm-input-group">
+            <label>Email</label>
+            <input type="email" id="smEmail" value="manager01@waypoint.com" />
+          </div>
+          <div class="sm-input-group">
+            <label>Password</label>
+            <input type="password" id="smPassword" value="••••••••••••••••••••••" />
+          </div>
+          <div class="sm-forgot-row">
+            <a href="#" class="sm-forgot-link" id="smForgotLink">Forgot password?</a>
+          </div>
+          <button class="sm-signin-btn" id="smSignInBtn">Sign In</button>
+          <div class="sm-footer-text">
+            <span>Don't have an account?</span><a href="#" id="smReqCredLink">Request Credentials</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function attachStoreLogin(){
+  const btn = document.getElementById('smSignInBtn');
+  if(btn){
+    btn.addEventListener('click', ()=>{
+      nav({name:'store-dashboard', role:'store-manager'});
+    });
+  }
+  const forgot = document.getElementById('smForgotLink');
+  if(forgot){
+    forgot.addEventListener('click', (e)=>{
+      e.preventDefault();
+      showToast('Password reset link sent to manager01@waypoint.com');
+    });
+  }
+  const req = document.getElementById('smReqCredLink');
+  if(req){
+    req.addEventListener('click', (e)=>{
+      e.preventDefault();
+      showToast('Credential request submitted for approval');
+    });
+  }
+}
+
+/* ================= STORE MANAGER: DASHBOARD ================= */
+const storeDeliveries = [
+  {id:'FRS-2HG3', type:'Chilled', items:25, eta:'01:30 pm', window:'03:00 am - 08:00 am', status:'Arriving', vehicle:'VEH-T&78D0JB', driver:'Kamal Perera', received:false},
+  {id:'FRS-WY5D', type:'Fresh', items:25, eta:'03:30 pm', window:'04:00 am - 09:00 am', status:'Scheduled', vehicle:'VEH-K&12M0PL', driver:'Sunil Silva', received:false},
+  {id:'FRS-YUD6', type:'Ambient', items:26, eta:'05:15 pm', window:'05:30 am - 10:30 am', status:'Scheduled', vehicle:'VEH-R&99X4TN', driver:'Nimal Fernando', received:false},
+];
+
+function storeDashboardScreen(){
+  return `
+  <div class="store-shell">
+    <div class="store-topbar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="wp-logo" style="font-size:18px;">WAYPOINT</span>
+        <span class="wp-role" style="font-size:18px;">&nbsp;STORE</span>
+        <span class="store-badge">● Colombo 8 - Waypoint Fresh</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <button class="icon-btn">${ICON.search}</button>
+        <button class="icon-btn">${ICON.account}</button>
+      </div>
+    </div>
+
+    <div class="store-kpi-grid">
+      <div class="store-kpi-card">
+        <div class="num" id="kpiIncoming">03</div>
+        <div class="lbl">Incoming Shipments Today</div>
+      </div>
+      <div class="store-kpi-card">
+        <div class="num">76</div>
+        <div class="lbl">Total Items to Receive</div>
+      </div>
+      <div class="store-kpi-card">
+        <div class="num">Bay 2</div>
+        <div class="lbl">Assigned Receiving Dock</div>
+      </div>
+      <div class="store-kpi-card">
+        <div class="num" style="color:#15803d;" id="kpiStatus">Active</div>
+        <div class="lbl">Store Operations Status</div>
+      </div>
+    </div>
+
+    <div class="store-card">
+      <div class="store-card-head">
+        <h2>Incoming Delivery Queue</h2>
+        <span style="font-size:13px;color:#777;">Store: Colombo 8 - Waypoint Fresh</span>
+      </div>
+      <div id="storeDeliveryList">
+        ${storeDeliveries.map(d=>`
+          <div class="store-order-item" id="so-${d.id}">
+            <div class="so-id">
+              <span style="display:block;font-size:15px;">${d.id}</span>
+              <span class="pill ${d.type}" style="margin-top:4px;">${d.type}</span>
+            </div>
+            <div class="so-details">
+              <div><strong>${d.items} items</strong> &bull; ETA: ${d.eta} &bull; Delivery Window: ${d.window}</div>
+              <div style="color:#888;font-size:12px;margin-top:2px;">Vehicle: ${d.vehicle} &bull; Driver: ${d.driver}</div>
+            </div>
+            <div>
+              <button class="store-btn-action ${d.received?'done':''}" data-id="${d.id}">
+                ${d.received ? 'Received & Verified ✓' : 'Receive & Verify →'}
+              </button>
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+function attachStoreDashboard(){
+  document.querySelectorAll('.store-btn-action').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.dataset.id;
+      const d = storeDeliveries.find(x=>x.id===id);
+      if(!d) return;
+      d.received = !d.received;
+      if(d.received){
+        btn.classList.add('done');
+        btn.textContent = 'Received & Verified ✓';
+        showToast(`Shipment ${d.id} successfully received & checked into inventory!`);
+      } else {
+        btn.classList.remove('done');
+        btn.textContent = 'Receive & Verify →';
+        showToast(`Shipment ${d.id} check-in reset`);
+      }
+    });
+  });
 }
 
 /* ================= DISPATCH: LIVE ORDERS LIST ================= */
