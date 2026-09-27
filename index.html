@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Waypoint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f1f1f1;
+    --card:#f4f4f4;
+    --border:#d4d4d4;
+    --muted:#7a7a7a;
+    --muted-58:rgba(122,122,122,0.58);
+    --black:#000;
+    --white:#fff;
+    --chilled:rgba(172,234,238,0.55);
+    --fresh:rgba(172,234,238,0.55);
+    --ambient:rgba(172,238,176,0.55);
+    --radius-lg:20px;
+    --radius-md:10px;
+    --sidebar-w:334px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Roboto','Google Sans Flex','Google Sans',-apple-system,'Segoe UI',Arial,sans-serif;
+    background:var(--bg);
+    color:#000;
+    -webkit-font-smoothing:antialiased;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+    animation:bodyFade .4s ease;
+  }
+  @keyframes bodyFade{from{opacity:0;}to{opacity:1;}}
+  a{text-decoration:none;color:inherit;}
+  button{font-family:inherit;}
+  .hidden{display:none!important;}
+
+  /* ---------- Motion system ---------- */
+  @keyframes screenIn{
+    from{opacity:0; transform:translateY(14px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  @keyframes popIn{
+    0%{transform:scale(.55); opacity:0;}
+    65%{transform:scale(1.18);}
+    100%{transform:scale(1); opacity:1;}
+  }
+  @keyframes rowIn{
+    from{opacity:0; transform:translateY(8px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  #app > *{animation:screenIn .38s cubic-bezier(.22,.85,.32,1) both;}
+  button,.icon-btn,.back-btn,.d-select,.pill,.check-box,.signin-btn,.mark-btn,
+  .d-row,.t-row,.batch-row,.item-row,.p-item-row,.stop-card,.order-chip,
+  .d-nav-item,.field,#roleBar button,.d-summary,.load-head,.forgot,a{
+    transition:background-color .22s ease, color .22s ease, border-color .22s ease,
+      transform .16s cubic-bezier(.34,1.2,.4,1), box-shadow .22s ease, opacity .22s ease;
+  }
+  button{cursor:pointer;}
+  ::selection{background:#000;color:#fff;}
+
+  /* ---------- Top role switcher ---------- */
+  #roleBar{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    background:#000;color:#fff;font-size:12px;padding:6px 14px;
+    padding-top:calc(6px + env(safe-area-inset-top,0px));
+    letter-spacing:.4px;box-shadow:0 2px 10px rgba(0,0,0,.15);
+  }
+  #roleBar .rb-left{display:flex;gap:14px;align-items:center;}
+  #roleBar button{
+    background:transparent;border:1px solid rgba(255,255,255,.35);color:#fff;
+    border-radius:20px;padding:4px 12px;font-size:11px;cursor:pointer;
+  }
+  #roleBar button:hover{border-color:#fff;transform:translateY(-1px);}
+  #roleBar button:active{transform:translateY(0) scale(.93);}
+  #roleBar button.active{background:#fff;color:#000;border-color:#fff;font-weight:700;}
+  #roleBar button.active:hover{transform:none;}
+  #roleBar .rb-logout{background:transparent;border:none;color:#fff;text-decoration:underline;cursor:pointer;font-size:11px;}
+  #roleBar .rb-logout:hover{opacity:.75;}
+  #roleBar .rb-logout:active{opacity:.5;}
+  #app{padding-top:34px;}
+
+  /* ---------- Shared bits ---------- */
+  .wp-logo{font-weight:900;letter-spacing:.2px;}
+  .wp-role{font-weight:500;color:#000;}
+  .pill{
+    display:inline-flex;align-items:center;justify-content:center;
+    border:none;border-radius:20px;
+    font-size:12px;font-weight:500;padding:3px 14px;white-space:nowrap;
+  }
+  .pill.Chilled{background:#cbf3f5;color:#000;}
+  .pill.Fresh{background:#cbf3f5;color:#000;}
+  .pill.Ambient{background:#daf5db;color:#000;}
+  .pill.Fragile{background:#f0d9a8;color:#000;}
+  .icon-btn{
+    width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;
+    cursor:pointer;color:#000;background:none;border:none;border-radius:50%;
+  }
+  .icon-btn:hover{background:rgba(0,0,0,0.06);transform:scale(1.1);}
+  .icon-btn:active{transform:scale(.9);}
+  .back-btn{
+    width:48px;height:48px;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;background:none;border:none;color:#000;font-size:22px;border-radius:50%;
+  }
+  .back-btn:hover{background:rgba(0,0,0,0.06);}
+  .back-btn:hover svg path{transform:translateX(-1px);}
+  .back-btn:active{transform:scale(.88);}
+
+  /* ================= LOGIN SCREENS ================= */
+  .login-wrap{min-height:calc(100vh - 34px);display:flex;flex-direction:column;background:#fff;}
+  .login-topbar{display:flex;align-items:center;gap:10px;padding:28px 34px;font-size:20px;}
+  .login-card-area{flex:1;display:flex;align-items:center;justify-content:center;}
+  .login-card{width:100%;max-width:469px;padding:0 16px;text-align:left;}
+  .login-card h1{font-size:40px;font-weight:500;margin:0 0 12px;text-align:center;}
+  .login-card p.sub{color:var(--muted);font-size:20px;margin:0 0 40px;text-align:center;font-weight:500;}
+  .field{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius-md);
+    padding:10px 24px;margin-bottom:16px;
+  }
+  .field:hover{border-color:#b7b7b7;}
+  .field label{display:block;color:var(--muted-58);font-size:16px;font-weight:500;margin-bottom:2px;}
+  .field .val{font-size:16px;font-weight:500;color:#000;}
+  .field .dots{font-size:22px;letter-spacing:2px;color:#000;}
+  .forgot{display:block;text-align:right;color:var(--muted-58);font-size:16px;font-weight:500;margin:8px 0 24px;cursor:pointer;}
+  .forgot:hover{color:#000;}
+  .signin-btn{
+    width:100%;background:#000;color:#f4f4f4;border:1px solid #000;border-radius:50px;
+    padding:22px;font-size:20px;font-weight:500;cursor:pointer;text-align:center;
+  }
+  .signin-btn:hover{opacity:.92;transform:translateY(-2px);box-shadow:0 10px 22px rgba(0,0,0,.22);}
+  .signin-btn:active{transform:translateY(0) scale(.98);box-shadow:none;}
+  .signup-line{text-align:center;margin-top:32px;color:var(--muted-58);font-size:18px;font-weight:500;}
+  .signup-line b{color:rgba(0,0,0,.5);font-weight:700;cursor:pointer;}
+  .signup-line b:hover{color:#000;}
+
+  /* ============ DISPATCH (Desktop) ============ */
+  .dispatch-shell{
+    display:none;background:var(--bg);
+    min-height:calc(100vh - 34px);
+    height:calc(100vh - 34px);
+    overflow:hidden;
+  }
+  .dispatch-shell.active{display:flex;flex-direction:column;}
+  .d-topbar{
+    position:fixed;top:34px;left:0;right:0;height:56px;background:var(--bg);z-index:10;
+    display:flex;align-items:center;justify-content:space-between;padding:12px 28px;
+    box-sizing:border-box;
+  }
+  .d-topbar .brand{font-size:17px;letter-spacing:.2px;}
+  .d-topbar .brand .wp-logo{font-weight:900;}
+  .d-topbar .brand .wp-role{font-weight:500;}
+  .d-topbar .actions{display:flex;gap:14px;align-items:center;}
+  .d-topbar .actions .icon-btn{width:28px;height:28px;}
+  .d-body{
+    display:flex;gap:18px;width:100%;
+    padding:70px 24px 20px;
+    height:calc(100vh - 34px);
+    box-sizing:border-box;
+    align-items:stretch;
+    overflow:hidden;
+  }
+  .d-sidebar{
+    width:240px;flex:0 0 240px;background:#fff;border:1px solid var(--border);
+    border-radius:22px;padding:20px 22px;
+    height:100%;overflow-y:auto;
+    display:flex;flex-direction:column;
+    box-sizing:border-box;
+  }
+  .panel-toggle-btn{
+    width:24px;height:24px;margin-bottom:18px;margin-left:-2px;padding:0;
+    display:inline-flex;align-items:center;justify-content:center;
+    background:none;border:none;cursor:pointer;color:#555;
+  }
+  .panel-toggle-btn:hover{color:#000;transform:scale(1.05);}
+  .d-sidebar .group-label{
+    color:#888;font-size:11px;font-weight:600;padding:0;margin:16px 0 8px;letter-spacing:.5px;
+  }
+  .d-sidebar .group-label:first-of-type{margin-top:0;}
+  .d-nav-item{
+    display:flex;align-items:center;gap:10px;padding:8px 0;cursor:pointer;
+    font-size:14px;font-weight:500;color:#222;
+    border:none;background:transparent;border-radius:6px;
+  }
+  .d-nav-item svg{flex:0 0 18px;}
+  .d-nav-item.active{font-weight:700;color:#000;}
+  .d-nav-item:hover{color:#000;transform:translateX(2px);}
+  .d-nav-item:active{transform:scale(.98);}
+  
+  .d-main{
+    flex:1;min-width:0;
+    height:100%;display:flex;flex-direction:column;
+    overflow:hidden;
+  }
+  .d-header-locked{
+    flex:0 0 auto;
+    background:var(--bg);
+    position:sticky;top:0;z-index:4;
+    padding-bottom:4px;
+  }
+  .d-filters{display:flex;gap:12px;align-items:center;margin-bottom:14px;flex-wrap:wrap;}
+  .d-filters .lbl{color:#666;font-size:13px;font-weight:500;margin-right:2px;}
+  .d-select{
+    background:#fff;border:1px solid #dfdfdf;border-radius:10px;
+    padding:6px 14px;font-size:13px;color:#444;font-weight:500;
+    display:flex;align-items:center;gap:8px;min-width:105px;justify-content:space-between;
+    cursor:pointer;
+  }
+  .d-select:hover{border-color:#b7b7b7;background:#fcfcfc;}
+  .d-select svg{transition:transform .2s ease;width:14px;height:14px;}
+  .d-select:hover svg{transform:translateY(1px);}
+  .d-table-head{display:flex;padding:0 20px;margin-bottom:8px;align-items:center;}
+  .d-table-head span{color:#8c8c8c;font-size:13px;font-weight:500;}
+  .d-col-id{width:16%;flex:0 0 16%;min-width:0;}
+  .d-col-store{width:34%;flex:1 1 34%;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;padding-right:12px;}
+  .d-col-type{width:16%;flex:0 0 16%;min-width:0;}
+  .d-col-size{width:16%;flex:0 0 16%;min-width:0;}
+  .d-col-status{width:18%;flex:0 0 18%;min-width:0;text-align:left;}
+
+  #orderRows{
+    flex:1 1 auto;min-height:0;overflow-y:auto;
+    padding-right:4px;padding-top:1px;padding-bottom:16px;
+    scroll-behavior:smooth;
+  }
+  #orderRows::-webkit-scrollbar{width:5px;}
+  #orderRows::-webkit-scrollbar-track{background:transparent;}
+  #orderRows::-webkit-scrollbar-thumb{background:#d4d4d4;border-radius:10px;}
+  #orderRows::-webkit-scrollbar-thumb:hover{background:#a8a8a8;}
+
+  .d-row{
+    display:flex;align-items:center;background:#fff;border:1px solid #e2e2e2;
+    border-radius:14px;padding:11px 20px;margin-bottom:8px;cursor:pointer;
+    animation:rowIn .35s cubic-bezier(.22,.85,.32,1) both;
+  }
+  .d-row:hover{background:#f8f9fa;transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.04);}
+  .d-row:active{transform:translateY(0) scale(.995);box-shadow:none;}
+  .d-row .d-col-id{font-size:14px;font-weight:700;color:#111;}
+  .d-row .d-col-store{font-size:14px;font-weight:500;color:#111;}
+  .d-row .d-col-size{color:#666;font-size:13px;font-weight:400;}
+  .d-row .d-col-status{color:#666;font-size:13px;font-weight:500;text-align:left;}
+
+  .d-summary{
+    width:250px;flex:0 0 250px;background:#fff;border:1px solid var(--border);
+    border-radius:22px;padding:22px 22px;
+    height:100%;overflow-y:auto;
+    display:flex;flex-direction:column;
+    box-sizing:border-box;
+  }
+  .d-summary-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;}
+  .d-summary-head h3{font-size:17px;font-weight:600;margin:0;color:#000;}
+  .d-summary .stat-block{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
+  .d-summary .big{font-size:52px;font-weight:600;margin:0;line-height:1;color:#000;}
+  .d-summary .biglabel{color:#666;font-size:12px;font-weight:500;line-height:1.35;}
+  .d-summary .stat{display:flex;justify-content:space-between;font-size:13px;margin-top:14px;}
+  .d-summary .stat span:first-child{color:#777;font-weight:400;}
+  .d-summary .stat span:last-child{color:#000;font-weight:600;}
+  .empty-state{color:var(--muted);font-size:16px;padding:60px 24px;text-align:center;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);}
+
+  /* order detail desktop */
+  .d-detail-body{
+    display:flex;gap:16px;width:100%;padding:88px 26px 26px;align-items:flex-start;
+    height:calc(100vh - 34px);box-sizing:border-box;overflow:hidden;
+  }
+  .d-detail-side{
+    width:72px;flex:0 0 72px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);
+    display:flex;justify-content:center;padding-top:12px;height:70px;
+    position:sticky;top:88px;
+  }
+  .d-detail-main{
+    flex:1;min-width:0;background:var(--card);border:1px solid var(--border);
+    border-radius:var(--radius-lg);padding:24px 30px;
+    height:100%;overflow-y:auto;
+  }
+  .d-detail-main::-webkit-scrollbar{width:6px;}
+  .d-detail-main::-webkit-scrollbar-thumb{background:#d4d4d4;border-radius:10px;}
+  .d-detail-main .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+  .d-detail-main .head .oid{font-size:20px;font-weight:500;}
+  .d-detail-main .head .status{color:var(--muted);font-size:16px;font-weight:500;}
+  .d-item-head{display:flex;color:var(--muted-58);font-size:16px;font-weight:500;padding:0 24px;margin-bottom:8px;}
+  .d-item-row{
+    display:flex;align-items:center;background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);
+    padding:16px 24px;margin-bottom:12px;animation:rowIn .35s cubic-bezier(.22,.85,.32,1) both;
+  }
+  .d-item-row:hover{box-shadow:0 6px 14px rgba(0,0,0,.05);transform:translateY(-1px);}
+  .d-item-row .ic-id{width:22%;flex:0 0 22%;min-width:0;font-size:20px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .d-item-row .ic-name{width:38%;flex:1 1 38%;min-width:0;font-size:20px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:10px;}
+  .d-item-row .ic-type{width:20%;flex:0 0 20%;min-width:0;}
+  .d-item-row .ic-count{width:20%;flex:0 0 20%;min-width:0;text-align:right;color:var(--muted);font-size:24px;font-weight:500;}
+  .d-panel{
+    width:340px;flex:0 0 340px;background:var(--card);border:1px solid var(--border);
+    border-radius:var(--radius-lg);padding:24px;
+    height:fit-content;max-height:100%;overflow-y:auto;
+    position:sticky;top:88px;
+  }
+  .d-panel h3{font-size:20px;font-weight:500;margin:0 0 20px;}
+  .d-panel .stat-block{margin-bottom:22px;}
+  .d-panel .kv{display:flex;justify-content:space-between;gap:12px;margin-bottom:14px;font-size:16px;}
+  .d-panel .kv .k{color:var(--muted);font-weight:500;flex:0 0 auto;}
+  .d-panel .kv .v{font-weight:500;text-align:right;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+  /* ============ TABLET-STYLE (Loader) ============ */
+  .device-tablet{
+    display:none;max-width:834px;margin:0 auto;background:#fff;min-height:calc(100vh - 34px);
+    border-left:1px solid var(--border);border-right:1px solid var(--border);
+  }
+  .device-tablet.active{display:block;}
+  .t-topbar{display:flex;align-items:center;justify-content:space-between;padding:24px 30px 6px;}
+  .t-topbar .brand{font-size:20px;}
+  .t-topbar .actions{display:flex;gap:20px;align-items:center;}
+  .t-backrow{padding:0 24px;}
+  .t-title{text-align:center;color:var(--muted);font-size:24px;font-weight:500;margin:14px 0 28px;}
+  .t-list{padding:0 44px 30px;}
+  .t-row{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);
+    padding:18px 22px;margin-bottom:16px;cursor:pointer;animation:rowIn .35s cubic-bezier(.22,.85,.32,1) both;
+  }
+  .t-row:hover{background:#eceff0;transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.07);}
+  .t-row:active{transform:translateY(0) scale(.995);box-shadow:none;}
+  .t-row .cell{font-size:16px;font-weight:500;}
+  .t-row .id{font-size:12px;font-weight:500;color:#000;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .t-row .store{font-size:12px;font-weight:500;flex:2;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:8px;}
+  .t-row .win{font-size:12px;font-weight:500;flex:1.3;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .t-row .size{color:var(--muted);font-size:16px;font-weight:500;flex:1;min-width:0;text-align:right;}
+  .t-head-row{display:flex;padding:0 22px;margin-bottom:6px;color:var(--muted-58);font-size:16px;font-weight:500;}
+  .t-head-row span{flex:1;}
+  .t-head-row span:first-child{flex:1;}
+  .t-head-row span:nth-child(2){flex:2;}
+  .t-head-row span:nth-child(3){flex:1.3;}
+  .t-head-row span:last-child{text-align:right;flex:1;}
+
+  .load-summary{padding:0 38px;margin-top:6px;}
+  .load-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:border-radius:var(--radius-md);}
+  .load-head:hover{background:#f7f7f7;}
+  .load-head .lid{color:var(--muted);font-size:24px;font-weight:500;}
+  .load-grid{padding:0 14px 10px;}
+  .load-grid .row{display:flex;justify-content:space-between;padding:10px 0;font-size:14px;}
+  .load-grid .row .k{color:var(--muted);font-weight:500;}
+  .load-grid .row .v{font-weight:500;}
+  .order-pills{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+  .order-pill{background:var(--chilled);border-radius:20px;font-size:12px;font-weight:500;padding:5px 12px;}
+
+  .batch-list{padding:14px 30px 30px;}
+  .batch-row{
+    display:flex;align-items:center;gap:18px;background:var(--card);border:1px solid var(--border);
+    border-radius:var(--radius-lg);padding:22px 28px;margin-bottom:16px;cursor:pointer;
+    animation:rowIn .35s cubic-bezier(.22,.85,.32,1) both;
+  }
+  .batch-row:hover{background:#eceff0;transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.07);}
+  .batch-row:active{transform:translateY(0) scale(.995);box-shadow:none;}
+  .batch-row .num{color:rgba(0,0,0,.5);font-size:20px;font-weight:500;width:24px;flex:0 0 24px;}
+  .batch-row .oid{font-size:20px;font-weight:500;width:105px;flex:0 0 105px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .batch-row .name{font-size:20px;font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:10px;}
+  .batch-row .count{color:var(--muted);font-size:16px;font-weight:500;width:75px;flex:0 0 75px;text-align:right;}
+
+  .checklist-head{display:flex;justify-content:space-between;align-items:baseline;padding:0 30px;margin-bottom:16px;gap:12px;}
+  .checklist-head .oid{color:var(--muted);font-size:24px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .checklist-head .win{font-size:16px;font-weight:500;flex:0 0 auto;white-space:nowrap;}
+  .checklist-head .win small{font-size:12px;color:rgba(0,0,0,.5);}
+  .item-row{
+    display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--border);
+    border-radius:var(--radius-lg);padding:22px 28px;margin:0 30px 16px;cursor:default;
+    animation:rowIn .35s cubic-bezier(.22,.85,.32,1) both;
+  }
+  .item-row:hover{box-shadow:0 6px 14px rgba(0,0,0,.05);}
+  .item-row .iid{font-size:20px;font-weight:500;width:110px;flex:0 0 110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .item-row .iname{font-size:20px;font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:10px;}
+  .item-row .icount{color:var(--muted);font-size:24px;font-weight:500;width:70px;flex:0 0 70px;}
+  .check-box{
+    width:33px;height:31px;border:1px solid var(--border);border-radius:10px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;background:#fff;flex:0 0 33px;
+  }
+  .check-box:hover{border-color:#999;transform:scale(1.06);}
+  .check-box:active{transform:scale(.9);}
+  .check-box.checked{background:#000;border-color:#000;color:#fff;font-size:16px;animation:popIn .28s cubic-bezier(.34,1.4,.4,1);}
+
+  /* ============ PHONE-STYLE (Driver) ============ */
+  .device-phone{
+    display:none;max-width:393px;margin:0 auto;background:#fff;min-height:calc(100vh - 34px);
+    border-left:1px solid var(--border);border-right:1px solid var(--border);
+  }
+  .device-phone.active{display:block;}
+  .p-topbar{display:flex;align-items:center;justify-content:center;gap:8px;padding:26px 20px 10px;position:relative;}
+  .p-topbar .brand{font-size:16px;}
+  .p-back{position:absolute;left:16px;top:22px;}
+  .p-sub{display:flex;justify-content:space-between;padding:0 24px;color:var(--muted);font-size:14px;font-weight:500;margin:12px 0 14px;}
+  .stop-card{
+    background:rgba(216,215,215,0.2);border:1px solid var(--border);border-radius:18px;
+    margin:0 24px 20px;padding:20px;cursor:pointer;animation:rowIn .38s cubic-bezier(.22,.85,.32,1) both;
+  }
+  .stop-card.next{background:#f1f1f1;}
+  .stop-card:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(0,0,0,.08);}
+  .stop-card:active{transform:translateY(0) scale(.99);box-shadow:none;}
+  .stop-card .row1{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px;}
+  .stop-card .row1 .store{font-size:16px;font-weight:500;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .stop-card .row1 svg{flex:0 0 auto;transition:transform .18s ease;}
+  .stop-card:hover .row1 svg{transform:translateX(3px);}
+  .stop-card .kv{display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px;}
+  .stop-card .kv .k{color:var(--muted);font-weight:500;}
+  .stop-card .kv .v{font-weight:500;}
+  .stop-card .divider{margin:10px 0;}
+  .stop-card .kv.remaining{margin-top:14px;}
+  .next-label{color:var(--muted);font-size:14px;font-weight:500;padding:0 24px;margin-bottom:14px;}
+
+  .map-box{
+    margin:0 20px 18px;height:280px;border-radius:22px;border:1px solid #dfdfdf;overflow:hidden;position:relative;
+    background:
+      linear-gradient(#eef1f4,#eef1f4) ,
+      repeating-linear-gradient(0deg, rgba(180,190,200,.5) 0 1px, transparent 1px 34px),
+      repeating-linear-gradient(90deg, rgba(180,190,200,.5) 0 1px, transparent 1px 34px);
+  }
+  .map-box .road{position:absolute;background:#f6c453;}
+  .map-box .pin{
+    position:absolute;left:50%;top:44%;transform:translate(-50%,-100%);
+    width:34px;height:34px;
+  }
+  .map-box .pin svg{width:100%;height:100%;filter:drop-shadow(0 2px 2px rgba(0,0,0,.3));}
+  .stop-detail-info{padding:0 32px;}
+  .stop-detail-info .store{font-size:16px;font-weight:500;margin-bottom:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .stop-detail-info .kv{display:flex;justify-content:space-between;font-size:14px;margin-bottom:10px;}
+  .stop-detail-info .kv .k{color:var(--muted);font-weight:500;}
+  .stop-detail-info .kv .v{font-weight:500;}
+  .stop-detail-info .kv.remaining{margin-top:20px;}
+  .order-chip{
+    display:flex;align-items:center;justify-content:space-between;background:#f4f0e8;border:1px solid var(--border);
+    border-radius:20px;margin:24px 22px 0;padding:20px 22px;cursor:pointer;gap:10px;
+  }
+  .order-chip:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(0,0,0,.1);}
+  .order-chip:active{transform:translateY(0) scale(.98);box-shadow:none;}
+  .order-chip .id{font-size:20px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .order-chip .cnt{color:var(--muted);font-size:16px;font-weight:500;flex:0 0 auto;}
+  .order-chip svg{transition:transform .18s ease;flex:0 0 auto;}
+  .order-chip:hover svg{transform:translateX(3px);}
+
+  .p-item-row{
+    display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid #525252;
+    border-radius:20px;margin:0 22px 14px;padding:14px 18px;cursor:pointer;
+    animation:rowIn .35s cubic-bezier(.22,.85,.32,1) both;
+    transition:opacity .25s ease, transform .16s cubic-bezier(.34,1.2,.4,1), box-shadow .2s ease;
+  }
+  .p-item-row:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(0,0,0,.06);}
+  .p-item-row:active{transform:translateY(0) scale(.98);}
+  .p-item-row.done{opacity:.35;}
+  .p-item-row .iid{font-size:15px;font-weight:500;width:100px;flex:0 0 100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .p-item-row .icnt{color:var(--muted);font-size:16px;font-weight:500;flex:1;min-width:0;}
+  .mark-btn{
+    display:block;margin:24px 22px 30px;background:#000;color:#fff;text-align:center;border:none;
+    border-radius:20px;padding:14px;font-size:16px;font-weight:500;width:calc(100% - 44px);cursor:pointer;
+  }
+  .mark-btn:not(:disabled):hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(0,0,0,.28);}
+  .mark-btn:not(:disabled):active{transform:translateY(0) scale(.98);box-shadow:none;}
+  .mark-btn:disabled{background:#bdbdbd;cursor:not-allowed;}
+</style>
+</head>
+<body>
+
+<div id="roleBar">
+  <div class="rb-left">
+    <span>WAYPOINT</span>
+    <button data-role="dispatch" onclick="switchRole('dispatch')">Dispatch</button>
+    <button data-role="loader" onclick="switchRole('loader')">Loader</button>
+    <button data-role="driver" onclick="switchRole('driver')">Driver</button>
+  </div>
+  <button class="rb-logout" onclick="logout()">Log out</button>
+</div>
+
+<div id="app"></div>
+
+<script>
+/* ---------------------------------------------------------------
+   DATA
+--------------------------------------------------------------- */
+const dispatchOrders = [
+  {id:'FRS-2HG3', store:'Colombo 8 - Waypoint Fresh', type:'Chilled', size:25, status:'Unassigned'},
+  {id:'FRS-2HG3', store:'Dehiwala - Waypoint Fresh', type:'Chilled', size:25, status:'Unassigned'},
+  {id:'FRS-2HG3', store:'Colombo 8 - Waypoint Fresh', type:'Ambient', size:25, status:'Unassigned'},
+  {id:'FRS-4KP8', store:'Colombo 3 - Union Place', type:'Chilled', size:18, status:'Assigned'},
+  {id:'FRS-7MN2', store:'Kandy - Lake Road', type:'Ambient', size:32, status:'Unassigned'},
+  {id:'FRS-9QR5', store:'Galle - Fort Market', type:'Chilled', size:14, status:'In progress'},
+  {id:'FRS-3TX7', store:'Negombo - Main Street', type:'Ambient', size:27, status:'Assigned'},
+  {id:'FRS-6BC4', store:'Colombo 5 - Havelock', type:'Chilled', size:21, status:'Unassigned'},
+  {id:'FRS-8LD1', store:'Nugegoda - High Level', type:'Ambient', size:36, status:'In progress'},
+  {id:'FRS-5VW9', store:'Battaramulla - Junction', type:'Chilled', size:16, status:'Assigned'},
+  {id:'FRS-1JH6', store:'Mount Lavinia - Station', type:'Ambient', size:29, status:'Unassigned'},
+  {id:'FRS-2ZA3', store:'Rajagiriya - Central', type:'Chilled', size:24, status:'In progress'},
+].map((o,i)=>({...o, uid:'ord'+i, items:[
+  {id:'ITM-2HG3', name:'Broccoli', type:'Ambient', count:26},
+  {id:'ITM-2HG3', name:'Something else', type:'Ambient', count:26},
+  {id:'ITM-2HG3', name:'Broccoli', type:'Ambient', count:26},
+  {id:'ITM-2HG3', name:'Something else', type:'Ambient', count:26},
+], detail:{weight:'250kg', volume:'88m³', dock:'Rear dock', parking:'Normal', window:'03:00 am - 08:00am', remaining:'04:45:32'}}));
+
+const loaderLoads = [
+  {id:'LDS-2HG3', store:'Colombo 8 - Waypoint Fresh', window:'3:00am - 8:00am', type:'Fresh', size:25,
+    vehicle:'VEH-T&78D0JB', closeTime:'08:45am', closeRemaining:'3hrs 34min remaining',
+    orderIds:['FRS-2HG3','FRS-YUD6','FRS-WY5D'],
+    batch:[
+      {id:'FRS-2HG3', name:'Something else', type:'Ambient', count:26},
+      {id:'STY-2HG3', name:'Another something', type:'Ambient', count:26},
+      {id:'FRS-2HG3', name:'Completely different', type:'Ambient', count:26},
+    ]},
+  {id:'LDS-3JT9', store:'Dehiwala - Waypoint Fresh', window:'4:00am - 9:00am', type:'Fresh', size:19,
+    vehicle:'VEH-K&12M0PL', closeTime:'09:10am', closeRemaining:'4hrs 05min remaining',
+    orderIds:['FRS-6BC4','FRS-1JH6'],
+    batch:[
+      {id:'FRS-6BC4', name:'Broccoli', type:'Ambient', count:18},
+      {id:'FRS-1JH6', name:'Something else', type:'Ambient', count:21},
+    ]},
+  {id:'LDS-5QW1', store:'Kandy - Lake Road', window:'5:00am - 10:00am', type:'Fresh', size:32,
+    vehicle:'VEH-R&99X4TN', closeTime:'10:20am', closeRemaining:'5hrs 40min remaining',
+    orderIds:['FRS-7MN2'],
+    batch:[
+      {id:'FRS-7MN2', name:'Completely different', type:'Ambient', count:32},
+    ]},
+];
+// per-order item lists for loader checklist screen
+function loaderItemsFor(orderId){
+  return [
+    {id:'ITM-2HG3', name:'Something else', count:26},
+    {id:'ITM-2HG3', name:'Another something', count:26},
+    {id:'ITM-2HG3', name:'Completely different', count:26},
+  ];
+}
+
+const driverStops = [
+  {id:'stop1', store:'Colombo 8 - Waypoint Fresh', distance:'5.67 KM', eta:'23min', deadline:'01.30 pm', remaining:'00:45:34', orderId:'FRS-2HG3', items:26, delivered:false},
+  {id:'stop2', store:'Nugegoda - High Level', distance:'3.20 KM', eta:'14min', deadline:'02.10 pm', remaining:'01:20:10', orderId:'FRS-8LD1', items:18, delivered:false},
+];
+function driverItemsFor(orderId){
+  return [
+    {id:'ITM-2HG3', count:26},
+    {id:'ITM-2HG3', count:26},
+    {id:'ITM-2HG3', count:26},
+    {id:'ITM-2HG3', count:26},
+    {id:'ITM-2HG3', count:26},
+    {id:'ITM-2HG3', count:26},
+  ];
+}
+
+/* checklist toggle state, keyed by scope+orderId+index */
+const checkState = {};
+
+/* ---------------------------------------------------------------
+   ICONS
+--------------------------------------------------------------- */
+const ICON = {
+  search:`<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="black" stroke-width="2"/><line x1="16.5" y1="16.5" x2="21" y2="21" stroke="black" stroke-width="2" stroke-linecap="round"/></svg>`,
+  account:`<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="black" stroke-width="1.8"/><circle cx="12" cy="10" r="3.4" stroke="black" stroke-width="1.8"/><path d="M5.5 19c1.3-2.7 3.8-4 6.5-4s5.2 1.3 6.5 4" stroke="black" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+  menu:`<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><line x1="3" y1="6" x2="21" y2="6" stroke="black" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="12" x2="21" y2="12" stroke="black" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="18" x2="21" y2="18" stroke="black" stroke-width="2" stroke-linecap="round"/></svg>`,
+  chevronDown:`<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#7a7a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  back:`<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="black" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  arrow:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="black" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  panelIcon:`<svg width="21" height="21" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2" stroke="black" stroke-width="1.6"/><line x1="9" y1="4" x2="9" y2="20" stroke="black" stroke-width="1.6"/></svg>`,
+  panelLeft:`<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="3.5" stroke="#555" stroke-width="1.8"/><line x1="8.5" y1="4" x2="8.5" y2="20" stroke="#555" stroke-width="1.8"/></svg>`,
+  panelRight:`<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="3.5" stroke="#555" stroke-width="1.8"/><line x1="15.5" y1="4" x2="15.5" y2="20" stroke="#555" stroke-width="1.8"/></svg>`,
+  circleStar:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9.5" stroke="#666" stroke-width="1.6"/><polygon points="12,6.8 13.4,10.6 17.2,12 13.4,13.4 12,17.2 10.6,13.4 6.8,12 10.6,10.6" fill="#666"/></svg>`,
+  navdot:(active)=>`<span class="dot"></span>`,
+  check:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+};
+
+/* ---------------------------------------------------------------
+   ROUTER
+--------------------------------------------------------------- */
+let route = {name:'landing'};
+
+function nav(r){ route = r; render(); window.scrollTo(0,0); }
+
+function switchRole(role){
+  if(role==='dispatch') nav({name:'login', role:'dispatch'});
+  if(role==='loader') nav({name:'login', role:'loader'});
+  if(role==='driver') nav({name:'login', role:'driver'});
+}
+function logout(){ nav({name:'landing'}); }
+
+/* ---------------------------------------------------------------
+   RENDER
+--------------------------------------------------------------- */
+function render(){
+  const app = document.getElementById('app');
+  document.querySelectorAll('#roleBar button[data-role]').forEach(b=>{
+    b.classList.toggle('active', route.role===b.dataset.role);
+  });
+
+  if(route.name==='landing'){ app.innerHTML = landingScreen(); return; }
+  if(route.name==='login'){ app.innerHTML = loginScreen(route.role); return; }
+  if(route.name==='dispatch-list'){ app.innerHTML = dispatchListScreen(route.nav||'live'); attachDispatchList(); return; }
+  if(route.name==='dispatch-order'){ app.innerHTML = dispatchOrderScreen(route.uid); attachDispatchOrder(); return; }
+  if(route.name==='loader-list'){ app.innerHTML = loaderListScreen(); attachLoaderList(); return; }
+  if(route.name==='loader-load'){ app.innerHTML = loaderLoadScreen(route.loadId); attachLoaderLoad(route.loadId); return; }
+  if(route.name==='loader-checklist'){ app.innerHTML = loaderChecklistScreen(route.loadId, route.orderId); attachLoaderChecklist(route.loadId, route.orderId); return; }
+  if(route.name==='driver-list'){ app.innerHTML = driverListScreen(); attachDriverList(); return; }
+  if(route.name==='driver-stop'){ app.innerHTML = driverStopScreen(route.stopId); attachDriverStop(route.stopId); return; }
+  if(route.name==='driver-checklist'){ app.innerHTML = driverChecklistScreen(route.stopId); attachDriverChecklist(route.stopId); return; }
+}
+
+/* ================= LANDING ================= */
+function landingScreen(){
+  return `
+  <div class="login-wrap" style="align-items:center;">
+    <div class="login-topbar" style="justify-content:center;">
+      <span class="wp-logo">WAYPOINT</span>
+    </div>
+    <div class="login-card-area">
+      <div style="text-align:center;max-width:420px;">
+        <h1 style="font-size:32px;font-weight:500;margin-bottom:10px;">Choose your portal</h1>
+        <p style="color:var(--muted);font-size:16px;margin-bottom:32px;">Select how you'd like to sign in to Waypoint.</p>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <button class="signin-btn" onclick="switchRole('dispatch')">Continue as Dispatch</button>
+          <button class="signin-btn" onclick="switchRole('loader')">Continue as Loader</button>
+          <button class="signin-btn" onclick="switchRole('driver')">Continue as Driver</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ================= LOGIN ================= */
+function roleLabel(role){ return role==='dispatch'?'DISPATCH':role==='loader'?'LOADER':'DRIVER'; }
+function roleEmail(role){ return role+'01@waypoint.com'; }
+
+function loginScreen(role){
+  const goHome = role==='dispatch' ? `nav({name:'dispatch-list', nav:'live'})`
+               : role==='loader' ? `nav({name:'loader-list'})`
+               : `nav({name:'driver-list'})`;
+  return `
+  <div class="login-wrap">
+    <div class="login-topbar">
+      <span class="wp-logo">WAYPOINT</span><span class="wp-role">&nbsp;${roleLabel(role)}</span>
+    </div>
+    <div class="login-card-area">
+      <div class="login-card">
+        <h1>Welcome</h1>
+        <p class="sub">Please Sign In to use the platform</p>
+        <div class="field">
+          <label>Email</label>
+          <div class="val">${roleEmail(role)}</div>
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <div class="dots">...........................</div>
+        </div>
+        <span class="forgot">Forgot password?</span>
+        <button class="signin-btn" onclick="${goHome}">Sign In</button>
+        <div class="signup-line">Don&rsquo;t have an account? <b>Sign up</b></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ================= DISPATCH: LIVE ORDERS LIST ================= */
+const dispatchNavItems = [
+  {key:'live', label:'Live Orders', group:'DISPATCH'},
+  {key:'deferred', label:'Deffered Orders', group:'DISPATCH'},
+  {key:'planning', label:'Planning', group:'DISPATCH'},
+  {key:'fleet', label:'Fleet', group:'MANAGEMENT'},
+  {key:'loading', label:'Loading', group:'MANAGEMENT'},
+  {key:'tracker', label:'Tracker', group:'MANAGEMENT'},
+];
+
+function dispatchListScreen(activeNav){
+  const isOrdersView = activeNav==='live' || activeNav==='deferred';
+  const title = activeNav==='live' ? 'Live Orders' : activeNav==='deferred' ? 'Deffered Orders' : dispatchNavItems.find(n=>n.key===activeNav).label;
+
+  const navHtml = ['DISPATCH','MANAGEMENT'].map(group=>`
+    <div class="group-label">${group}</div>
+    ${dispatchNavItems.filter(n=>n.group===group).map(n=>`
+      <div class="d-nav-item ${n.key===activeNav?'active':''}" data-nav="${n.key}">
+        ${ICON.circleStar}<span>${n.label}</span>
+      </div>`).join('')}
+  `).join('');
+
+  return `
+  <div class="dispatch-shell active">
+    <div class="d-topbar">
+      <div class="brand"><span class="wp-logo">WAYPOINT</span><span class="wp-role">&nbsp;DISPATCH</span></div>
+      <div class="actions">
+        <button class="icon-btn">${ICON.search}</button>
+        <button class="icon-btn">${ICON.account}</button>
+      </div>
+    </div>
+    <div class="d-body">
+      <div class="d-sidebar">
+        <button class="icon-btn panel-toggle-btn" title="Toggle sidebar">${ICON.panelLeft}</button>
+        ${navHtml}
+      </div>
+      <div class="d-main">
+        ${isOrdersView ? `
+        <div class="d-header-locked">
+          <div class="d-filters">
+            <span class="lbl">Filter by</span>
+            <div class="d-select"><span>Brand</span>${ICON.chevronDown}</div>
+            <div class="d-select"><span>District</span>${ICON.chevronDown}</div>
+            <div class="d-select"><span>Temperature</span>${ICON.chevronDown}</div>
+            <div class="d-select"><span>Status</span>${ICON.chevronDown}</div>
+          </div>
+          <div class="d-table-head">
+            <span class="d-col-id">Order ID</span><span class="d-col-store">Store Name</span>
+            <span class="d-col-type">Order Type</span><span class="d-col-size">Order Size</span>
+            <span class="d-col-status">Order Status</span>
+          </div>
+        </div>
+        <div id="orderRows">
+          ${dispatchOrders.map(o=>`
+            <div class="d-row" data-uid="${o.uid}">
+              <span class="d-col-id">${o.id}</span>
+              <span class="d-col-store">${o.store}</span>
+              <span class="d-col-type"><span class="pill ${o.type}">${o.type}</span></span>
+              <span class="d-col-size">${o.size} items</span>
+              <span class="d-col-status">${o.status}</span>
+            </div>`).join('')}
+        </div>` : `<p style="color:var(--muted);font-size:24px;font-weight:500;margin:0 0 20px;">${title}</p>
+        <div class="empty-state">Nothing to show here yet.</div>`}
+      </div>
+      <div class="d-summary">
+        <div class="d-summary-head">
+          <h3>Orders Summary</h3>
+          <button class="icon-btn panel-toggle-btn" title="Toggle summary">${ICON.panelRight}</button>
+        </div>
+        <div class="stat-block">
+          <p class="big">64</p>
+          <div class="biglabel">Total Confirmed<br>Orders</div>
+        </div>
+        <div class="stat"><span>Chilled order count</span><span>22</span></div>
+        <div class="stat"><span>Fresh order count</span><span>35</span></div>
+        <div class="stat"><span>Fragile order count</span><span>08</span></div>
+      </div>
+    </div>
+  </div>`;
+}
+function attachDispatchList(){
+  document.querySelectorAll('.d-nav-item').forEach(el=>{
+    el.addEventListener('click', ()=> nav({name:'dispatch-list', nav:el.dataset.nav}));
+  });
+  document.querySelectorAll('.d-row').forEach(el=>{
+    el.addEventListener('click', ()=> nav({name:'dispatch-order', uid:el.dataset.uid}));
+  });
+  const headerLocked = document.querySelector('.d-header-locked');
+  const orderRows = document.getElementById('orderRows');
+  if (headerLocked && orderRows) {
+    headerLocked.addEventListener('wheel', (e) => {
+      orderRows.scrollTop += e.deltaY;
+    }, { passive: true });
+  }
+}
+
+/* ================= DISPATCH: ORDER DETAIL ================= */
+function dispatchOrderScreen(uid){
+  const o = dispatchOrders.find(x=>x.uid===uid) || dispatchOrders[0];
+  return `
+  <div class="dispatch-shell active">
+    <div class="d-topbar">
+      <div class="brand"><span class="wp-logo">WAYPOINT</span><span class="wp-role">&nbsp;DISPATCH</span></div>
+      <div class="actions">
+        <button class="icon-btn">${ICON.search}</button>
+        <button class="icon-btn">${ICON.account}</button>
+      </div>
+    </div>
+    <div class="d-detail-body">
+      <div class="d-detail-side"><button class="back-btn" id="backToList">${ICON.back}</button></div>
+      <div class="d-detail-main">
+        <div class="head">
+          <span class="oid">${o.id}</span>
+          <span class="status">${o.status}</span>
+        </div>
+        <div class="d-item-head">
+          <span style="width:22%;">Item ID</span><span style="width:38%;">Item Name</span>
+          <span style="width:20%;">Order Type</span><span style="width:20%;text-align:right;">Item count</span>
+        </div>
+        ${o.items.map(it=>`
+          <div class="d-item-row">
+            <span class="ic-id">${it.id}</span>
+            <span class="ic-name">${it.name}</span>
+            <span class="ic-type"><span class="pill ${it.type}">${it.type}</span></span>
+            <span class="ic-count">X ${it.count}</span>
+          </div>`).join('')}
+      </div>
+      <div class="d-panel">
+        <h3>Order Details</h3>
+        <div class="stat-block">
+          <p class="big">${o.size}</p>
+          <div class="biglabel">Total Units</div>
+        </div>
+        <div class="kv"><span class="k">Store</span><span class="v">${o.store}</span></div>
+        <div class="kv"><span class="k">Delivery Window</span><span class="v">${o.detail.window}</span></div>
+        <div class="kv"><span class="k">Order Type</span><span class="v"><span class="pill ${o.type}">${o.type}</span></span></div>
+        <div class="kv"><span class="k">Order Size</span><span class="v">${o.size} items</span></div>
+        <div class="kv"><span class="k">Estimated Weight</span><span class="v">${o.detail.weight}</span></div>
+        <div class="kv"><span class="k">Estimated Volume</span><span class="v">${o.detail.volume}</span></div>
+        <div class="kv"><span class="k">Dock Type</span><span class="v">${o.detail.dock}</span></div>
+        <div class="kv"><span class="k">Parking</span><span class="v">${o.detail.parking}</span></div>
+        <div class="kv" style="margin-top:20px;"><span class="k">Time Remaining</span><span class="v">${o.detail.remaining}</span></div>
+      </div>
+    </div>
+  </div>`;
+}
+function attachDispatchOrder(){
+  document.getElementById('backToList').addEventListener('click', ()=> nav({name:'dispatch-list', nav:'live'}));
+}
+
+/* ================= LOADER: ASSIGNED LOADS ================= */
+function loaderListScreen(){
+  return `
+  <div class="device-tablet active">
+    <div class="t-topbar">
+      <div class="brand"><span class="wp-logo">WAYPOINT</span><span class="wp-role">&nbsp;LOADER</span></div>
+      <div class="actions">
+        <button class="icon-btn">${ICON.search}</button>
+        <button class="icon-btn">${ICON.account}</button>
+        <button class="icon-btn">${ICON.menu}</button>
+      </div>
+    </div>
+    <div class="t-title">Assigned Loads</div>
+    <div class="t-head-row" style="padding:0 66px;">
+      <span>Order ID</span><span>Store Name</span><span>Window</span><span style="text-align:right;">Order Type</span><span style="text-align:right;">Order Size</span>
+    </div>
+    <div class="t-list" id="loadRows">
+      ${loaderLoads.map(l=>`
+        <div class="t-row" data-load="${l.id}">
+          <span class="id">${l.id}</span>
+          <span class="store">${l.store}</span>
+          <span class="win">${l.window}</span>
+          <span class="pill ${l.type}">${l.type}</span>
+          <span class="size">${l.size} items</span>
+        </div>`).join('')}
+    </div>
+  </div>`;
+}
+function attachLoaderList(){
+  document.querySelectorAll('#loadRows .t-row').forEach(el=>{
+    el.addEventListener('click', ()=> nav({name:'loader-load', loadId:el.dataset.load}));
+  });
+}
+
+/* ================= LOADER: LOAD DETAIL (batch) ================= */
+function loaderLoadScreen(loadId){
+  const l = loaderLoads.find(x=>x.id===loadId) || loaderLoads[0];
+  return `
+  <div class="device-tablet active">
+    <div class="t-topbar">
+      <div class="brand"><span class="wp-logo">WAYPOINT</span><span class="wp-role">&nbsp;LOADER</span></div>
+      <div class="actions">
+        <button class="icon-btn">${ICON.search}</button>
+        <button class="icon-btn">${ICON.account}</button>
+        <button class="icon-btn">${ICON.menu}</button>
+      </div>
+    </div>
+    <div class="t-backrow"><button class="back-btn" id="backToLoads">${ICON.back}</button></div>
+    <div class="load-summary">
+      <div class="load-head">
+        <span class="lid">${l.id}</span>${ICON.chevronDown}
+      </div>
+      <div class="load-grid">
+        <div class="row"><span class="k">Order count</span><span class="v">${l.orderIds.length}</span></div>
+        <div class="row"><span class="k">Order IDs</span><span class="order-pills">${l.orderIds.map(id=>`<span class="order-pill">${id}</span>`).join('')}</span></div>
+        <div class="row"><span class="k">Earliest Window Close Time</span><span class="v">${l.closeTime} <span style="color:rgba(0,0,0,.5);font-weight:400;">(${l.closeRemaining})</span></span></div>
+        <div class="row"><span class="k">Vehicle ID</span><span class="v">${l.vehicle}</span></div>
+      </div>
+    </div>
+    <div class="batch-list">
+      ${l.batch.map((b,i)=>`
+        <div class="batch-row" data-order="${b.id}-${i}">
+          <span class="num">${String(i+1).padStart(2,'0')}</span>
+          <span class="oid">${b.id}</span>
+          <span class="name">${b.name}</span>
+          <span class="pill ${b.type}">${b.type}</span>
+          <span class="count">${b.count} items</span>
+        </div>`).join('')}
+    </div>
+  </div>`;
+}
+function attachLoaderLoad(loadId){
+  document.getElementById('backToLoads').addEventListener('click', ()=> nav({name:'loader-list'}));
+  document.querySelectorAll('.batch-row').forEach(el=>{
+    el.addEventListener('click', ()=> nav({name:'loader-checklist', loadId, orderId:el.dataset.order}));
+  });
+}
+
+/* ================= LOADER: ITEM CHECKLIST ================= */
+function loaderChecklistScreen(loadId, orderId){
+  const l = loaderLoads.find(x=>x.id===loadId) || loaderLoads[0];
+  const orderLabel = orderId.split('-').slice(0,2).join('-');
+  const items = loaderItemsFor(orderId);
+  const scope = 'loader-'+loadId+'-'+orderId;
+  return `
+  <div class="device-tablet active">
+    <div class="t-topbar">
+      <div class="brand"><span class="wp-logo">WAYPOINT</span><span class="wp-role">&nbsp;LOADER</span></div>
+      <div class="actions">
+        <button class="icon-btn">${ICON.search}</button>
+        <button class="icon-btn">${ICON.account}</button>
+        <button class="icon-btn">${ICON.menu}</button>
+      </div>
+    </div>
+    <div class="t-backrow"><button class="back-btn" id="backToLoad">${ICON.back}</button></div>
+    <div class="checklist-head">
+      <span class="oid">${orderLabel}</span>
+      <span class="win">08:45am <small>(3hrs 34min remaining)</small></span>
+    </div>
+    <div style="padding-bottom:30px;">
+      ${items.map((it,i)=>{
+        const key = scope+'-'+i;
+        const checked = !!checkState[key];
+        return `
+        <div class="item-row">
+          <span class="iid">${it.id}</span>
+          <span class="iname">${it.name}</span>
+          <span class="pill Ambient">Ambient</span>
+          <span class="icount">X ${it.count}</span>
+          <span class="check-box ${checked?'checked':''}" data-key="${key}">${checked?ICON.check:''}</span>
+        </div>`;
+      }).join('')}
+    </div>
+  </div>`;
+}
+function attachLoaderChecklist(loadId, orderId){
+  document.getElementById('backToLoad').addEventListener('click', ()=> nav({name:'loader-load', loadId}));
+  document.querySelectorAll('.check-box').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const k = el.dataset.key;
+      checkState[k] = !checkState[k];
+      render();
+    });
+  });
+}
+
+/* ================= DRIVER: DELIVERIES LIST ================= */
+function driverListScreen(){
+  const active = driverStops.filter(s=>!s.delivered);
+  return `
+  <div class="device-phone active">
+    <div class="p-topbar"><span class="wp-logo" style="font-size:16px;">WAYPOINT</span><span class="wp-role" style="font-size:16px;">&nbsp;DRIVER</span></div>
+    <div class="p-sub"><span>Delivery</span><span>Stops&nbsp;:&nbsp;${active.length}</span></div>
+    ${active.length===0 ? `<div class="empty-state" style="margin:0 24px;">All deliveries complete for today.</div>` :
+      active.map((s,i)=>`
+        ${i===1?'<div class="next-label">Next</div>':''}
+        <div class="stop-card ${i===1?'next':''}" data-stop="${s.id}">
+          <div class="row1"><span class="store">${s.store}</span>${ICON.arrow}</div>
+          <div class="kv"><span class="k">Distance</span><span class="v">${s.distance}</span></div>
+          <div class="kv"><span class="k">Estimated Time</span><span class="v">${s.eta}</span></div>
+          <div class="kv"><span class="k">Deadline</span><span class="v">${s.deadline}</span></div>
+          <div class="kv remaining"><span class="k">Time remaining</span><span class="v">${s.remaining}</span></div>
+        </div>`).join('')}
+  </div>`;
+}
+function attachDriverList(){
+  document.querySelectorAll('.stop-card').forEach(el=>{
+    el.addEventListener('click', ()=> nav({name:'driver-stop', stopId:el.dataset.stop}));
+  });
+}
+
+/* ================= DRIVER: STOP DETAIL (map) ================= */
+function driverStopScreen(stopId){
+  const s = driverStops.find(x=>x.id===stopId) || driverStops[0];
+  return `
+  <div class="device-phone active">
+    <div class="p-topbar">
+      <button class="back-btn p-back" id="backToStops">${ICON.back}</button>
+      <span class="wp-logo" style="font-size:16px;">WAYPOINT</span><span class="wp-role" style="font-size:16px;">&nbsp;DRIVER</span>
+    </div>
+    <div class="map-box">
+      <div class="road" style="width:6px;height:340px;left:40%;top:-30px;transform:rotate(18deg);"></div>
+      <div class="road" style="height:6px;width:340px;top:55%;left:-20px;transform:rotate(-8deg);"></div>
+      <div class="pin">
+        <svg viewBox="0 0 24 24"><path d="M12 0C7 0 3 4 3 9c0 6.5 9 15 9 15s9-8.5 9-15c0-5-4-9-9-9z" fill="#e04a3f"/><circle cx="12" cy="9" r="3.2" fill="#fff"/></svg>
+      </div>
+    </div>
+    <div class="stop-detail-info">
+      <div class="store">${s.store}</div>
+      <div class="kv"><span class="k">Distance</span><span class="v">${s.distance}</span></div>
+      <div class="kv"><span class="k">Estimated Time</span><span class="v">${s.eta}</span></div>
+      <div class="kv"><span class="k">Deadline</span><span class="v">${s.deadline}</span></div>
+      <div class="kv remaining"><span class="k">Time remaining</span><span class="v">${s.remaining}</span></div>
+    </div>
+    <div class="order-chip" id="toItems">
+      <span class="id">${s.orderId}</span>
+      <span class="cnt">${s.items} items</span>
+      ${ICON.arrow}
+    </div>
+  </div>`;
+}
+function attachDriverStop(stopId){
+  document.getElementById('backToStops').addEventListener('click', ()=> nav({name:'driver-list'}));
+  document.getElementById('toItems').addEventListener('click', ()=> nav({name:'driver-checklist', stopId}));
+}
+
+/* ================= DRIVER: ITEM CHECKLIST ================= */
+function driverChecklistScreen(stopId){
+  const s = driverStops.find(x=>x.id===stopId) || driverStops[0];
+  const items = driverItemsFor(s.orderId);
+  const scope = 'driver-'+stopId;
+  const allChecked = items.every((_,i)=>checkState[scope+'-'+i]);
+  return `
+  <div class="device-phone active">
+    <div class="p-topbar">
+      <button class="back-btn p-back" id="backToStop">${ICON.back}</button>
+      <span class="wp-logo" style="font-size:16px;">WAYPOINT</span><span class="wp-role" style="font-size:16px;">&nbsp;DRIVER</span>
+    </div>
+    <div class="p-sub" style="margin-top:20px;"><span>Time remaining</span><span>${s.remaining}</span></div>
+    <div class="p-sub" style="margin-top:0;"><span style="font-size:20px;color:#000;font-weight:500;">${s.orderId}</span><span>${s.items} items</span></div>
+    <div style="margin-top:20px;">
+      ${items.map((it,i)=>{
+        const key = scope+'-'+i;
+        const checked = !!checkState[key];
+        return `
+        <div class="p-item-row ${checked?'done':''}" data-key="${key}">
+          <span class="iid">${it.id}</span>
+          <span class="icnt">X ${it.count}</span>
+          <span class="check-box ${checked?'checked':''}">${checked?ICON.check:''}</span>
+        </div>`;
+      }).join('')}
+    </div>
+    <button class="mark-btn" id="markDelivered" ${allChecked?'':'disabled'}>Mark Delivered</button>
+  </div>`;
+}
+function attachDriverChecklist(stopId){
+  document.getElementById('backToStop').addEventListener('click', ()=> nav({name:'driver-stop', stopId}));
+  document.querySelectorAll('.p-item-row').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const k = el.dataset.key;
+      checkState[k] = !checkState[k];
+      render();
+    });
+  });
+  const btn = document.getElementById('markDelivered');
+  btn.addEventListener('click', ()=>{
+    if(btn.disabled) return;
+    const s = driverStops.find(x=>x.id===stopId);
+    if(s) s.delivered = true;
+    nav({name:'driver-list'});
+  });
+}
+
+/* ---------------------------------------------------------------
+   INIT
+--------------------------------------------------------------- */
+render();
+</script>
+</body>
+</html>
