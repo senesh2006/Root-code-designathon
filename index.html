@@ -272,20 +272,32 @@
     box-sizing:border-box;overflow:hidden;
   }
   .d-detail-side{
-    width:56px;flex:0 0 56px;background:#fff;border:1px solid var(--border);border-radius:18px;
-    display:flex;align-items:center;justify-content:center;height:56px;
+    width:54px;flex:0 0 54px;background:#fff;border:1px solid var(--border);border-radius:22px;
+    display:flex;flex-direction:column;align-items:center;padding:16px 0;height:100%;
+    box-sizing:border-box;
+  }
+  .d-detail-side .back-btn{
+    width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;
+    background:none;border:none;cursor:pointer;color:#111;border-radius:50%;padding:0;
+    transition:transform .18s ease, color .18s ease, background-color .18s ease;
+  }
+  .d-detail-side .back-btn:hover{
+    background:rgba(0,0,0,0.06);transform:translateX(-2px);color:#000;
   }
   .d-detail-main{
     flex:1;min-width:0;background:#fff;border:1px solid var(--border);
-    border-radius:22px;padding:22px 24px;
-    height:100%;overflow-y:auto;
-    box-sizing:border-box;
+    border-radius:22px;padding:22px 26px 20px;
+    height:100%;display:flex;flex-direction:column;
+    box-sizing:border-box;overflow:hidden;
   }
-  .d-detail-main::-webkit-scrollbar{width:5px;}
-  .d-detail-main::-webkit-scrollbar-thumb{background:#d4d4d4;border-radius:10px;}
-  .d-detail-main .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding:0 2px;}
+  .d-detail-main .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding:0 2px;}
   .d-detail-main .head .oid{font-size:17px;font-weight:700;color:#000;}
   .d-detail-main .head .status{color:#666;font-size:13px;font-weight:500;}
+  .d-items-list{
+    flex:1 1 auto;min-height:0;overflow-y:auto;padding-right:2px;
+  }
+  .d-items-list::-webkit-scrollbar{width:5px;}
+  .d-items-list::-webkit-scrollbar-thumb{background:#d4d4d4;border-radius:10px;}
   .d-item-head{display:flex;color:#8c8c8c;font-size:13px;font-weight:500;padding:0 20px;margin-bottom:8px;align-items:center;}
   .d-item-row{
     display:flex;align-items:center;background:#fff;border:1px solid #e2e2e2;border-radius:14px;
@@ -297,19 +309,60 @@
   .d-item-row .ic-name{width:38%;flex:1 1 38%;min-width:0;font-size:14px;font-weight:500;color:#111;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:10px;}
   .d-item-row .ic-type{width:20%;flex:0 0 20%;min-width:0;}
   .d-item-row .ic-count{width:20%;flex:0 0 20%;min-width:0;text-align:right;color:#222;font-size:14px;font-weight:600;}
+  .d-detail-actions{
+    flex:0 0 auto;padding-top:16px;display:flex;justify-content:center;width:100%;
+  }
+  .d-assign-btn{
+    width:100%;background:#000;color:#fff;border:none;border-radius:999px;
+    padding:13px 24px;font-size:15px;font-weight:600;display:flex;
+    align-items:center;justify-content:center;gap:10px;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,0.12);
+    transition:background-color .2s ease, transform .16s ease, box-shadow .2s ease;
+  }
+  .d-assign-btn:hover{background:#222;transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,0.18);}
+  .d-assign-btn:active{transform:translateY(0) scale(.995);}
+  .d-assign-btn.assigned{background:#15803d;color:#fff;}
   .d-panel{
     width:280px;flex:0 0 280px;background:#fff;border:1px solid var(--border);
     border-radius:22px;padding:22px 24px;
     height:100%;overflow-y:auto;
     box-sizing:border-box;
+    transition:width .25s ease, padding .25s ease, opacity .2s ease, flex-basis .25s ease;
   }
-  .d-panel h3{font-size:17px;font-weight:600;margin:0 0 20px;color:#000;}
-  .d-panel .stat-block{display:flex;align-items:center;gap:12px;margin-bottom:22px;}
-  .d-panel .stat-block .big{font-size:48px;font-weight:700;margin:0;line-height:1;color:#000;}
-  .d-panel .stat-block .biglabel{color:#666;font-size:12px;font-weight:500;line-height:1.35;}
+  .d-panel.collapsed{
+    width:0!important;flex:0 0 0!important;padding:0!important;border:none!important;
+    opacity:0!important;pointer-events:none!important;overflow:hidden!important;margin:0!important;
+  }
+  .d-sidebar.collapsed{
+    width:0!important;flex:0 0 0!important;padding:0!important;border:none!important;
+    opacity:0!important;pointer-events:none!important;overflow:hidden!important;margin:0!important;
+  }
+  .d-summary.collapsed{
+    width:0!important;flex:0 0 0!important;padding:0!important;border:none!important;
+    opacity:0!important;pointer-events:none!important;overflow:hidden!important;margin:0!important;
+  }
+  .d-panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+  .d-panel-head h3{font-size:17px;font-weight:600;margin:0;color:#000;}
+  .d-panel-stats{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px;gap:16px;}
+  .d-panel-stats .stat-left{display:flex;align-items:center;gap:10px;}
+  .d-panel-stats .stat-left .big{font-size:48px;font-weight:700;margin:0;line-height:1;color:#000;}
+  .d-panel-stats .stat-left .biglabel{color:#666;font-size:11px;font-weight:500;line-height:1.3;}
+  .d-panel-stats .stat-right{text-align:right;}
+  .d-panel-stats .stat-right .time{font-size:15px;font-weight:700;margin:0 0 3px;color:#000;letter-spacing:.3px;}
+  .d-panel-stats .stat-right .timelabel{color:#666;font-size:11px;font-weight:500;}
   .d-panel .kv{display:flex;justify-content:space-between;gap:12px;margin-bottom:12px;font-size:13px;}
   .d-panel .kv .k{color:#777;font-weight:400;flex:0 0 auto;}
   .d-panel .kv .v{font-weight:500;color:#111;text-align:right;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .wp-toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:#111;color:#fff;padding:10px 22px;border-radius:30px;
+    font-size:13px;font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,.25);
+    opacity:0;pointer-events:none;transition:opacity .25s ease, transform .25s ease;
+    z-index:9999;display:flex;align-items:center;gap:8px;
+  }
+  .wp-toast.show{
+    opacity:1;transform:translateX(-50%) translateY(0);
+  }
 
   /* ============ TABLET-STYLE (Loader) ============ */
   .device-tablet{
@@ -563,6 +616,8 @@ const ICON = {
   chevronDown:`<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#7a7a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   back:`<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="black" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   arrow:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="black" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  arrowLeft:`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>`,
+  arrowRight:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`,
   panelIcon:`<svg width="21" height="21" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2" stroke="black" stroke-width="1.6"/><line x1="9" y1="4" x2="9" y2="20" stroke="black" stroke-width="1.6"/></svg>`,
   panelLeft:`<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="3.5" stroke="#555" stroke-width="1.8"/><line x1="8.5" y1="4" x2="8.5" y2="20" stroke="#555" stroke-width="1.8"/></svg>`,
   panelRight:`<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="3.5" stroke="#555" stroke-width="1.8"/><line x1="15.5" y1="4" x2="15.5" y2="20" stroke="#555" stroke-width="1.8"/></svg>`,
@@ -753,6 +808,22 @@ function attachDispatchList(){
   document.querySelectorAll('.d-row').forEach(el=>{
     el.addEventListener('click', ()=> nav({name:'dispatch-order', uid:el.dataset.uid}));
   });
+  const leftToggle = document.querySelector('.d-sidebar .panel-toggle-btn');
+  const sidebar = document.querySelector('.d-sidebar');
+  if (leftToggle && sidebar) {
+    leftToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      sidebar.classList.toggle('collapsed');
+    });
+  }
+  const rightToggle = document.querySelector('.d-summary .panel-toggle-btn');
+  const summary = document.querySelector('.d-summary');
+  if (rightToggle && summary) {
+    rightToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      summary.classList.toggle('collapsed');
+    });
+  }
   const headerLocked = document.querySelector('.d-header-locked');
   const orderRows = document.getElementById('orderRows');
   if (headerLocked && orderRows) {
@@ -765,6 +836,7 @@ function attachDispatchList(){
 /* ================= DISPATCH: ORDER DETAIL ================= */
 function dispatchOrderScreen(uid){
   const o = dispatchOrders.find(x=>x.uid===uid) || dispatchOrders[0];
+  const isAssigned = o.status === 'Assigned';
   return `
   <div class="dispatch-shell active">
     <div class="d-topbar">
@@ -775,29 +847,48 @@ function dispatchOrderScreen(uid){
       </div>
     </div>
     <div class="d-detail-body">
-      <div class="d-detail-side"><button class="back-btn" id="backToList">${ICON.back}</button></div>
+      <div class="d-detail-side">
+        <button class="back-btn" id="backToList" title="Back to orders">${ICON.arrowLeft}</button>
+      </div>
       <div class="d-detail-main">
         <div class="head">
           <span class="oid">${o.id}</span>
-          <span class="status">${o.status}</span>
+          <span class="status" id="detailOrderStatus">${o.status}</span>
         </div>
-        <div class="d-item-head">
-          <span style="width:22%;">Item ID</span><span style="width:38%;">Item Name</span>
-          <span style="width:20%;">Order Type</span><span style="width:20%;text-align:right;">Item count</span>
+        <div class="d-items-list" id="orderItemsList">
+          <div class="d-item-head">
+            <span style="width:22%;">Item ID</span><span style="width:38%;">Item Name</span>
+            <span style="width:20%;">Order Type</span><span style="width:20%;text-align:right;">Item count</span>
+          </div>
+          ${o.items.map(it=>`
+            <div class="d-item-row">
+              <span class="ic-id">${it.id}</span>
+              <span class="ic-name">${it.name}</span>
+              <span class="ic-type"><span class="pill ${it.type}">${it.type}</span></span>
+              <span class="ic-count">X ${it.count}</span>
+            </div>`).join('')}
         </div>
-        ${o.items.map(it=>`
-          <div class="d-item-row">
-            <span class="ic-id">${it.id}</span>
-            <span class="ic-name">${it.name}</span>
-            <span class="ic-type"><span class="pill ${it.type}">${it.type}</span></span>
-            <span class="ic-count">X ${it.count}</span>
-          </div>`).join('')}
+        <div class="d-detail-actions">
+          <button class="d-assign-btn ${isAssigned ? 'assigned' : ''}" id="assignOrderBtn" data-uid="${o.uid}">
+            <span id="assignBtnText">${isAssigned ? 'Order Assigned' : 'Assign Order'}</span>
+            ${ICON.arrowRight}
+          </button>
+        </div>
       </div>
-      <div class="d-panel">
-        <h3>Order Details</h3>
-        <div class="stat-block">
-          <p class="big">${o.size}</p>
-          <div class="biglabel">Total Units</div>
+      <div class="d-panel" id="orderDetailPanel">
+        <div class="d-panel-head">
+          <h3>Order Details</h3>
+          <button class="icon-btn panel-toggle-btn" id="toggleDetailPanel" title="Toggle details" style="margin:0;">${ICON.panelRight}</button>
+        </div>
+        <div class="d-panel-stats">
+          <div class="stat-left">
+            <p class="big">22</p>
+            <div class="biglabel">Total<br>Units</div>
+          </div>
+          <div class="stat-right">
+            <p class="time">${o.detail.remaining}</p>
+            <div class="timelabel">Time Remaining</div>
+          </div>
         </div>
         <div class="kv"><span class="k">Store</span><span class="v">${o.store}</span></div>
         <div class="kv"><span class="k">Delivery Window</span><span class="v">${o.detail.window}</span></div>
@@ -807,13 +898,62 @@ function dispatchOrderScreen(uid){
         <div class="kv"><span class="k">Estimated Volume</span><span class="v">${o.detail.volume}</span></div>
         <div class="kv"><span class="k">Dock Type</span><span class="v">${o.detail.dock}</span></div>
         <div class="kv"><span class="k">Parking</span><span class="v">${o.detail.parking}</span></div>
-        <div class="kv" style="margin-top:20px;"><span class="k">Time Remaining</span><span class="v">${o.detail.remaining}</span></div>
       </div>
     </div>
   </div>`;
 }
+
+function showToast(msg){
+  let t = document.getElementById('wpToast');
+  if(!t){
+    t = document.createElement('div');
+    t.id = 'wpToast';
+    t.className = 'wp-toast';
+    document.body.appendChild(t);
+  }
+  t.innerHTML = `${ICON.check} <span>${msg}</span>`;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(()=> t.classList.remove('show'), 2500);
+}
+
 function attachDispatchOrder(){
-  document.getElementById('backToList').addEventListener('click', ()=> nav({name:'dispatch-list', nav:'live'}));
+  const backBtn = document.getElementById('backToList');
+  if (backBtn) {
+    backBtn.addEventListener('click', ()=> nav({name:'dispatch-list', nav:'live'}));
+  }
+  const togglePanelBtn = document.getElementById('toggleDetailPanel');
+  const panel = document.getElementById('orderDetailPanel');
+  if (togglePanelBtn && panel) {
+    togglePanelBtn.addEventListener('click', ()=>{
+      panel.classList.toggle('collapsed');
+    });
+  }
+  const assignBtn = document.getElementById('assignOrderBtn');
+  if (assignBtn) {
+    assignBtn.addEventListener('click', ()=>{
+      const uid = assignBtn.dataset.uid;
+      const o = dispatchOrders.find(x=>x.uid===uid);
+      if (!o) return;
+      if (o.status !== 'Assigned') {
+        o.status = 'Assigned';
+        assignBtn.classList.add('assigned');
+        const btnText = document.getElementById('assignBtnText');
+        if (btnText) btnText.textContent = 'Order Assigned';
+        const st = document.getElementById('detailOrderStatus');
+        if (st) st.textContent = 'Assigned';
+        showToast(`Order ${o.id} successfully assigned!`);
+      } else {
+        o.status = 'Unassigned';
+        assignBtn.classList.remove('assigned');
+        const btnText = document.getElementById('assignBtnText');
+        if (btnText) btnText.textContent = 'Assign Order';
+        const st = document.getElementById('detailOrderStatus');
+        if (st) st.textContent = 'Unassigned';
+        showToast(`Order ${o.id} reverted to Unassigned`);
+      }
+    });
+  }
 }
 
 /* ================= LOADER: ASSIGNED LOADS ================= */
