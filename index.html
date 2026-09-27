@@ -445,43 +445,76 @@
     .sm-login-media{max-width:320px;}
   }
 
-  /* Store Portal Dashboard styles */
+  /* ============ STORE MANAGER DESKTOP PORTAL ============ */
   .store-shell{
-    max-width:1160px;margin:0 auto;padding:16px 24px 40px;box-sizing:border-box;min-height:calc(100vh - 34px);
+    height:calc(100vh - 34px);
+    display:flex;flex-direction:column;
+    overflow:hidden;
+    background:var(--bg);
   }
   .store-topbar{
-    display:flex;align-items:center;justify-content:space-between;padding:14px 0 20px;border-bottom:1px solid #e2e2e2;
+    flex:0 0 56px;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:12px 24px 8px;
+    background:var(--bg);
   }
   .store-topbar .brand{font-size:18px;}
-  .store-badge{
-    background:#eaf8eb;color:#1e7e34;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;display:inline-flex;align-items:center;gap:6px;
+  .store-top-center{
+    display:flex;align-items:center;gap:12px;margin-left:24px;flex:1;
   }
-  .store-kpi-grid{
-    display:grid;grid-template-columns:repeat(auto-fit, minmax(210px, 1fr));gap:16px;margin:24px 0;
+  .store-top-center .store-title{
+    font-size:15px;font-weight:600;color:#000;
   }
-  .store-kpi-card{
-    background:#fff;border:1px solid var(--border);border-radius:18px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.02);
+  .store-topbar .actions{
+    display:flex;gap:16px;align-items:center;
   }
-  .store-kpi-card .num{font-size:36px;font-weight:700;color:#000;margin:0 0 4px;}
-  .store-kpi-card .lbl{font-size:13px;color:#666;font-weight:500;}
-  .store-card{
-    background:#fff;border:1px solid var(--border);border-radius:22px;padding:24px 28px;margin-bottom:24px;box-shadow:0 2px 10px rgba(0,0,0,.02);
+  .store-create-btn{
+    background:#000;color:#fff;border:none;border-radius:999px;
+    padding:8px 22px;font-size:14px;font-weight:600;cursor:pointer;
+    box-shadow:0 2px 8px rgba(0,0,0,0.12);
+    transition:background-color .18s ease, transform .16s ease, box-shadow .18s ease;
   }
-  .store-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
-  .store-card-head h2{font-size:18px;font-weight:600;margin:0;}
-  .store-order-item{
-    display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:#f9f9f9;border:1px solid #e8e8e8;border-radius:14px;margin-bottom:10px;
-    transition:background-color .15s ease, transform .15s ease;
+  .store-create-btn:hover{
+    background:#222;transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,0.18);
   }
-  .store-order-item:hover{background:#f1f4f6;transform:translateY(-1px);}
-  .store-order-item .so-id{font-weight:700;font-size:14px;color:#000;width:140px;}
-  .store-order-item .so-details{flex:1;font-size:13px;color:#555;}
-  .store-btn-action{
-    background:#000;color:#fff;border:none;border-radius:999px;padding:8px 18px;font-size:13px;font-weight:600;cursor:pointer;
-    transition:background-color .18s ease;
+  .store-create-btn:active{
+    transform:translateY(0) scale(.98);
   }
-  .store-btn-action:hover{background:#222;}
-  .store-btn-action.done{background:#15803d;}
+  .store-body{
+    flex:1 1 auto;min-height:0;
+    display:flex;gap:18px;width:100%;padding:6px 24px 20px;align-items:stretch;
+    box-sizing:border-box;overflow:hidden;
+  }
+  .nav-badge-red{
+    background:#e53935;color:#fff;font-size:11px;font-weight:700;
+    width:18px;height:18px;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;
+    margin-left:auto;
+  }
+  /* Create Order Modal */
+  .sm-modal-backdrop{
+    position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.45);
+    display:flex;align-items:center;justify-content:center;z-index:999;
+    backdrop-filter:blur(3px);animation:bodyFade .2s ease;
+  }
+  .sm-modal{
+    background:#fff;border-radius:24px;padding:28px 32px;width:100%;max-width:440px;
+    box-shadow:0 16px 40px rgba(0,0,0,0.18);animation:popIn .25s cubic-bezier(.34,1.3,.4,1) both;
+  }
+  .sm-modal h3{margin:0 0 4px;font-size:20px;font-weight:700;color:#000;}
+  .sm-modal p{margin:0 0 20px;font-size:13px;color:#666;}
+  .sm-modal .field-label{font-size:12px;font-weight:600;color:#444;margin-bottom:6px;display:block;}
+  .sm-modal select,.sm-modal input{
+    width:100%;background:#f5f5f5;border:1px solid #ddd;border-radius:10px;
+    padding:10px 14px;font-size:14px;font-family:inherit;margin-bottom:16px;outline:none;
+    box-sizing:border-box;
+  }
+  .sm-modal select:focus,.sm-modal input:focus{
+    border-color:#000;background:#fff;
+  }
+  .sm-modal-actions{display:flex;justify-content:flex-end;gap:12px;margin-top:8px;}
+  .sm-modal-btn-cancel{background:none;border:none;font-size:14px;color:#666;font-weight:500;padding:10px 16px;cursor:pointer;}
+  .sm-modal-btn-submit{background:#000;color:#fff;border:none;border-radius:999px;font-size:14px;font-weight:600;padding:10px 24px;cursor:pointer;}
 
   /* ============ TABLET-STYLE (Loader) ============ */
   .device-tablet{
@@ -904,91 +937,203 @@ function attachStoreLogin(){
 }
 
 /* ================= STORE MANAGER: DASHBOARD ================= */
-const storeDeliveries = [
-  {id:'FRS-2HG3', type:'Chilled', items:25, eta:'01:30 pm', window:'03:00 am - 08:00 am', status:'Arriving', vehicle:'VEH-T&78D0JB', driver:'Kamal Perera', received:false},
-  {id:'FRS-WY5D', type:'Fresh', items:25, eta:'03:30 pm', window:'04:00 am - 09:00 am', status:'Scheduled', vehicle:'VEH-K&12M0PL', driver:'Sunil Silva', received:false},
-  {id:'FRS-YUD6', type:'Ambient', items:26, eta:'05:15 pm', window:'05:30 am - 10:30 am', status:'Scheduled', vehicle:'VEH-R&99X4TN', driver:'Nimal Fernando', received:false},
+let storeActiveNav = 'live';
+
+const storeOrdersData = [
+  {id:'FRS-2HG3', createdAt:'2026/09/22 02:00pm', type:'Ambient', size:25, status:'Created'},
+  {id:'FRS-2HG3', createdAt:'2026/09/22 02:00pm', type:'Ambient', size:25, status:'Created'},
+  {id:'FRS-2HG3', createdAt:'2026/09/22 02:00pm', type:'Ambient', size:25, status:'Created'},
+  {id:'FRS-2HG3', createdAt:'2026/09/22 02:00pm', type:'Ambient', size:25, status:'Created'},
+  {id:'FRS-4KP8', createdAt:'2026/09/22 01:15pm', type:'Chilled', size:18, status:'Created'},
+  {id:'FRS-7MN2', createdAt:'2026/09/22 11:30am', type:'Ambient', size:32, status:'Created'},
+  {id:'FRS-9QR5', createdAt:'2026/09/22 10:45am', type:'Chilled', size:14, status:'Created'},
+  {id:'FRS-3TX7', createdAt:'2026/09/22 09:20am', type:'Ambient', size:27, status:'Created'},
+  {id:'FRS-6BC4', createdAt:'2026/09/22 08:50am', type:'Chilled', size:21, status:'Created'},
+  {id:'FRS-8LD1', createdAt:'2026/09/22 08:15am', type:'Ambient', size:36, status:'Created'},
 ];
 
 function storeDashboardScreen(){
+  const isOrdersView = storeActiveNav === 'live' || storeActiveNav === 'deferred' || storeActiveNav === 'history';
+  const navTitle = storeActiveNav === 'live' ? 'Live Orders'
+                 : storeActiveNav === 'deferred' ? 'Deffered Orders'
+                 : storeActiveNav === 'history' ? 'Order History'
+                 : storeActiveNav === 'items' ? 'Catalogue Items' : 'Catalogue Vehicles';
+
   return `
-  <div class="store-shell">
+  <div class="store-shell active">
     <div class="store-topbar">
-      <div style="display:flex;align-items:center;gap:12px;">
-        <span class="wp-logo" style="font-size:18px;">WAYPOINT</span>
-        <span class="wp-role" style="font-size:18px;">&nbsp;STORE</span>
-        <span class="store-badge">● Colombo 8 - Waypoint Fresh</span>
+      <div style="display:flex;align-items:center;">
+        <div class="brand"><span class="wp-logo">WAYPOINT</span><span class="wp-role">&nbsp;STORE</span></div>
+        <div class="store-top-center">
+          <span class="store-title">Colombo 8 - Waypoint Fresh</span>
+          <span class="pill Fresh">Fresh</span>
+        </div>
       </div>
-      <div style="display:flex;align-items:center;gap:16px;">
+      <div class="actions">
+        <button class="store-create-btn" id="openCreateOrderModal">Create Order</button>
         <button class="icon-btn">${ICON.search}</button>
         <button class="icon-btn">${ICON.account}</button>
       </div>
     </div>
 
-    <div class="store-kpi-grid">
-      <div class="store-kpi-card">
-        <div class="num" id="kpiIncoming">03</div>
-        <div class="lbl">Incoming Shipments Today</div>
-      </div>
-      <div class="store-kpi-card">
-        <div class="num">76</div>
-        <div class="lbl">Total Items to Receive</div>
-      </div>
-      <div class="store-kpi-card">
-        <div class="num">Bay 2</div>
-        <div class="lbl">Assigned Receiving Dock</div>
-      </div>
-      <div class="store-kpi-card">
-        <div class="num" style="color:#15803d;" id="kpiStatus">Active</div>
-        <div class="lbl">Store Operations Status</div>
-      </div>
-    </div>
+    <div class="store-body">
+      <div class="d-sidebar" id="storeSidebar">
+        <button class="icon-btn panel-toggle-btn" id="storeSidebarToggle" title="Toggle sidebar">${ICON.panelLeft}</button>
+        <div class="group-label">Order Management</div>
+        <div class="d-nav-item ${storeActiveNav==='live'?'active':''}" data-snav="live">
+          ${ICON.circleStar}<span>Live Orders</span>
+        </div>
+        <div class="d-nav-item ${storeActiveNav==='deferred'?'active':''}" data-snav="deferred">
+          ${ICON.circleStar}<span>Deffered Orders</span>
+          <span class="nav-badge-red">2</span>
+        </div>
+        <div class="d-nav-item ${storeActiveNav==='history'?'active':''}" data-snav="history">
+          ${ICON.circleStar}<span>Order History</span>
+        </div>
 
-    <div class="store-card">
-      <div class="store-card-head">
-        <h2>Incoming Delivery Queue</h2>
-        <span style="font-size:13px;color:#777;">Store: Colombo 8 - Waypoint Fresh</span>
+        <div class="group-label" style="margin-top:22px;">Catalogue</div>
+        <div class="d-nav-item ${storeActiveNav==='items'?'active':''}" data-snav="items">
+          ${ICON.circleStar}<span>Items</span>
+        </div>
+        <div class="d-nav-item ${storeActiveNav==='vehicles'?'active':''}" data-snav="vehicles">
+          ${ICON.circleStar}<span>Vehicles</span>
+        </div>
       </div>
-      <div id="storeDeliveryList">
-        ${storeDeliveries.map(d=>`
-          <div class="store-order-item" id="so-${d.id}">
-            <div class="so-id">
-              <span style="display:block;font-size:15px;">${d.id}</span>
-              <span class="pill ${d.type}" style="margin-top:4px;">${d.type}</span>
-            </div>
-            <div class="so-details">
-              <div><strong>${d.items} items</strong> &bull; ETA: ${d.eta} &bull; Delivery Window: ${d.window}</div>
-              <div style="color:#888;font-size:12px;margin-top:2px;">Vehicle: ${d.vehicle} &bull; Driver: ${d.driver}</div>
-            </div>
-            <div>
-              <button class="store-btn-action ${d.received?'done':''}" data-id="${d.id}">
-                ${d.received ? 'Received & Verified ✓' : 'Receive & Verify →'}
-              </button>
-            </div>
-          </div>`).join('')}
+
+      <div class="d-main">
+        ${isOrdersView ? `
+        <div class="d-header-locked">
+          <div class="d-filters">
+            <span class="lbl">Filter by</span>
+            <div class="d-select"><span>Temperature</span>${ICON.chevronDown}</div>
+            <div class="d-select"><span>Status</span>${ICON.chevronDown}</div>
+          </div>
+          <div class="d-table-head">
+            <span style="width:16%;">Order ID</span>
+            <span style="width:28%;">Created at</span>
+            <span style="width:18%;">Order type</span>
+            <span style="width:18%;">Order size</span>
+            <span style="width:20%;text-align:left;">Status</span>
+          </div>
+        </div>
+        <div id="orderRows">
+          ${storeOrdersData.map((o, idx)=>`
+            <div class="d-row store-order-row" data-idx="${idx}">
+              <span style="width:16%;font-size:14px;font-weight:700;color:#111;">${o.id}</span>
+              <span style="width:28%;font-size:14px;font-weight:500;color:#111;">${o.createdAt}</span>
+              <span style="width:18%;"><span class="pill ${o.type}">${o.type}</span></span>
+              <span style="width:18%;color:#666;font-size:13px;font-weight:400;">${o.size} items</span>
+              <span style="width:20%;color:#666;font-size:13px;font-weight:500;text-align:left;">${o.status}</span>
+            </div>`).join('')}
+        </div>` : `
+        <p style="color:var(--muted);font-size:24px;font-weight:500;margin:0 0 20px;">${navTitle}</p>
+        <div class="empty-state">Nothing to show here yet.</div>`}
+      </div>
+
+      <div class="d-summary" id="storeSummary">
+        <div class="d-summary-head">
+          <h3>Orders Summary</h3>
+          <button class="icon-btn panel-toggle-btn" id="storeSummaryToggle" title="Toggle summary">${ICON.panelRight}</button>
+        </div>
+        <div class="stat-block">
+          <p class="big">64</p>
+          <div class="biglabel">Orders per<br>month</div>
+        </div>
+        <div class="stat"><span>Chilled order count</span><span>22</span></div>
+        <div class="stat"><span>Fresh order count</span><span>35</span></div>
+        <div class="stat"><span>Fragile order count</span><span>08</span></div>
       </div>
     </div>
   </div>`;
 }
 
 function attachStoreDashboard(){
-  document.querySelectorAll('.store-btn-action').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const id = btn.dataset.id;
-      const d = storeDeliveries.find(x=>x.id===id);
-      if(!d) return;
-      d.received = !d.received;
-      if(d.received){
-        btn.classList.add('done');
-        btn.textContent = 'Received & Verified ✓';
-        showToast(`Shipment ${d.id} successfully received & checked into inventory!`);
-      } else {
-        btn.classList.remove('done');
-        btn.textContent = 'Receive & Verify →';
-        showToast(`Shipment ${d.id} check-in reset`);
-      }
+  document.querySelectorAll('[data-snav]').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      storeActiveNav = el.dataset.snav;
+      render();
     });
   });
+
+  const sidebarToggle = document.getElementById('storeSidebarToggle');
+  const sidebar = document.getElementById('storeSidebar');
+  if(sidebarToggle && sidebar){
+    sidebarToggle.addEventListener('click', ()=>{
+      sidebar.classList.toggle('collapsed');
+    });
+  }
+
+  const summaryToggle = document.getElementById('storeSummaryToggle');
+  const summary = document.getElementById('storeSummary');
+  if(summaryToggle && summary){
+    summaryToggle.addEventListener('click', ()=>{
+      summary.classList.toggle('collapsed');
+    });
+  }
+
+  const headerLocked = document.querySelector('.store-shell .d-header-locked');
+  const orderRows = document.querySelector('.store-shell #orderRows');
+  if (headerLocked && orderRows) {
+    headerLocked.addEventListener('wheel', (e) => {
+      orderRows.scrollTop += e.deltaY;
+    }, { passive: true });
+  }
+
+  const openModalBtn = document.getElementById('openCreateOrderModal');
+  if(openModalBtn){
+    openModalBtn.addEventListener('click', ()=>{
+      let backdrop = document.getElementById('createOrderModalBackdrop');
+      if(!backdrop){
+        backdrop = document.createElement('div');
+        backdrop.id = 'createOrderModalBackdrop';
+        backdrop.className = 'sm-modal-backdrop';
+        backdrop.innerHTML = `
+          <div class="sm-modal">
+            <h3>Create New Order</h3>
+            <p>Store: Colombo 8 - Waypoint Fresh</p>
+            <label class="field-label">Category / Item</label>
+            <select id="modalItem">
+              <option value="Broccoli">Broccoli (Fresh Produce)</option>
+              <option value="Organic Apples">Organic Apples (Produce)</option>
+              <option value="Farm Fresh Milk">Farm Fresh Milk (Dairy)</option>
+              <option value="Greek Yogurt Pack">Greek Yogurt Pack (Chilled)</option>
+            </select>
+            <label class="field-label">Order Type / Temperature</label>
+            <select id="modalType">
+              <option value="Ambient">Ambient</option>
+              <option value="Chilled">Chilled</option>
+              <option value="Fresh">Fresh</option>
+              <option value="Fragile">Fragile</option>
+            </select>
+            <label class="field-label">Order Size (Units)</label>
+            <input type="number" id="modalSize" value="25" min="1" max="500" />
+            <div class="sm-modal-actions">
+              <button class="sm-modal-btn-cancel" id="cancelOrderModal">Cancel</button>
+              <button class="sm-modal-btn-submit" id="submitCreateOrder">Submit Order</button>
+            </div>
+          </div>`;
+        document.body.appendChild(backdrop);
+        document.getElementById('cancelOrderModal').addEventListener('click', ()=> backdrop.remove());
+        document.getElementById('submitCreateOrder').addEventListener('click', ()=>{
+          const type = document.getElementById('modalType').value;
+          const size = parseInt(document.getElementById('modalSize').value, 10) || 25;
+          const id = 'FRS-' + Math.random().toString(36).substring(2,6).toUpperCase();
+          const now = new Date();
+          const dateStr = now.getFullYear() + '/' + String(now.getMonth()+1).padStart(2,'0') + '/' + String(now.getDate()).padStart(2,'0') + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + (now.getHours()>=12?'pm':'am');
+          storeOrdersData.unshift({
+            id: id,
+            createdAt: dateStr,
+            type: type,
+            size: size,
+            status: 'Created'
+          });
+          backdrop.remove();
+          render();
+          showToast(`Order ${id} created successfully!`);
+        });
+      }
+    });
+  }
 }
 
 /* ================= DISPATCH: LIVE ORDERS LIST ================= */
