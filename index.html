@@ -1232,43 +1232,70 @@
   .trip-continue-btn:hover{background:#222;transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.22);}
 
   /* ============ PLANNING: LOAD ASSIGNING ============ */
+  .load-workspace{
+    flex:1;min-width:0;height:100%;display:flex;flex-direction:column;
+    box-sizing:border-box;overflow:hidden;
+  }
+  .load-top-header{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:14px;flex-shrink:0;padding:2px 4px 0;
+  }
+  .load-top-left{
+    display:flex;align-items:center;gap:12px;
+  }
+  .load-cluster-id{
+    font-size:16.5px;font-weight:700;color:#111;letter-spacing:-.1px;
+  }
   .load-assign-main-card{
-    flex:1;min-width:0;background:#fff;border:1px solid var(--border);
-    border-radius:22px;padding:22px 28px 20px;height:100%;
+    flex:1 1 auto;min-height:0;background:#fff;border:1px solid var(--border);
+    border-radius:22px;padding:26px 30px 24px;
     display:flex;flex-direction:column;box-sizing:border-box;overflow:hidden;
   }
   .load-title{
-    font-size:16px;font-weight:700;color:#111;margin:0 0 16px;
+    font-size:17.5px;font-weight:700;color:#111;margin:0 0 20px;letter-spacing:-.2px;
   }
   .loads-list{
-    flex:1 1 auto;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding-right:4px;
+    flex:1 1 auto;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding-right:4px;
   }
   .loads-list::-webkit-scrollbar{width:5px;}
   .loads-list::-webkit-scrollbar-thumb{background:#d4d4d4;border-radius:10px;}
   .load-row-card{
     display:flex;align-items:center;background:#fff;border:1px solid #e5e5ea;
-    border-radius:16px;padding:14px 24px;box-sizing:border-box;
-    transition:background-color .15s, border-color .15s, transform .15s, box-shadow .15s;
+    border-radius:18px;padding:16px 28px;box-sizing:border-box;
+    transition:background-color .18s ease, border-color .18s ease, transform .18s cubic-bezier(.2,.9,.3,1), box-shadow .18s ease;
     animation:rowIn .32s cubic-bezier(.22,.85,.32,1) both;
   }
   .load-row-card:hover{
-    background:#fafafa;border-color:#d1d1d6;transform:translateY(-1px);
-    box-shadow:0 4px 12px rgba(0,0,0,0.035);
+    background:#fafafa;border-color:#c7c7cc;transform:translateY(-2px);
+    box-shadow:0 6px 16px rgba(0,0,0,0.045);
   }
-  .load-col-id{width:18%;flex:0 0 18%;font-size:14px;font-weight:700;color:#111;}
-  .load-col-assignee{width:28%;flex:0 0 28%;font-size:14px;font-weight:600;color:#222;}
-  .load-col-type{width:18%;flex:0 0 18%;}
-  .load-col-orders{width:16%;flex:0 0 16%;font-size:13.5px;font-weight:500;color:#444;}
-  .load-col-status{flex:1;font-size:13.5px;font-weight:500;color:#444;}
-  .load-col-action{width:120px;flex:0 0 120px;text-align:right;}
+  .load-col-id{width:16%;flex:0 0 16%;font-size:14.5px;font-weight:700;color:#111;}
+  .load-col-assignee{width:26%;flex:0 0 26%;font-size:14px;font-weight:500;color:#222;}
+  .load-col-type{width:18%;flex:0 0 18%;display:flex;align-items:center;}
+  .load-pill-temp{
+    display:inline-flex;align-items:center;justify-content:center;
+    padding:4px 18px;border-radius:16px;font-size:12px;font-weight:600;
+  }
+  .load-pill-temp.ambient{
+    background:#d6eed9;color:#15803d;
+  }
+  .load-pill-temp.chilled{
+    background:#def0fa;color:#0284c7;
+  }
+  .load-col-orders{width:16%;flex:0 0 16%;font-size:13.5px;font-weight:500;color:#555;}
+  .load-col-status{flex:1;font-size:13.5px;font-weight:500;color:#777;}
+  .load-col-action{width:125px;flex:0 0 125px;text-align:right;display:flex;justify-content:flex-end;align-items:center;}
   .load-dispatch-btn{
-    background:#000;color:#fff;font-size:13px;font-weight:600;
-    border:none;border-radius:20px;padding:7px 18px;cursor:pointer;
+    background:#000;color:#fff;font-size:12.5px;font-weight:600;
+    border:none;border-radius:22px;padding:8px 22px;cursor:pointer;
     display:inline-flex;align-items:center;gap:6px;
-    transition:background-color .16s, transform .15s, box-shadow .16s;
+    transition:background-color .18s, transform .16s cubic-bezier(.2,.9,.3,1), box-shadow .18s;
   }
-  .load-dispatch-btn:hover{background:#222;transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.18);}
-  .load-dispatch-btn.dispatched{background:#166534;cursor:default;}
+  .load-dispatch-btn:hover{background:#222;transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.22);}
+  .load-dispatch-btn:active{transform:translateY(1px) scale(.96)!important;}
+  .load-dispatch-btn.dispatched{background:#166534;cursor:default;box-shadow:none;}
+  .load-dispatch-arrow{display:inline-flex;align-items:center;}
+  .load-dispatch-arrow svg{width:13px;height:13px;stroke-width:2.2;}
 
   /* ============ TABLET-STYLE (Loader) ============ */
   .device-tablet{
@@ -3104,11 +3131,11 @@ function dispatchLoadAssigningScreen(clusterId){
     </div>
     <div class="d-body">
       ${renderDispatchSidebar('planning')}
-      <div class="load-assign-main-card">
-        <div class="cluster-header-bar">
-          <div class="cluster-header-left">
+      <div class="load-workspace">
+        <div class="load-top-header">
+          <div class="load-top-left">
             <button class="cluster-back-arrow" id="loadAssignBackBtn" title="Back to Trip Assigning">${ICON.arrowLeft}</button>
-            <span class="cluster-title">${cid}</span>
+            <span class="load-cluster-id">${cid}</span>
           </div>
           <div class="d-filters" style="margin-bottom:0;">
             <span class="lbl">Filter by</span>
@@ -3117,25 +3144,28 @@ function dispatchLoadAssigningScreen(clusterId){
           </div>
         </div>
 
-        <h3 class="load-title">Loads</h3>
+        <div class="load-assign-main-card">
+          <h3 class="load-title">Loads</h3>
 
-        <div class="loads-list">
-          ${loadsData.map((l, idx) => `
-            <div class="load-row-card">
-              <span class="load-col-id">${l.id}</span>
-              <span class="load-col-assignee">Assignee : ${l.assignee}</span>
-              <span class="load-col-type"><span class="cluster-pill ${l.typeClass}">${l.type}</span></span>
-              <span class="load-col-orders">${l.orders}</span>
-              <span class="load-col-status">${l.status}</span>
-              <div class="load-col-action">
-                ${l.dispatchable ? `
-                  <button class="load-dispatch-btn ${l.status==='Dispatched'?'dispatched':''}" data-lidx="${idx}">
-                    ${l.status==='Dispatched' ? 'Dispatched' : `Dispatch ${ICON.arrowRight}`}
-                  </button>
-                ` : ''}
+          <div class="loads-list">
+            ${loadsData.map((l, idx) => `
+              <div class="load-row-card">
+                <span class="load-col-id">${l.id}</span>
+                <span class="load-col-assignee">Assignee : ${l.assignee}</span>
+                <span class="load-col-type"><span class="load-pill-temp ${l.typeClass}">${l.type}</span></span>
+                <span class="load-col-orders">${l.orders}</span>
+                <span class="load-col-status">${l.status}</span>
+                <div class="load-col-action">
+                  ${l.dispatchable ? `
+                    <button class="load-dispatch-btn ${l.status==='Dispatched'?'dispatched':''}" data-lidx="${idx}">
+                      <span>${l.status==='Dispatched' ? 'Dispatched' : 'Dispatch'}</span>
+                      ${l.status==='Dispatched' ? '' : `<span class="load-dispatch-arrow">${ICON.arrowRight}</span>`}
+                    </button>
+                  ` : ''}
+                </div>
               </div>
-            </div>
-          `).join('')}
+            `).join('')}
+          </div>
         </div>
       </div>
     </div>
