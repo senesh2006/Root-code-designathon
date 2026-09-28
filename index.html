@@ -1299,16 +1299,22 @@
 
   /* ============ TABLET-STYLE (Loader) ============ */
   .device-tablet{
-    display:none;max-width:834px;margin:0 auto;background:#fff;min-height:calc(100vh - 34px);
+    display:none;max-width:834px;margin:0 auto;background:#fff;
+    min-height:calc(100vh - 34px);
     border-left:1px solid var(--border);border-right:1px solid var(--border);
+    box-sizing:border-box;
   }
-  .device-tablet.active{display:block;}
-  .t-topbar{display:flex;align-items:center;justify-content:space-between;padding:24px 30px 6px;}
-  .t-topbar .brand{font-size:20px;}
-  .t-topbar .actions{display:flex;gap:20px;align-items:center;}
-  .t-backrow{padding:0 24px;}
+  .device-tablet.active{display:flex;flex-direction:column;}
+  .t-topbar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 32px 14px;background:#fff;border-bottom:1px solid #f0f0f2;
+    flex-shrink:0;
+  }
+  .t-topbar .brand{font-size:19px;letter-spacing:.2px;}
+  .t-topbar .actions{display:flex;gap:14px;align-items:center;}
+  .t-topbar .actions .icon-btn{width:32px;height:32px;}
   .t-title{text-align:center;color:var(--muted);font-size:24px;font-weight:500;margin:14px 0 28px;}
-  .t-list{padding:0 44px 30px;}
+  .t-list{padding:0 44px 30px;flex:1 1 auto;overflow-y:auto;}
   .t-row{
     display:flex;align-items:center;justify-content:space-between;gap:10px;
     background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);
@@ -1328,50 +1334,240 @@
   .t-head-row span:nth-child(3){flex:1.3;}
   .t-head-row span:last-child{text-align:right;flex:1;}
 
-  .load-summary{padding:0 38px;margin-top:6px;}
-  .load-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:border-radius:var(--radius-md);}
-  .load-head:hover{background:#f7f7f7;}
-  .load-head .lid{color:var(--muted);font-size:24px;font-weight:500;}
-  .load-grid{padding:0 14px 10px;}
-  .load-grid .row{display:flex;justify-content:space-between;padding:10px 0;font-size:14px;}
-  .load-grid .row .k{color:var(--muted);font-weight:500;}
-  .load-grid .row .v{font-weight:500;}
-  .order-pills{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
-  .order-pill{background:var(--chilled);border-radius:20px;font-size:12px;font-weight:500;padding:5px 12px;}
+  /* Loader Subheader (Back arrow + Title/Toggle) */
+  .loader-subbar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 34px 16px;flex-shrink:0;
+  }
+  .loader-subbar-left{
+    display:flex;align-items:center;gap:12px;
+  }
+  .loader-back-btn{
+    width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;
+    background:none;border:none;border-radius:50%;cursor:pointer;color:#111;padding:0;
+    transition:background-color .18s, transform .16s;
+  }
+  .loader-back-btn:hover{background:rgba(0,0,0,0.06);transform:translateX(-2px);}
+  .loader-back-btn:active{transform:scale(.88);}
+  .loader-order-title{
+    font-size:16.5px;font-weight:700;color:#111;letter-spacing:-.1px;
+  }
+  .loader-time-info{
+    font-size:12.5px;color:#777;
+  }
+  .loader-time-info .time-bold{
+    font-weight:700;color:#111;margin-right:2px;
+  }
 
-  .batch-list{padding:14px 30px 30px;}
-  .batch-row{
-    display:flex;align-items:center;gap:18px;background:var(--card);border:1px solid var(--border);
-    border-radius:var(--radius-lg);padding:22px 28px;margin-bottom:16px;cursor:pointer;
-    animation:rowIn .35s cubic-bezier(.22,.85,.32,1) both;
+  /* Load toggle dropdown */
+  .loader-load-toggle{
+    background:none;border:none;font-size:16.5px;font-weight:700;color:#111;
+    display:inline-flex;align-items:center;gap:6px;cursor:pointer;padding:4px 8px;border-radius:8px;
+    transition:background-color .18s;
   }
-  .batch-row:hover{background:#eceff0;transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.07);}
-  .batch-row:active{transform:translateY(0) scale(.995);box-shadow:none;}
-  .batch-row .num{color:rgba(0,0,0,.5);font-size:20px;font-weight:500;width:24px;flex:0 0 24px;}
-  .batch-row .oid{font-size:20px;font-weight:500;width:105px;flex:0 0 105px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .batch-row .name{font-size:20px;font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:10px;}
-  .batch-row .count{color:var(--muted);font-size:16px;font-weight:500;width:75px;flex:0 0 75px;text-align:right;}
+  .loader-load-toggle:hover{background:rgba(0,0,0,0.04);}
+  .loader-load-toggle .loader-chevron{
+    display:inline-flex;align-items:center;transition:transform .2s ease;
+  }
+  .loader-load-toggle .loader-chevron.collapsed{
+    transform:rotate(-90deg);
+  }
 
-  .checklist-head{display:flex;justify-content:space-between;align-items:baseline;padding:0 30px;margin-bottom:16px;gap:12px;}
-  .checklist-head .oid{color:var(--muted);font-size:24px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .checklist-head .win{font-size:16px;font-weight:500;flex:0 0 auto;white-space:nowrap;}
-  .checklist-head .win small{font-size:12px;color:rgba(0,0,0,.5);}
-  .item-row{
-    display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--border);
-    border-radius:var(--radius-lg);padding:22px 28px;margin:0 30px 16px;cursor:default;
-    animation:rowIn .35s cubic-bezier(.22,.85,.32,1) both;
+  /* Screen 1: Load Details Expanded Summary */
+  .loader-summary-card{
+    display:flex;justify-content:space-between;padding:0 34px;margin-bottom:20px;gap:36px;
+    flex-shrink:0;
   }
-  .item-row:hover{box-shadow:0 6px 14px rgba(0,0,0,.05);}
-  .item-row .iid{font-size:20px;font-weight:500;width:110px;flex:0 0 110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .item-row .iname{font-size:20px;font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:10px;}
-  .item-row .icount{color:var(--muted);font-size:24px;font-weight:500;width:70px;flex:0 0 70px;}
-  .check-box{
-    width:33px;height:31px;border:1px solid var(--border);border-radius:10px;cursor:pointer;
-    display:flex;align-items:center;justify-content:center;background:#fff;flex:0 0 33px;
+  .loader-summary-col{
+    flex:1;display:flex;flex-direction:column;
   }
-  .check-box:hover{border-color:#999;transform:scale(1.06);}
-  .check-box:active{transform:scale(.9);}
-  .check-box.checked{background:#000;border-color:#000;color:#fff;font-size:16px;animation:popIn .28s cubic-bezier(.34,1.4,.4,1);}
+  .loader-stat-group{
+    margin-bottom:14px;
+  }
+  .loader-stat-lbl{
+    font-size:12px;color:#777;font-weight:500;display:block;margin-bottom:3px;
+  }
+  .loader-stat-val{
+    font-size:14.5px;font-weight:600;color:#111;
+  }
+  .loader-stat-val .loader-bold-time{
+    font-weight:700;color:#111;margin-right:4px;
+  }
+  .loader-stat-val .loader-rem-time{
+    font-size:12px;font-weight:400;color:#777;
+  }
+  .loader-order-pills{
+    display:flex;gap:6px;flex-wrap:wrap;margin-top:2px;
+  }
+  .loader-oid-pill{
+    background:#def0fa;color:#0284c7;font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:12px;
+  }
+  .loader-bold-veh{
+    font-size:14px;font-weight:700;color:#111;letter-spacing:.2px;
+  }
+
+  /* Table head */
+  .loader-table-head{
+    display:flex;align-items:center;padding:0 56px;margin-bottom:8px;color:#8e8e93;
+    font-size:12.5px;font-weight:500;flex-shrink:0;
+  }
+  .lth-num{width:46px;flex:0 0 46px;}
+  .lth-id{width:115px;flex:0 0 115px;}
+  .lth-window{flex:1;min-width:0;}
+  .lth-type{width:95px;flex:0 0 95px;text-align:center;}
+  .lth-size{width:80px;flex:0 0 80px;text-align:right;}
+
+  /* Batch order list */
+  .loader-batch-list{
+    padding:0 34px;display:flex;flex-direction:column;gap:10px;
+    flex:1 1 auto;overflow-y:auto;
+  }
+  .loader-batch-list::-webkit-scrollbar{width:5px;}
+  .loader-batch-list::-webkit-scrollbar-thumb{background:#d4d4d4;border-radius:10px;}
+  .loader-order-card{
+    display:flex;align-items:center;background:#fff;border:1px solid #e5e5ea;
+    border-radius:18px;padding:14px 22px;cursor:pointer;
+    transition:background-color .18s ease, border-color .18s ease, transform .18s cubic-bezier(.2,.9,.3,1), box-shadow .18s ease;
+    animation:rowIn .32s cubic-bezier(.22,.85,.32,1) both;
+  }
+  .loader-order-card:hover{
+    background:#fafafa;border-color:#c7c7cc;transform:translateY(-2px);
+    box-shadow:0 6px 16px rgba(0,0,0,0.045);
+  }
+  .loader-order-card:active{transform:scale(.992) translateY(1px);}
+  .loc-num{width:46px;flex:0 0 46px;font-size:13.5px;font-weight:500;color:#555;}
+  .loc-id{width:115px;flex:0 0 115px;font-size:14px;font-weight:700;color:#111;}
+  .loc-name{flex:1;min-width:0;font-size:14px;font-weight:500;color:#222;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .loc-type{width:95px;flex:0 0 95px;display:flex;justify-content:center;}
+  .loc-size{width:80px;flex:0 0 80px;font-size:13px;font-weight:500;color:#555;text-align:right;}
+  .loc-radio{margin-left:18px;flex:0 0 22px;}
+
+  /* Tactile Radio for Loader */
+  .loader-radio{
+    width:22px;height:22px;border-radius:50%;border:2px solid #d1d1d6;
+    background:#fff;display:inline-flex;align-items:center;justify-content:center;
+    cursor:pointer;transition:all .18s cubic-bezier(.34,1.4,.4,1);
+    box-sizing:border-box;flex-shrink:0;position:relative;
+  }
+  .loader-radio:hover{border-color:#888;transform:scale(1.08);}
+  .loader-radio:active{transform:scale(.9);}
+  .loader-radio.checked{
+    border-color:#444;background:#fff;
+    animation:radioBounce 0.36s cubic-bezier(.34,1.5,.64,1);
+  }
+  .loader-radio.checked::after{
+    content:'';width:10px;height:10px;border-radius:50%;background:#444;
+    display:block;animation:innerDotPop 0.28s cubic-bezier(.34,1.5,.64,1);
+  }
+
+  /* Bottom actions */
+  .loader-actions-box{
+    padding:20px 34px 28px;display:flex;flex-direction:column;gap:10px;
+    flex-shrink:0;margin-top:auto;
+  }
+  .loader-btn-start{
+    background:#000;color:#fff;font-size:14px;font-weight:600;padding:13px 20px;
+    border-radius:24px;border:none;cursor:pointer;width:100%;text-align:center;
+    transition:background-color .18s, transform .16s cubic-bezier(.2,.9,.3,1), box-shadow .18s;
+  }
+  .loader-btn-start:hover{background:#222;transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,0.18);}
+  .loader-btn-start:active{transform:translateY(1px) scale(.98)!important;}
+  .loader-btn-finish{
+    background:#d5d5d8;color:#888;font-size:14px;font-weight:600;padding:13px 20px;
+    border-radius:24px;border:none;width:100%;text-align:center;cursor:not-allowed;
+    transition:all .18s ease;
+  }
+  .loader-btn-finish.active{
+    background:#166534;color:#fff;cursor:pointer;
+  }
+  .loader-btn-finish.active:hover{
+    background:#14532d;transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,0.18);
+  }
+
+  /* Screen 3: Checklist - Items List */
+  .loader-items-list{
+    padding:0 34px 14px;display:flex;flex-direction:column;gap:10px;
+    flex:1 1 auto;overflow-y:auto;
+  }
+  .loader-items-list::-webkit-scrollbar{width:5px;}
+  .loader-items-list::-webkit-scrollbar-thumb{background:#d4d4d4;border-radius:10px;}
+  .loader-item-card{
+    display:flex;align-items:center;background:#fff;border:1px solid #e5e5ea;
+    border-radius:18px;padding:13px 20px;
+    transition:background-color .18s ease, border-color .18s ease, transform .18s cubic-bezier(.2,.9,.3,1), box-shadow .18s ease;
+    animation:rowIn .32s cubic-bezier(.22,.85,.32,1) both;
+  }
+  .loader-item-card:hover{
+    background:#fafafa;border-color:#c7c7cc;
+  }
+  .loader-item-card.selected-report{
+    border-color:#b5b5ba;background:#fafbfc;
+  }
+  .lic-radio{margin-right:14px;flex:0 0 20px;}
+  .lic-id{width:110px;flex:0 0 110px;font-size:14px;font-weight:700;color:#111;}
+  .lic-name{flex:1;min-width:0;font-size:14px;font-weight:500;color:#222;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .lic-type{width:95px;flex:0 0 95px;display:flex;justify-content:center;}
+  .lic-qty{width:60px;flex:0 0 60px;font-size:14px;font-weight:600;color:#222;text-align:center;}
+  .lic-checkbox{
+    width:22px;height:22px;border:1.5px solid #d1d1d6;border-radius:6px;
+    background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    margin-left:14px;flex:0 0 22px;transition:all .15s ease;
+  }
+  .lic-checkbox:hover{border-color:#888;transform:scale(1.08);}
+  .lic-checkbox:active{transform:scale(.9);}
+  .lic-checkbox.checked{
+    background:#000;border-color:#000;color:#fff;
+    animation:popIn .25s cubic-bezier(.34,1.4,.4,1);
+  }
+  .lic-checkbox svg{width:14px;height:14px;stroke-width:2.5;}
+
+  /* Screen 3: Checklist - Report Drawer */
+  .loader-report-card{
+    margin:0 34px 28px;background:#eeeff1;border:1px solid #e0e1e5;
+    border-radius:20px;padding:18px 22px;box-sizing:border-box;
+    flex-shrink:0;animation:rowIn .35s cubic-bezier(.22,.85,.32,1) both;
+  }
+  .loader-report-head{
+    display:flex;align-items:center;gap:8px;margin-bottom:12px;
+  }
+  .loader-report-badge{
+    width:18px;height:18px;border-radius:50%;background:#111;color:#fff;
+    display:inline-flex;align-items:center;justify-content:center;
+    font-size:11px;font-weight:700;line-height:1;font-family:sans-serif;
+  }
+  .loader-report-title{
+    font-size:14px;font-weight:700;color:#111;
+  }
+  .loader-report-lbl{
+    font-size:12px;font-weight:600;color:#444;margin-bottom:6px;display:block;
+  }
+  .loader-report-textarea{
+    width:100%;min-height:68px;background:#fff;border:1px solid #dfdfdf;
+    border-radius:12px;padding:10px 14px;font-family:inherit;font-size:13px;
+    outline:none;box-sizing:border-box;resize:vertical;margin-bottom:14px;
+    transition:border-color .18s;
+  }
+  .loader-report-textarea:focus{border-color:#111;}
+  .loader-report-action-row{
+    display:flex;align-items:center;justify-content:space-between;gap:14px;
+  }
+  .loader-report-action-left{
+    display:flex;align-items:center;gap:10px;
+  }
+  .loader-report-action-lbl{
+    font-size:12.5px;font-weight:500;color:#444;
+  }
+  .loader-report-select{
+    background:#fff;border:1px solid #dfdfdf;border-radius:10px;padding:6px 14px;
+    font-size:12.5px;font-weight:500;color:#222;outline:none;cursor:pointer;
+  }
+  .loader-report-save-btn{
+    background:#111;color:#fff;border:none;border-radius:20px;
+    padding:8px 26px;font-size:13px;font-weight:600;cursor:pointer;
+    transition:background-color .18s, transform .16s;
+  }
+  .loader-report-save-btn:hover{background:#222;transform:translateY(-1px);}
+  .loader-report-save-btn:active{transform:scale(.96);}
 
   /* ============ PHONE-STYLE (Driver) ============ */
   .device-phone{
@@ -1492,8 +1688,8 @@ const dispatchOrders = [
 
 const loaderLoads = [
   {id:'LDS-2HG3', store:'Colombo 8 - Waypoint Fresh', window:'3:00am - 8:00am', type:'Fresh', size:25,
-    vehicle:'VEH-T&78D0JB', closeTime:'08:45am', closeRemaining:'3hrs 34min remaining',
-    orderIds:['FRS-2HG3','FRS-YUD6','FRS-WY5D'],
+    vehicle:'VEH-T&78DOJB', closeTime:'08:45am', closeRemaining:'3hrs 34min remaining',
+    orderIds:['FRS-2HG3','FRS-YUD6','FRS-WYED'],
     batch:[
       {id:'FRS-2HG3', name:'Something else', type:'Ambient', count:26},
       {id:'STY-2HG3', name:'Another something', type:'Ambient', count:26},
@@ -1539,6 +1735,11 @@ function driverItemsFor(orderId){
 
 /* checklist toggle state, keyed by scope+orderId+index */
 const checkState = {};
+const loaderState = {
+  collapsed: false,
+  selectedOrderIdx: 0,
+  selectedItemIdx: 0
+};
 
 /* ---------------------------------------------------------------
    ICONS
@@ -3192,6 +3393,14 @@ function attachDispatchLoadAssigning(clusterId){
       }
     });
   });
+
+  document.querySelectorAll('.load-row-card').forEach(card => {
+    card.addEventListener('click', (e)=>{
+      if(e.target.closest('.load-dispatch-btn')) return;
+      const lid = card.querySelector('.load-col-id')?.textContent?.trim() || 'LDS-2HG3';
+      nav({name:'loader-load', loadId: lid, role:'loader'});
+    });
+  });
 }
 
 /* ================= LOADER: ASSIGNED LOADS ================= */
@@ -3228,96 +3437,269 @@ function attachLoaderList(){
   });
 }
 
-/* ================= LOADER: LOAD DETAIL (batch) ================= */
+/* ================= LOADER: LOAD DETAIL (Expanded & Collapsed) ================= */
 function loaderLoadScreen(loadId){
   const l = loaderLoads.find(x=>x.id===loadId) || loaderLoads[0];
+  const isCollapsed = route.collapsed !== undefined ? route.collapsed : loaderState.collapsed;
+
+  // Check if all batch items are completed to activate finish loading
+  const batchChecked = l.batch.every(b => {
+    const scope = 'loader-'+l.id+'-'+b.id;
+    const items = loaderItemsFor(b.id);
+    return items.every((_, i) => !!checkState[scope+'-'+i]);
+  });
+
   return `
   <div class="device-tablet active">
     <div class="t-topbar">
       <div class="brand"><span class="wp-logo">WAYPOINT</span><span class="wp-role">&nbsp;LOADER</span></div>
       <div class="actions">
-        <button class="icon-btn">${ICON.search}</button>
-        <button class="icon-btn">${ICON.account}</button>
-        <button class="icon-btn">${ICON.menu}</button>
+        <button class="icon-btn" title="Account">${ICON.account}</button>
+        <button class="icon-btn" title="Menu">${ICON.menu}</button>
       </div>
     </div>
-    <div class="t-backrow"><button class="back-btn" id="backToLoads">${ICON.back}</button></div>
-    <div class="load-summary">
-      <div class="load-head">
-        <span class="lid">${l.id}</span>${ICON.chevronDown}
+
+    <div class="loader-subbar">
+      <button class="loader-back-btn" id="loaderBackBtn" title="Back">${ICON.arrowLeft}</button>
+      <button class="loader-load-toggle" id="loaderToggleBtn" title="Toggle summary">
+        <span>${l.id}</span>
+        <span class="loader-chevron ${isCollapsed ? 'collapsed' : ''}">${ICON.chevronDown}</span>
+      </button>
+    </div>
+
+    ${!isCollapsed ? `
+    <div class="loader-summary-card">
+      <div class="loader-summary-col">
+        <div class="loader-stat-group">
+          <span class="loader-stat-lbl">Order count</span>
+          <span class="loader-stat-val">${l.batch ? l.batch.length : l.orderIds.length}</span>
+        </div>
+        <div class="loader-stat-group" style="margin-bottom:0;">
+          <span class="loader-stat-lbl">Earliest Window Close Time</span>
+          <span class="loader-stat-val">
+            <span class="loader-bold-time">${l.closeTime}</span>
+            <span class="loader-rem-time">(${l.closeRemaining})</span>
+          </span>
+        </div>
       </div>
-      <div class="load-grid">
-        <div class="row"><span class="k">Order count</span><span class="v">${l.orderIds.length}</span></div>
-        <div class="row"><span class="k">Order IDs</span><span class="order-pills">${l.orderIds.map(id=>`<span class="order-pill">${id}</span>`).join('')}</span></div>
-        <div class="row"><span class="k">Earliest Window Close Time</span><span class="v">${l.closeTime} <span style="color:rgba(0,0,0,.5);font-weight:400;">(${l.closeRemaining})</span></span></div>
-        <div class="row"><span class="k">Vehicle ID</span><span class="v">${l.vehicle}</span></div>
+      <div class="loader-summary-col">
+        <div class="loader-stat-group">
+          <span class="loader-stat-lbl">Order IDs</span>
+          <div class="loader-order-pills">
+            ${l.orderIds.map(id=>`<span class="loader-oid-pill">${id}</span>`).join('')}
+          </div>
+        </div>
+        <div class="loader-stat-group" style="margin-bottom:0;">
+          <span class="loader-stat-lbl">Vehicle ID</span>
+          <span class="loader-stat-val loader-bold-veh">${l.vehicle}</span>
+        </div>
       </div>
     </div>
-    <div class="batch-list">
-      ${l.batch.map((b,i)=>`
-        <div class="batch-row" data-order="${b.id}-${i}">
-          <span class="num">${String(i+1).padStart(2,'0')}</span>
-          <span class="oid">${b.id}</span>
-          <span class="name">${b.name}</span>
-          <span class="pill ${b.type}">${b.type}</span>
-          <span class="count">${b.count} items</span>
-        </div>`).join('')}
+
+    <div class="loader-table-head">
+      <span class="lth-num">Order</span>
+      <span class="lth-id">Order ID</span>
+      <span class="lth-window">Window</span>
+      <span class="lth-type">Order Type</span>
+      <span class="lth-size">Order Size</span>
     </div>
+    ` : ''}
+
+    <div class="loader-batch-list">
+      ${l.batch.map((b, i) => `
+        <div class="loader-order-card" data-idx="${i}" data-order="${b.id}-${i}">
+          <span class="loc-num">${String(i+1).padStart(2,'0')}</span>
+          <span class="loc-id">${b.id}</span>
+          <span class="loc-name">${b.name}</span>
+          <span class="loc-type"><span class="pill ${b.type}">${b.type}</span></span>
+          <span class="loc-size">${b.count} items</span>
+          ${isCollapsed ? `
+            <span class="loader-radio loc-radio ${i === loaderState.selectedOrderIdx ? 'checked' : ''}" data-idx="${i}" title="Select order"></span>
+          ` : ''}
+        </div>
+      `).join('')}
+    </div>
+
+    ${!isCollapsed ? `
+    <div class="loader-actions-box">
+      <button class="loader-btn-start" id="startLoadingBtn">Start Loading</button>
+      <button class="loader-btn-finish ${batchChecked ? 'active' : ''}" id="finishLoadingBtn">Finish Loading</button>
+    </div>
+    ` : ''}
   </div>`;
 }
+
 function attachLoaderLoad(loadId){
-  document.getElementById('backToLoads').addEventListener('click', ()=> nav({name:'loader-list'}));
-  document.querySelectorAll('.batch-row').forEach(el=>{
-    el.addEventListener('click', ()=> nav({name:'loader-checklist', loadId, orderId:el.dataset.order}));
+  const l = loaderLoads.find(x=>x.id===loadId) || loaderLoads[0];
+  const isCollapsed = route.collapsed !== undefined ? route.collapsed : loaderState.collapsed;
+
+  const backBtn = document.getElementById('loaderBackBtn');
+  if(backBtn){
+    backBtn.addEventListener('click', ()=> nav({name:'loader-list', role:'loader'}));
+  }
+
+  const toggleBtn = document.getElementById('loaderToggleBtn');
+  if(toggleBtn){
+    toggleBtn.addEventListener('click', ()=>{
+      loaderState.collapsed = !loaderState.collapsed;
+      route.collapsed = loaderState.collapsed;
+      render();
+    });
+  }
+
+  // Row clicks
+  document.querySelectorAll('.loader-order-card').forEach(card => {
+    card.addEventListener('click', (e)=>{
+      const idx = parseInt(card.dataset.idx, 10);
+      loaderState.selectedOrderIdx = idx;
+      if(isCollapsed){
+        if(e.target.closest('.loader-radio')){
+          render();
+        } else {
+          const ord = l.batch[idx] || l.batch[0];
+          nav({name:'loader-checklist', loadId: l.id, orderId: ord.id, role:'loader'});
+        }
+      } else {
+        const ord = l.batch[idx] || l.batch[0];
+        nav({name:'loader-checklist', loadId: l.id, orderId: ord.id, role:'loader'});
+      }
+    });
   });
+
+  const startBtn = document.getElementById('startLoadingBtn');
+  if(startBtn){
+    startBtn.addEventListener('click', ()=>{
+      const selIdx = loaderState.selectedOrderIdx || 0;
+      const ord = l.batch[selIdx] || l.batch[0];
+      nav({name:'loader-checklist', loadId: l.id, orderId: ord.id, role:'loader'});
+    });
+  }
+
+  const finishBtn = document.getElementById('finishLoadingBtn');
+  if(finishBtn){
+    finishBtn.addEventListener('click', ()=>{
+      if(finishBtn.classList.contains('active')){
+        showToast('Loading completed for load ' + l.id + '! Vehicle ready for dispatch.');
+        nav({name:'loader-list', role:'loader'});
+      } else {
+        showToast('Please verify all items in the checklist before finishing loading.');
+      }
+    });
+  }
 }
 
-/* ================= LOADER: ITEM CHECKLIST ================= */
+/* ================= LOADER: ITEM CHECKLIST & REPORTING ================= */
 function loaderChecklistScreen(loadId, orderId){
   const l = loaderLoads.find(x=>x.id===loadId) || loaderLoads[0];
-  const orderLabel = orderId.split('-').slice(0,2).join('-');
-  const items = loaderItemsFor(orderId);
-  const scope = 'loader-'+loadId+'-'+orderId;
+  const orderLabel = orderId ? orderId.split('-').slice(0,2).join('-') : 'FRS-2HG3';
+  const items = loaderItemsFor(orderLabel);
+  const scope = 'loader-'+l.id+'-'+orderLabel;
+
   return `
   <div class="device-tablet active">
     <div class="t-topbar">
       <div class="brand"><span class="wp-logo">WAYPOINT</span><span class="wp-role">&nbsp;LOADER</span></div>
       <div class="actions">
-        <button class="icon-btn">${ICON.search}</button>
-        <button class="icon-btn">${ICON.account}</button>
-        <button class="icon-btn">${ICON.menu}</button>
+        <button class="icon-btn" title="Account">${ICON.account}</button>
+        <button class="icon-btn" title="Menu">${ICON.menu}</button>
       </div>
     </div>
-    <div class="t-backrow"><button class="back-btn" id="backToLoad">${ICON.back}</button></div>
-    <div class="checklist-head">
-      <span class="oid">${orderLabel}</span>
-      <span class="win">08:45am <small>(3hrs 34min remaining)</small></span>
+
+    <div class="loader-subbar">
+      <div class="loader-subbar-left">
+        <button class="loader-back-btn" id="loaderChecklistBackBtn" title="Back to Load">${ICON.arrowLeft}</button>
+        <span class="loader-order-title">${orderLabel}</span>
+      </div>
+      <div class="loader-time-info">
+        <span class="time-bold">${l.closeTime || '08:45am'}</span>
+        <span>(${l.closeRemaining || '3hrs 34min remaining'})</span>
+      </div>
     </div>
-    <div style="padding-bottom:30px;">
-      ${items.map((it,i)=>{
+
+    <div class="loader-items-list" id="loaderItemsList">
+      ${items.map((it, i) => {
         const key = scope+'-'+i;
         const checked = !!checkState[key];
+        const isSelected = i === loaderState.selectedItemIdx;
         return `
-        <div class="item-row">
-          <span class="iid">${it.id}</span>
-          <span class="iname">${it.name}</span>
-          <span class="pill Ambient">Ambient</span>
-          <span class="icount">X ${it.count}</span>
-          <span class="check-box ${checked?'checked':''}" data-key="${key}">${checked?ICON.check:''}</span>
+        <div class="loader-item-card ${isSelected ? 'selected-report' : ''}" data-itemidx="${i}">
+          <span class="loader-radio lic-radio ${isSelected ? 'checked' : ''}" data-itemidx="${i}" title="Select for reporting"></span>
+          <span class="lic-id">${it.id}</span>
+          <span class="lic-name">${it.name}</span>
+          <span class="lic-type"><span class="pill Ambient">Ambient</span></span>
+          <span class="lic-qty">X ${it.count}</span>
+          <span class="lic-checkbox ${checked ? 'checked' : ''}" data-key="${key}" title="Toggle verified">
+            ${checked ? ICON.check : ''}
+          </span>
         </div>`;
       }).join('')}
     </div>
+
+    <div class="loader-report-card">
+      <div class="loader-report-head">
+        <span class="loader-report-badge">!</span>
+        <span class="loader-report-title">Report</span>
+      </div>
+      <label class="loader-report-lbl" for="loaderReportMsg">Message</label>
+      <textarea id="loaderReportMsg" class="loader-report-textarea" placeholder=""></textarea>
+      <div class="loader-report-action-row">
+        <div class="loader-report-action-left">
+          <span class="loader-report-action-lbl">Action</span>
+          <select id="loaderReportAction" class="loader-report-select">
+            <option value="deffer">Deffer Item/s</option>
+            <option value="damage">Damaged Item/s</option>
+            <option value="missing">Missing Item/s</option>
+          </select>
+        </div>
+        <button class="loader-report-save-btn" id="loaderReportSaveBtn">Save</button>
+      </div>
+    </div>
   </div>`;
 }
+
 function attachLoaderChecklist(loadId, orderId){
-  document.getElementById('backToLoad').addEventListener('click', ()=> nav({name:'loader-load', loadId}));
-  document.querySelectorAll('.check-box').forEach(el=>{
-    el.addEventListener('click', ()=>{
-      const k = el.dataset.key;
+  const l = loaderLoads.find(x=>x.id===loadId) || loaderLoads[0];
+  const orderLabel = orderId ? orderId.split('-').slice(0,2).join('-') : 'FRS-2HG3';
+  const scope = 'loader-'+l.id+'-'+orderLabel;
+
+  const backBtn = document.getElementById('loaderChecklistBackBtn');
+  if(backBtn){
+    backBtn.addEventListener('click', ()=> nav({name:'loader-load', loadId: l.id, role:'loader'}));
+  }
+
+  // Radio button / item selection for reporting
+  document.querySelectorAll('#loaderItemsList .loader-item-card').forEach(card => {
+    card.addEventListener('click', (e)=>{
+      if(e.target.closest('.lic-checkbox')) return;
+      const idx = parseInt(card.dataset.itemidx, 10);
+      loaderState.selectedItemIdx = idx;
+      render();
+    });
+  });
+
+  // Checkbox toggle
+  document.querySelectorAll('#loaderItemsList .lic-checkbox').forEach(cb => {
+    cb.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      const k = cb.dataset.key;
       checkState[k] = !checkState[k];
       render();
     });
   });
+
+  // Save report
+  const saveBtn = document.getElementById('loaderReportSaveBtn');
+  if(saveBtn){
+    saveBtn.addEventListener('click', ()=>{
+      const msg = document.getElementById('loaderReportMsg').value;
+      const act = document.getElementById('loaderReportAction').value;
+      const actText = act === 'deffer' ? 'Deffered' : act === 'damage' ? 'Damaged' : 'Missing';
+      const items = loaderItemsFor(orderLabel);
+      const curItem = items[loaderState.selectedItemIdx] || items[0];
+      showToast(`Report saved: ${actText} logged for ${curItem.id}`);
+      document.getElementById('loaderReportMsg').value = '';
+    });
+  }
 }
 
 /* ================= DRIVER: DELIVERIES LIST ================= */
@@ -3460,7 +3842,7 @@ function createRipple(e, el){
 }
 
 document.addEventListener('pointerdown', (e) => {
-  const target = e.target.closest('button, .icon-btn, .back-btn, .cluster-back-arrow, .staging-btn-stage, .staging-btn-deffer, .trip-save-btn, .trip-continue-btn, .trip-confirm-btn, .trip-order-chip, .trip-mini-pill, .staging-check-circle, .check-box, .pill, .cluster-pill, .d-row, .cluster-row, .staging-order-card, .trip-order-card, .load-row-card, .v-row, .t-row, .batch-row, .stop-card, .staging-assign-rail, .d-select, .signin-btn, .sm-signin-btn, .store-create-btn, .d-assign-btn, .load-dispatch-btn, .trip-add-order-box');
+  const target = e.target.closest('button, .icon-btn, .back-btn, .cluster-back-arrow, .staging-btn-stage, .staging-btn-deffer, .trip-save-btn, .trip-continue-btn, .trip-confirm-btn, .trip-order-chip, .trip-mini-pill, .staging-check-circle, .check-box, .pill, .cluster-pill, .d-row, .cluster-row, .staging-order-card, .trip-order-card, .load-row-card, .v-row, .t-row, .batch-row, .stop-card, .staging-assign-rail, .d-select, .signin-btn, .sm-signin-btn, .store-create-btn, .d-assign-btn, .load-dispatch-btn, .trip-add-order-box, .loader-back-btn, .loader-load-toggle, .loader-order-card, .loader-btn-start, .loader-btn-finish, .loader-item-card, .lic-checkbox, .loader-report-save-btn, .loader-radio');
   if(!target) return;
   createRipple(e, target);
 });
@@ -3473,8 +3855,14 @@ try {
   const routeParam = urlParams.get('route') || (window.location.hash ? window.location.hash.replace('#','') : null);
   if(routeParam === 'dispatch-staging'){
     route = {name:'dispatch-staging', clusterId: urlParams.get('clusterId') || 'CLS-BF785', role:'dispatch'};
+  } else if(routeParam === 'loader-load'){
+    const isCol = urlParams.get('collapsed') === 'true';
+    loaderState.collapsed = isCol;
+    route = {name:'loader-load', loadId: urlParams.get('loadId') || 'LDS-2HG3', role:'loader', collapsed: isCol};
+  } else if(routeParam === 'loader-checklist'){
+    route = {name:'loader-checklist', loadId: urlParams.get('loadId') || 'LDS-2HG3', orderId: urlParams.get('orderId') || 'FRS-2HG3', role:'loader'};
   } else if(routeParam){
-    route = {name: routeParam, role: urlParams.get('role') || 'dispatch', clusterId: urlParams.get('clusterId') || 'CLS-BF785'};
+    route = {name: routeParam, role: urlParams.get('role') || 'dispatch', clusterId: urlParams.get('clusterId') || 'CLS-BF785', loadId: urlParams.get('loadId') || 'LDS-2HG3', orderId: urlParams.get('orderId') || 'FRS-2HG3'};
   }
 } catch(e){}
 render();
