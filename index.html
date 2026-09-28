@@ -866,145 +866,232 @@
   .trip-left-card .staging-card-right{width:auto;flex:0 0 auto;}
 
   /* ============ PLANNING: TRIP ASSIGNING ============ */
-  .trip-split-body{
-    flex:1 1 auto;min-height:0;display:flex;gap:18px;width:100%;
-    padding:6px 24px 20px;align-items:stretch;box-sizing:border-box;overflow:hidden;
+  .trip-workspace{
+    flex:1;min-width:0;height:100%;display:flex;flex-direction:column;
+    box-sizing:border-box;overflow:hidden;
+  }
+  .trip-top-header{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:14px;flex-shrink:0;padding:2px 4px 0;
+  }
+  .trip-top-left{
+    display:flex;align-items:center;gap:12px;
+  }
+  .trip-cluster-id{
+    font-size:16.5px;font-weight:700;color:#111;letter-spacing:-.1px;
+  }
+  .trip-two-cards-row{
+    flex:1 1 auto;min-height:0;display:flex;gap:16px;width:100%;
+    align-items:stretch;overflow:hidden;
   }
   .trip-left-card{
-    flex:1;min-width:0;background:#fff;border:1px solid var(--border);
-    border-radius:22px;padding:22px 24px 18px;height:100%;
+    width:44.5%;flex:0 0 44.5%;min-width:0;background:#fff;border:1px solid var(--border);
+    border-radius:22px;padding:24px 22px 0;height:100%;
     display:flex;flex-direction:column;box-sizing:border-box;overflow:hidden;
   }
   .trip-right-card{
-    flex:1.15;min-width:0;background:#fff;border:1px solid var(--border);
-    border-radius:22px;padding:22px 26px 18px;height:100%;
+    flex:1;min-width:0;background:#fff;border:1px solid var(--border);
+    border-radius:22px;padding:24px 26px 16px;height:100%;
     display:flex;flex-direction:column;box-sizing:border-box;overflow:hidden;
   }
+
+  /* Left card order list */
+  .trip-orders-scroll{
+    flex:1 1 auto;min-height:0;overflow-y:auto;padding-right:4px;
+    display:flex;flex-direction:column;gap:12px;
+  }
+  .trip-orders-scroll::-webkit-scrollbar{width:5px;}
+  .trip-orders-scroll::-webkit-scrollbar-thumb{background:#d4d4d4;border-radius:10px;}
+  .trip-order-card{
+    display:flex;align-items:flex-start;background:#fff;border:1px solid #e5e5ea;
+    border-radius:18px;padding:14px 18px;cursor:pointer;
+    transition:background-color .15s, border-color .15s, box-shadow .15s;
+    animation:rowIn .32s cubic-bezier(.22,.85,.32,1) both;
+  }
+  .trip-order-card:hover{
+    background:#fafafa;border-color:#d1d1d6;box-shadow:0 4px 12px rgba(0,0,0,0.035);
+  }
+  .trip-order-card.selected{
+    border-color:#d1d1d6;background:#fff;
+  }
+  .trip-order-card .staging-check-circle{
+    margin-top:2px;
+  }
+  .trip-card-info{
+    flex:1;min-width:0;padding:0 12px 0 14px;
+  }
+  .trip-order-card .staging-store{
+    white-space:normal;overflow:visible;line-height:1.35;margin-top:2px;
+  }
+  .trip-metrics-line{
+    display:flex;gap:20px;font-size:12.5px;font-weight:500;color:#333;margin-top:6px;
+  }
+  .trip-card-right{
+    display:flex;flex-direction:column;justify-content:space-between;
+    align-items:flex-end;min-height:76px;text-align:right;flex-shrink:0;
+  }
+
+  /* Right card vehicle list */
   .trip-right-head{
-    display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;
+    display:flex;align-items:center;margin-bottom:14px;flex-shrink:0;
   }
-  .trip-right-head h3{
-    font-size:17px;font-weight:700;color:#111;margin:0;
+  .trip-right-title{
+    font-size:17.5px;font-weight:700;color:#111;margin-right:auto;
   }
-  .trip-right-stats{
-    display:flex;gap:18px;font-size:13px;color:#777;font-weight:500;
+  .trip-right-stat{
+    font-size:13px;font-weight:500;color:#777;margin-left:20px;
   }
   .trip-scroll-list{
     flex:1 1 auto;min-height:0;overflow-y:auto;padding-right:4px;
-    display:flex;flex-direction:column;gap:14px;
+    display:flex;flex-direction:column;gap:12px;
   }
   .trip-scroll-list::-webkit-scrollbar{width:5px;}
   .trip-scroll-list::-webkit-scrollbar-thumb{background:#d4d4d4;border-radius:10px;}
   .trip-box-card{
-    background:#fff;border:1px solid #e5e5ea;border-radius:16px;
-    padding:16px 20px 18px;box-sizing:border-box;
+    background:#fff;border:1px solid #e5e5ea;border-radius:18px;
+    padding:13px 18px 14px;box-sizing:border-box;
     transition:box-shadow .15s ease, border-color .15s ease;
   }
   .trip-box-card:hover{
     box-shadow:0 4px 14px rgba(0,0,0,0.03);border-color:#d1d1d6;
   }
   .trip-box-header{
-    display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;
+    display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;
   }
   .trip-box-title-group{
     display:flex;align-items:center;gap:10px;
   }
+  .trip-truck-icon{
+    display:inline-flex;align-items:center;
+  }
   .trip-veh-id{
-    font-size:14px;font-weight:700;color:#111;
+    font-size:14.5px;font-weight:700;color:#111;
   }
   .trip-reefer-pill{
-    background:#e0f2fe;color:#0369a1;font-size:11.5px;font-weight:600;
-    padding:3px 10px;border-radius:12px;
+    background:#def0fa;color:#0284c7;font-size:12px;font-weight:500;
+    padding:3px 12px;border-radius:14px;
+  }
+  .trip-capacity-group{
+    display:flex;align-items:center;gap:8px;
   }
   .trip-capacity-txt{
-    font-size:12px;color:#666;font-weight:500;
+    font-size:12.5px;color:#666;font-weight:500;
   }
+  .trip-edit-icon{
+    display:inline-flex;align-items:center;cursor:pointer;color:#666;
+    transition:color .15s;
+  }
+  .trip-edit-icon:hover{color:#111;}
   .trip-subhead-row{
     display:flex;justify-content:space-between;align-items:center;
-    font-size:13px;color:#333;font-weight:600;margin-bottom:12px;
+    margin-bottom:10px;
+  }
+  .trip-bold-title{
+    font-size:13.5px;font-weight:700;color:#111;
+  }
+  .trip-sub-cluster{
+    font-size:13px;font-weight:500;color:#666;margin-left:8px;
   }
   .trip-stops-badge{
-    font-size:12px;color:#777;font-weight:500;
+    font-size:12.5px;color:#666;font-weight:500;
   }
   .trip-chips-row{
-    display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:16px;
+    display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px;
   }
   .trip-order-chip{
     display:inline-flex;align-items:center;gap:6px;
     background:#ede9fe;color:#6d28d9;border-radius:20px;
-    padding:4px 12px 4px 14px;font-size:12.5px;font-weight:600;
+    padding:4px 12px;font-size:12.5px;font-weight:600;
   }
   .trip-order-chip.chip-plain{
-    background:#ede9fe;color:#6d28d9;padding:5px 14px;
+    background:#ede9fe;color:#6d28d9;padding:4px 12px;
   }
   .trip-chip-remove{
     background:none;border:none;padding:0;cursor:pointer;
-    font-size:13px;color:#6d28d9;line-height:1;display:inline-flex;
-    align-items:center;justify-content:center;width:16px;height:16px;
-    border-radius:50%;transition:background-color .15s;
+    font-size:12px;color:#6d28d9;line-height:1;display:inline-flex;
+    align-items:center;justify-content:center;width:15px;height:15px;
+    border-radius:50%;margin-left:2px;transition:background-color .15s;
   }
   .trip-chip-remove:hover{
-    background:rgba(109,40,217,0.15);
+    background:rgba(109,40,217,0.18);
   }
   .trip-chip-placeholder{
-    display:inline-flex;width:70px;height:26px;border-radius:20px;
-    background:#f1f3f5;border:1px dashed #d1d5db;
+    display:inline-flex;width:75px;height:25px;border-radius:16px;
+    background:#fafafa;border:1.5px dashed #ccc;box-sizing:border-box;
   }
   .trip-add-order-label{
-    font-size:12.5px;font-weight:600;color:#444;margin-bottom:8px;
+    font-size:12px;font-weight:600;color:#333;margin-bottom:4px;
   }
-  .trip-filters-chip-row{
-    display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px;
+  .trip-add-order-box{
+    background:#fff;border:1px solid #dfdfdf;border-radius:14px;
+    padding:4px 12px;display:flex;align-items:center;justify-content:space-between;
+    gap:8px;box-sizing:border-box;cursor:pointer;min-height:36px;
+    transition:border-color .15s ease;
   }
-  .trip-filter-pill{
-    background:#f4f4f5;border:1px solid #e4e4e7;border-radius:16px;
-    padding:5px 12px;font-size:12px;color:#3f3f46;font-weight:500;cursor:pointer;
-    transition:all .15s ease;user-select:none;
+  .trip-add-order-box:hover{border-color:#b5b5b5;}
+  .trip-add-order-placeholder{
+    font-size:12.5px;color:#777;font-weight:500;flex-shrink:0;
   }
-  .trip-filter-pill:hover{
-    background:#e4e4e7;color:#18181b;
+  .trip-add-pills{
+    display:flex;align-items:center;gap:6px;flex-wrap:nowrap;
   }
-  .trip-filter-pill.active{
-    background:#18181b;color:#fff;border-color:#18181b;
+  .trip-mini-pill{
+    display:inline-flex;align-items:center;justify-content:center;
+    padding:3px 9px;border-radius:12px;font-size:11.5px;font-weight:500;
+    white-space:nowrap;cursor:pointer;transition:transform .15s, opacity .15s;
+  }
+  .trip-mini-pill:hover{opacity:.85;transform:scale(1.02);}
+  .trip-mini-pill.chilled{background:#def0fa;color:#0284c7;}
+  .trip-mini-pill.beige{background:#f4efe6;color:#444;}
+  .trip-mini-pill.ambient{background:#d6eed9;color:#15803d;}
+  .trip-mini-pill.textile{background:#f2e8f5;color:#7c3aed;}
+  .trip-add-chevron{
+    display:inline-flex;align-items:center;color:#777;flex-shrink:0;
   }
   .trip-confirm-row{
-    display:flex;justify-content:flex-end;margin-top:4px;
+    display:flex;justify-content:flex-end;margin-top:8px;
   }
   .trip-confirm-btn{
-    background:#000;color:#fff;font-size:13px;font-weight:600;
-    border:none;border-radius:20px;padding:8px 24px;cursor:pointer;
+    background:#000;color:#fff;font-size:12.5px;font-weight:600;
+    border:none;border-radius:20px;padding:7px 28px;cursor:pointer;
     transition:background-color .16s, transform .15s;
   }
   .trip-confirm-btn:hover{background:#222;transform:translateY(-1px);}
 
-  /* Utilization Progress Bars */
+  /* Progress group */
   .trip-progress-group{
-    display:flex;flex-direction:column;gap:10px;margin-top:6px;
+    display:flex;flex-direction:column;gap:10px;margin-top:8px;
+  }
+  .trip-prog-item{
+    display:flex;flex-direction:column;gap:4px;
   }
   .trip-prog-labels{
-    display:flex;justify-content:space-between;font-size:12px;color:#444;font-weight:500;margin-bottom:4px;
+    display:flex;justify-content:space-between;font-size:12px;color:#444;font-weight:500;
   }
-  .trip-prog-labels .prog-k{font-weight:600;color:#111;}
-  .trip-prog-labels .prog-mid{font-weight:600;color:#111;}
-  .trip-prog-labels .prog-rem{color:#666;}
+  .trip-prog-labels .prog-k{font-weight:700;color:#111;margin-right:10px;}
+  .trip-prog-labels .prog-left{font-weight:500;color:#333;}
+  .trip-prog-labels .prog-rem{color:#777;}
   .trip-bar-track{
     width:100%;height:5px;background:#e5e5ea;border-radius:3px;overflow:hidden;
   }
   .trip-bar-fill{
     height:100%;background:#111;border-radius:3px;transition:width .35s ease;
   }
-  .trip-actions-row{
-    display:flex;justify-content:flex-end;gap:12px;margin-top:14px;
+
+  /* Trip bottom buttons */
+  .trip-bottom-bar{
+    display:flex;justify-content:flex-end;gap:14px;padding-top:10px;margin-top:auto;
+    flex-shrink:0;
   }
   .trip-save-btn{
-    background:#e2e2e8;color:#222;font-size:13.5px;font-weight:600;
-    border:none;border-radius:20px;padding:8px 26px;cursor:pointer;
+    background:#d5d5d8;color:#222;font-size:13.5px;font-weight:600;
+    border:none;border-radius:24px;padding:10px 42px;cursor:pointer;
     transition:background-color .16s, transform .15s;
   }
-  .trip-save-btn:hover{background:#d4d4dc;transform:translateY(-1px);}
+  .trip-save-btn:hover{background:#c8c8cc;transform:translateY(-1px);}
   .trip-continue-btn{
     background:#000;color:#fff;font-size:13.5px;font-weight:600;
-    border:none;border-radius:20px;padding:8px 30px;cursor:pointer;
+    border:none;border-radius:24px;padding:10px 42px;cursor:pointer;
     transition:background-color .16s, transform .15s, box-shadow .16s;
   }
   .trip-continue-btn:hover{background:#222;transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.18);}
@@ -1315,6 +1402,8 @@ const ICON = {
   navTracker:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>`,
   navdot:(active)=>`<span class="dot"></span>`,
   check:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  truck:`<svg width="22" height="18" viewBox="0 0 24 20" fill="none" stroke="#222" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="2" width="14" height="13" rx="1"/><path d="M15 7h4l3 4v4h-7V7z"/><circle cx="5.5" cy="16.5" r="2"/><circle cx="18.5" cy="16.5" r="2"/></svg>`,
+  editSquare:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`,
 };
 
 /* ---------------------------------------------------------------
@@ -2532,26 +2621,28 @@ let tripVehiclesData = [
   {
     id: 'VEH-Y78S5',
     type: 'Reefer',
-    capacity: '7.2 m³ / 1,450 kg',
-    tripTitle: 'TRIP 01 CLS-BF785',
-    stops: '2 stops',
-    assignedOrders: ['FRS-3TX7', 'FRS-1STY'],
+    capacity: '7.2m³ / 1,450kg',
+    tripTitle: 'TRIP 01',
+    clusterText: 'CLS-BF785',
+    stops: '3 stops',
+    assignedOrders: ['FRS-3TX7', 'FRS-Y6TY'],
     filterOptions: ['Chilled', 'Van only', 'Ambient', 'Textile'],
     selectedFilter: 'Chilled'
   },
   {
-    id: 'VEH-Y78S6',
+    id: 'VEH-Y78S5',
     type: 'Reefer',
-    capacity: '12 m³ / 1,450 kg',
-    tripTitle: 'TRIP 01 CLS-BF785 - LDS-2HG3',
+    capacity: '7.2m³ / 1,450kg',
+    tripTitle: 'TRIP 01',
+    clusterText: 'CLS-BF785 → LDS-2HG3',
     stops: '3 stops',
-    assignedOrders: ['FRS-YXT7', 'FRS-1M1Y', 'FRS-1KTT'],
-    volumeText: '4.5 / 7.2 m³ 71%',
-    volumeRemaining: '2.7 m³ Remaining',
+    assignedOrders: ['FRS-Y6TY', 'FRS-Y6TY', 'FRS-Y6TY'],
+    volumeText: '4.5 / 7.2 m³  71%',
+    volumeRemaining: '3.7 m³ Remaining',
     volumePct: 71,
-    weightText: '950 / 1,450 kg 66%',
-    weightRemaining: '500 kg Remaining',
-    weightPct: 66
+    weightText: '950 / 1,450 kg  55%',
+    weightRemaining: '500kg Remaining',
+    weightPct: 55
   }
 ];
 
@@ -2580,151 +2671,157 @@ function dispatchTripAssigningScreen(clusterId){
     </div>
     <div class="d-body">
       ${renderDispatchSidebar('planning')}
-      <div class="trip-split-body" style="padding:0;width:100%;height:100%;">
-        <!-- Left: Stage Orders -->
-        <div class="trip-left-card">
-          <div class="cluster-header-bar" style="margin-bottom:12px;">
-            <div class="cluster-header-left">
-              <button class="cluster-back-arrow" id="tripBackBtn" title="Back to Staging">${ICON.arrowLeft}</button>
-              <span class="cluster-title">${cluster.id}</span>
-            </div>
-            <div class="d-filters" style="margin-bottom:0;">
-              <span class="lbl">Filter by</span>
-              <div class="d-select"><span>Temperature</span>${ICON.chevronDown}</div>
-              <div class="d-select"><span>Status</span>${ICON.chevronDown}</div>
-            </div>
+      <div class="trip-workspace">
+        <div class="trip-top-header">
+          <div class="trip-top-left">
+            <button class="cluster-back-arrow" id="tripBackBtn" title="Back to Staging">${ICON.arrowLeft}</button>
+            <span class="trip-cluster-id">${cluster.id}</span>
           </div>
-
-          <div class="staging-subhead" style="padding-bottom:10px;">
-            <span class="staging-subhead-title">Stage Orders</span>
-            <label class="staging-select-all" id="tripSelectAll">
-              <span class="staging-check-circle ${allSelected?'checked':''}" id="tripSelectAllCircle"></span>
-              <span>Select all</span>
-            </label>
-            <span class="staging-selected-count" id="tripSelectedCount">${selectedCount} Selected</span>
-          </div>
-
-          <div class="cluster-list-scroll" id="tripOrdersList">
-            ${stagingOrdersData.map((o, idx) => `
-              <div class="staging-order-card ${o.selected ? 'selected' : ''}" data-idx="${idx}">
-                <span class="staging-check-circle ${o.selected ? 'checked' : ''}"></span>
-                <div class="staging-card-info">
-                  <div class="staging-oid">${o.id}</div>
-                  <div class="staging-store">${o.store}</div>
-                  <div class="staging-since">${o.since}</div>
-                </div>
-                <div class="staging-card-metrics">
-                  <span>${o.volume}</span>
-                  <span>${o.weight}</span>
-                </div>
-                <div class="staging-card-right">
-                  <div class="staging-card-pills">
-                    <span class="staging-pill-temp ${o.typeClass}">${o.type}</span>
-                    <span class="staging-pill-constraint">${o.constraint}</span>
-                  </div>
-                  <div class="staging-card-time">${o.time}</div>
-                </div>
-              </div>
-            `).join('')}
-          </div>
-
-          <div class="staging-bottom-bar" style="padding-top:12px;">
-            <button class="staging-btn-deffer" id="tripDefferBtn">Deffer</button>
-            <button class="staging-btn-stage" id="tripStageBtn">Stage</button>
+          <div class="d-filters" style="margin-bottom:0;">
+            <span class="lbl">Filter by</span>
+            <div class="d-select"><span>Temperature</span>${ICON.chevronDown}</div>
+            <div class="d-select"><span>Status</span>${ICON.chevronDown}</div>
           </div>
         </div>
 
-        <!-- Right: Load/Vehicle Assigning -->
-        <div class="trip-right-card">
-          <div class="trip-right-head">
-            <h3>Load/Vehicle Assigning</h3>
-            <div class="trip-right-stats">
-              <span>11 Staged Orders</span>
-              <span>76 Available Vehicles</span>
+        <div class="trip-two-cards-row">
+          <!-- Left: Stage Orders -->
+          <div class="trip-left-card">
+            <div class="staging-subhead">
+              <span class="staging-subhead-title">Stage Orders</span>
+              <label class="staging-select-all" id="tripSelectAll">
+                <span class="staging-check-circle ${allSelected?'checked':''}" id="tripSelectAllCircle"></span>
+                <span>Select all</span>
+              </label>
+              <span class="staging-selected-count" id="tripSelectedCount">${selectedCount} Selected</span>
+            </div>
+
+            <div class="trip-orders-scroll" id="tripOrdersList">
+              ${stagingOrdersData.map((o, idx) => `
+                <div class="trip-order-card ${o.selected ? 'selected' : ''}" data-idx="${idx}">
+                  <span class="staging-check-circle ${o.selected ? 'checked' : ''}"></span>
+                  <div class="trip-card-info">
+                    <div class="staging-oid">${o.id}</div>
+                    <div class="staging-store">${o.store}</div>
+                    <div class="staging-since">${o.since}</div>
+                    <div class="trip-metrics-line">
+                      <span>${o.volume}</span>
+                      <span>${o.weight}</span>
+                    </div>
+                  </div>
+                  <div class="trip-card-right">
+                    <div class="staging-card-pills">
+                      <span class="staging-pill-temp ${o.typeClass}">${o.type}</span>
+                      <span class="staging-pill-constraint">${o.constraint}</span>
+                    </div>
+                    <div class="staging-card-time">${o.time}</div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+
+            <div class="staging-bottom-divider"></div>
+            <div class="staging-bottom-bar" style="margin-left:0;justify-content:center;">
+              <button class="staging-btn-deffer" id="tripDefferBtn">Deffer</button>
+              <button class="staging-btn-stage" id="tripStageBtn">Stage</button>
             </div>
           </div>
 
-          <div class="trip-scroll-list">
-            <!-- Box 1 -->
-            <div class="trip-box-card">
-              <div class="trip-box-header">
-                <div class="trip-box-title-group">
-                  ${ICON.navFleet}
-                  <span class="trip-veh-id">${v1.id}</span>
-                  <span class="trip-reefer-pill">${v1.type}</span>
+          <!-- Right: Load/Vehicle Assigning -->
+          <div class="trip-right-card">
+            <div class="trip-right-head">
+              <span class="trip-right-title">Load/Vehicle Assigning</span>
+              <span class="trip-right-stat">11 Staged Orders</span>
+              <span class="trip-right-stat">76 Available Vehicles</span>
+            </div>
+
+            <div class="trip-scroll-list">
+              <!-- Box 1 -->
+              <div class="trip-box-card">
+                <div class="trip-box-header">
+                  <div class="trip-box-title-group">
+                    <span class="trip-truck-icon">${ICON.truck}</span>
+                    <span class="trip-veh-id">${v1.id}</span>
+                    <span class="trip-reefer-pill">${v1.type}</span>
+                  </div>
+                  <span class="trip-capacity-txt">Capacity ${v1.capacity}</span>
                 </div>
-                <span class="trip-capacity-txt">Capacity ${v1.capacity}</span>
-              </div>
-              <div class="trip-subhead-row">
-                <span>${v1.tripTitle}</span>
-                <span class="trip-stops-badge">${v1.stops}</span>
-              </div>
-              <div class="trip-chips-row" id="v1ChipsRow">
-                ${v1.assignedOrders.map((ord, oidx) => `
-                  <span class="trip-order-chip">${ord} <button class="trip-chip-remove" data-vidx="0" data-oidx="${oidx}">✕</button></span>
-                `).join('')}
-                <span class="trip-chip-placeholder"></span>
+                <div class="trip-subhead-row">
+                  <div><span class="trip-bold-title">${v1.tripTitle}</span> <span class="trip-sub-cluster">${v1.clusterText}</span></div>
+                  <span class="trip-stops-badge">${v1.stops}</span>
+                </div>
+                <div class="trip-chips-row" id="v1ChipsRow">
+                  ${v1.assignedOrders.map((ord, oidx) => `
+                    <span class="trip-order-chip">${ord} <button class="trip-chip-remove" data-oidx="${oidx}">✕</button></span>
+                  `).join('')}
+                  <span class="trip-chip-placeholder"></span>
+                </div>
+
+                <div class="trip-add-order-label">Add Order</div>
+                <div class="trip-add-order-box" id="v1AddOrderBox">
+                  <span class="trip-add-order-placeholder">Select Order</span>
+                  <div class="trip-add-pills">
+                    <span class="trip-mini-pill chilled" data-pill="Chilled">Chilled</span>
+                    <span class="trip-mini-pill beige" data-pill="Van only">Van only</span>
+                    <span class="trip-mini-pill ambient" data-pill="Ambient">Ambient</span>
+                    <span class="trip-mini-pill textile" data-pill="Textile">Textile</span>
+                  </div>
+                  <span class="trip-add-chevron">${ICON.chevronDown}</span>
+                </div>
+                <div class="trip-confirm-row">
+                  <button class="trip-confirm-btn" id="v1ConfirmBtn">Confirm</button>
+                </div>
               </div>
 
-              <div class="trip-add-order-label">Add Order</div>
-              <div class="trip-filters-chip-row">
-                <span class="trip-filter-pill" style="font-weight:600;display:inline-flex;align-items:center;gap:4px;">Select Order ${ICON.chevronDown}</span>
-                ${v1.filterOptions.map(f => `
-                  <span class="trip-filter-pill ${f===v1.selectedFilter?'active':''}" data-filter="${f}">${f}</span>
-                `).join('')}
-              </div>
-              <div class="trip-confirm-row">
-                <button class="trip-confirm-btn" id="v1ConfirmBtn">Confirm</button>
+              <!-- Box 2 -->
+              <div class="trip-box-card">
+                <div class="trip-box-header">
+                  <div class="trip-box-title-group">
+                    <span class="trip-truck-icon">${ICON.truck}</span>
+                    <span class="trip-veh-id">${v2.id}</span>
+                    <span class="trip-reefer-pill">${v2.type}</span>
+                  </div>
+                  <div class="trip-capacity-group">
+                    <span class="trip-capacity-txt">Capacity ${v2.capacity}</span>
+                    <span class="trip-edit-icon" id="v2EditIcon" title="Edit Vehicle">${ICON.editSquare}</span>
+                  </div>
+                </div>
+                <div class="trip-subhead-row">
+                  <div><span class="trip-bold-title">${v2.tripTitle}</span> <span class="trip-sub-cluster">${v2.clusterText}</span></div>
+                  <span class="trip-stops-badge">${v2.stops}</span>
+                </div>
+                <div class="trip-chips-row">
+                  ${v2.assignedOrders.map(ord => `
+                    <span class="trip-order-chip chip-plain">${ord}</span>
+                  `).join('')}
+                </div>
+
+                <div class="trip-progress-group">
+                  <div class="trip-prog-item">
+                    <div class="trip-prog-labels">
+                      <span class="prog-left"><span class="prog-k">Volume</span>&nbsp;&nbsp;${v2.volumeText}</span>
+                      <span class="prog-rem">${v2.volumeRemaining}</span>
+                    </div>
+                    <div class="trip-bar-track">
+                      <div class="trip-bar-fill" style="width:${v2.volumePct}%;"></div>
+                    </div>
+                  </div>
+                  <div class="trip-prog-item">
+                    <div class="trip-prog-labels">
+                      <span class="prog-left"><span class="prog-k">Weight</span>&nbsp;&nbsp;${v2.weightText}</span>
+                      <span class="prog-rem">${v2.weightRemaining}</span>
+                    </div>
+                    <div class="trip-bar-track">
+                      <div class="trip-bar-fill" style="width:${v2.weightPct}%;"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <!-- Box 2 -->
-            <div class="trip-box-card">
-              <div class="trip-box-header">
-                <div class="trip-box-title-group">
-                  ${ICON.navFleet}
-                  <span class="trip-veh-id">${v2.id}</span>
-                  <span class="trip-reefer-pill">${v2.type}</span>
-                </div>
-                <span class="trip-capacity-txt">Capacity ${v2.capacity}</span>
-              </div>
-              <div class="trip-subhead-row">
-                <span>${v2.tripTitle}</span>
-                <span class="trip-stops-badge">${v2.stops}</span>
-              </div>
-              <div class="trip-chips-row">
-                ${v2.assignedOrders.map(ord => `
-                  <span class="trip-order-chip chip-plain">${ord}</span>
-                `).join('')}
-              </div>
-
-              <div class="trip-progress-group">
-                <div>
-                  <div class="trip-prog-labels">
-                    <span class="prog-k">Volume</span>
-                    <span class="prog-mid">${v2.volumeText}</span>
-                    <span class="prog-rem">${v2.volumeRemaining}</span>
-                  </div>
-                  <div class="trip-bar-track">
-                    <div class="trip-bar-fill" style="width:${v2.volumePct}%;"></div>
-                  </div>
-                </div>
-                <div>
-                  <div class="trip-prog-labels">
-                    <span class="prog-k">Weight</span>
-                    <span class="prog-mid">${v2.weightText}</span>
-                    <span class="prog-rem">${v2.weightRemaining}</span>
-                  </div>
-                  <div class="trip-bar-track">
-                    <div class="trip-bar-fill" style="width:${v2.weightPct}%;"></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="trip-actions-row">
-                <button class="trip-save-btn" id="tripSaveBtn">Save</button>
-                <button class="trip-continue-btn" id="tripContinueBtn">Continue</button>
-              </div>
+            <div class="trip-bottom-bar">
+              <button class="trip-save-btn" id="tripSaveBtn">Save</button>
+              <button class="trip-continue-btn" id="tripContinueBtn">Continue</button>
             </div>
           </div>
         </div>
@@ -2743,7 +2840,7 @@ function attachDispatchTripAssigning(clusterId){
   }
 
   function updateTripUI(){
-    const cards = document.querySelectorAll('#tripOrdersList .staging-order-card');
+    const cards = document.querySelectorAll('#tripOrdersList .trip-order-card');
     cards.forEach(card => {
       const idx = parseInt(card.dataset.idx, 10);
       const isSel = !!stagingOrdersData[idx].selected;
@@ -2760,7 +2857,7 @@ function attachDispatchTripAssigning(clusterId){
     if(selectAllCircle) selectAllCircle.classList.toggle('checked', allSelected);
   }
 
-  document.querySelectorAll('#tripOrdersList .staging-order-card').forEach(card => {
+  document.querySelectorAll('#tripOrdersList .trip-order-card').forEach(card => {
     card.addEventListener('click', ()=>{
       const idx = parseInt(card.dataset.idx, 10);
       stagingOrdersData[idx].selected = !stagingOrdersData[idx].selected;
@@ -2778,14 +2875,6 @@ function attachDispatchTripAssigning(clusterId){
     });
   }
 
-  // Filter chips in card 1
-  document.querySelectorAll('.trip-filter-pill[data-filter]').forEach(p => {
-    p.addEventListener('click', ()=>{
-      tripVehiclesData[0].selectedFilter = p.dataset.filter;
-      document.querySelectorAll('.trip-filter-pill[data-filter]').forEach(f => f.classList.toggle('active', f.dataset.filter === p.dataset.filter));
-    });
-  });
-
   // Remove chips in card 1
   document.querySelectorAll('.trip-chip-remove').forEach(btn => {
     btn.addEventListener('click', (e)=>{
@@ -2793,6 +2882,14 @@ function attachDispatchTripAssigning(clusterId){
       const oidx = parseInt(btn.dataset.oidx, 10);
       tripVehiclesData[0].assignedOrders.splice(oidx, 1);
       render();
+    });
+  });
+
+  // Filter mini-pills in card 1
+  document.querySelectorAll('.trip-mini-pill').forEach(pill => {
+    pill.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      showToast(`Filter selected: ${pill.dataset.pill}`);
     });
   });
 
@@ -2806,8 +2903,15 @@ function attachDispatchTripAssigning(clusterId){
         showToast(`Order ${newId} confirmed for Trip 01`);
         render();
       } else {
-        showToast('All matching staged orders already assigned');
+        showToast('Order already assigned');
       }
+    });
+  }
+
+  const v2Edit = document.getElementById('v2EditIcon');
+  if(v2Edit){
+    v2Edit.addEventListener('click', ()=>{
+      showToast('Edit Vehicle details');
     });
   }
 
