@@ -606,6 +606,141 @@
   .sm-modal-btn-cancel{background:none;border:none;font-size:14px;color:#666;font-weight:500;padding:10px 16px;cursor:pointer;}
   .sm-modal-btn-submit{background:#000;color:#fff;border:none;border-radius:999px;font-size:14px;font-weight:600;padding:10px 24px;cursor:pointer;}
 
+  /* ============ STORE MANAGER ORDER DETAILS ============ */
+  .d-sidebar-rail{
+    width:56px;flex:0 0 56px;background:#fff;border:1px solid var(--border);
+    border-radius:22px;padding:20px 10px;
+    height:100%;display:flex;flex-direction:column;align-items:center;gap:14px;
+    box-sizing:border-box;transition:all .2s ease;
+  }
+  .d-rail-item{
+    width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+    border-radius:10px;cursor:pointer;color:#555;position:relative;
+    transition:background-color .18s, color .18s, transform .16s;
+  }
+  .d-rail-item:hover{background:#f0f0f2;color:#000;transform:scale(1.08);}
+  .d-rail-item.active{color:#000;background:#eaebee;font-weight:700;}
+  .d-rail-badge{
+    position:absolute;top:4px;right:4px;width:7px;height:7px;
+    border-radius:50%;background:#e53935;
+  }
+  .store-detail-main{
+    flex:1;min-width:0;background:#fff;border:1px solid var(--border);
+    border-radius:22px;padding:26px 32px 24px;
+    height:100%;display:flex;flex-direction:column;
+    box-sizing:border-box;overflow:hidden;
+  }
+  .store-detail-head{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:20px;flex-shrink:0;
+  }
+  .store-detail-left{
+    display:flex;align-items:center;gap:14px;
+  }
+  .store-detail-oid{
+    font-size:18px;font-weight:700;color:#111;letter-spacing:-.2px;
+  }
+  .store-detail-status{
+    font-size:13px;font-weight:500;color:#777;
+  }
+  .store-detail-table-head{
+    display:flex;align-items:center;padding:0 20px;margin-bottom:12px;
+    color:#8e8e93;font-size:13px;font-weight:500;flex-shrink:0;
+  }
+  .store-detail-items-list{
+    flex:1 1 auto;min-height:0;overflow-y:auto;display:flex;flex-direction:column;
+    gap:10px;padding-right:4px;
+  }
+  .store-detail-items-list::-webkit-scrollbar{width:5px;}
+  .store-detail-items-list::-webkit-scrollbar-thumb{background:#d4d4d4;border-radius:10px;}
+  .store-detail-item-row{
+    display:flex;align-items:center;background:#fff;border:1px solid #e6e6ec;
+    border-radius:16px;padding:14px 20px;box-sizing:border-box;
+    transition:background-color .16s ease, border-color .16s ease, transform .16s ease, box-shadow .16s ease;
+    animation:rowIn .32s cubic-bezier(.22,.85,.32,1) both;
+  }
+  .store-detail-item-row:hover{
+    background:#fafafa;border-color:#c7c7cc;transform:translateY(-1px);
+    box-shadow:0 4px 14px rgba(0,0,0,0.04);
+  }
+  .sdir-id{width:20%;flex:0 0 20%;font-size:14px;font-weight:700;color:#111;}
+  .sdir-name{width:36%;flex:0 0 36%;font-size:14px;font-weight:500;color:#222;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .sdir-type{width:24%;flex:0 0 24%;display:flex;align-items:center;}
+  .sdir-count{width:20%;flex:0 0 20%;text-align:right;font-size:14px;font-weight:600;color:#222;}
+
+  .store-detail-bottom{
+    margin-top:auto;padding-top:18px;display:flex;align-items:center;flex-shrink:0;
+  }
+  .store-report-pill-btn{
+    display:inline-flex;align-items:center;gap:8px;background:#fff;
+    border:1px solid #d4d4d4;border-radius:20px;padding:7px 18px;
+    font-size:13px;font-weight:600;color:#222;cursor:pointer;
+    transition:all .18s ease;box-shadow:0 1px 4px rgba(0,0,0,0.04);
+  }
+  .store-report-pill-btn:hover{
+    background:#f7f7f8;border-color:#999;transform:translateY(-1px);
+    box-shadow:0 3px 8px rgba(0,0,0,0.08);
+  }
+  .store-report-pill-btn:active{transform:scale(.96);}
+  .store-report-pill-btn .report-badge-dot{
+    width:16px;height:16px;border-radius:50%;background:#111;color:#fff;
+    display:inline-flex;align-items:center;justify-content:center;
+    font-size:10px;font-weight:700;font-family:sans-serif;line-height:1;
+  }
+
+  .store-detail-summary{
+    display:flex;flex-direction:column;
+  }
+  .store-stat-split-row{
+    display:flex;justify-content:space-between;align-items:flex-start;
+    margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid #f0f0f2;
+  }
+  .stat-block-left{display:flex;align-items:baseline;gap:8px;}
+  .stat-block-left .big{font-size:42px;font-weight:700;margin:0;line-height:1;color:#000;}
+  .stat-block-left .biglabel{color:#666;font-size:11px;font-weight:500;line-height:1.2;}
+  .stat-block-right{text-align:right;}
+  .stat-time-val{font-size:16px;font-weight:700;color:#111;letter-spacing:.3px;}
+  .stat-time-lbl{font-size:11px;color:#888;margin-top:2px;}
+
+  .store-spec-list{
+    display:flex;flex-direction:column;gap:12px;margin-bottom:20px;
+  }
+  .store-spec-list .stat{
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:13px;color:#666;font-weight:500;
+  }
+  .store-spec-list .stat .val-bold{
+    color:#111;font-weight:600;
+  }
+
+  .store-stepper-track{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-top:auto;padding-top:20px;border-top:1px solid #f0f0f2;
+    position:relative;width:100%;
+  }
+  .stepper-step{
+    display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:2;
+  }
+  .stepper-dot{
+    width:10px;height:10px;border-radius:50%;background:#e0e0e0;border:2px solid #fff;
+    transition:all .2s ease;box-shadow:0 0 0 1px #d0d0d0;
+  }
+  .stepper-step.completed .stepper-dot{
+    background:#000;box-shadow:0 0 0 1px #000;
+  }
+  .stepper-line{
+    flex:1;height:2px;background:#e5e5e5;margin:0 4px -16px 4px;position:relative;top:-8px;z-index:1;
+  }
+  .stepper-step.completed + .stepper-line{
+    background:#000;
+  }
+  .stepper-label{
+    font-size:10px;color:#888;font-weight:500;white-space:nowrap;
+  }
+  .stepper-step.completed .stepper-label{
+    color:#000;font-weight:600;
+  }
+
   /* ============ VEHICLE CATALOGUE ============ */
   .v-main-card{
     flex:1;min-width:0;background:#fff;border:1px solid var(--border);
@@ -1797,6 +1932,7 @@ function render(){
   if(route.name==='login'){ app.innerHTML = loginScreen(route.role); return; }
   if(route.name==='store-login'){ app.innerHTML = storeLoginScreen(); attachStoreLogin(); return; }
   if(route.name==='store-dashboard'){ app.innerHTML = storeDashboardScreen(); attachStoreDashboard(); return; }
+  if(route.name==='store-order-detail'){ app.innerHTML = storeOrderDetailScreen(route.orderId); attachStoreOrderDetail(route.orderId); return; }
   if(route.name==='dispatch-list'){ app.innerHTML = dispatchListScreen(route.nav||'live'); attachDispatchList(); return; }
   if(route.name==='dispatch-order'){ app.innerHTML = dispatchOrderScreen(route.uid); attachDispatchOrder(); return; }
   if(route.name==='dispatch-vehicles'){ app.innerHTML = dispatchVehiclesScreen(route.vid); attachDispatchVehicles(); return; }
@@ -1929,16 +2065,16 @@ function attachStoreLogin(){
 let storeActiveNav = 'live';
 
 const storeOrdersData = [
-  {id:'FRS-2HG3', createdAt:'2026/09/22 02:00pm', type:'Ambient', size:25, status:'Created'},
-  {id:'FRS-2HG3', createdAt:'2026/09/22 02:00pm', type:'Ambient', size:25, status:'Created'},
-  {id:'FRS-2HG3', createdAt:'2026/09/22 02:00pm', type:'Ambient', size:25, status:'Created'},
-  {id:'FRS-2HG3', createdAt:'2026/09/22 02:00pm', type:'Ambient', size:25, status:'Created'},
-  {id:'FRS-4KP8', createdAt:'2026/09/22 01:15pm', type:'Chilled', size:18, status:'Created'},
-  {id:'FRS-7MN2', createdAt:'2026/09/22 11:30am', type:'Ambient', size:32, status:'Created'},
-  {id:'FRS-9QR5', createdAt:'2026/09/22 10:45am', type:'Chilled', size:14, status:'Created'},
-  {id:'FRS-3TX7', createdAt:'2026/09/22 09:20am', type:'Ambient', size:27, status:'Created'},
-  {id:'FRS-6BC4', createdAt:'2026/09/22 08:50am', type:'Chilled', size:21, status:'Created'},
-  {id:'FRS-8LD1', createdAt:'2026/09/22 08:15am', type:'Ambient', size:36, status:'Created'},
+  {id:'FRS-2HG3', createdAt:'2026/09/22 02:00pm', type:'Ambient', size:26, status:'Created', units:22, remaining:'04:45:32'},
+  {id:'FRS-2HG3', createdAt:'2026/09/22 02:00pm', type:'Ambient', size:26, status:'Created', units:22, remaining:'04:45:32'},
+  {id:'FRS-2HG3', createdAt:'2026/09/22 02:00pm', type:'Ambient', size:26, status:'Created', units:22, remaining:'04:45:32'},
+  {id:'FRS-2HG3', createdAt:'2026/09/22 02:00pm', type:'Ambient', size:26, status:'Created', units:22, remaining:'04:45:32'},
+  {id:'FRS-4KP8', createdAt:'2026/09/22 01:15pm', type:'Chilled', size:18, status:'Created', units:18, remaining:'05:10:00'},
+  {id:'FRS-7MN2', createdAt:'2026/09/22 11:30am', type:'Ambient', size:32, status:'Created', units:32, remaining:'06:40:00'},
+  {id:'FRS-9QR5', createdAt:'2026/09/22 10:45am', type:'Chilled', size:14, status:'Created', units:14, remaining:'07:15:00'},
+  {id:'FRS-3TX7', createdAt:'2026/09/22 09:20am', type:'Ambient', size:27, status:'Created', units:27, remaining:'08:00:00'},
+  {id:'FRS-6BC4', createdAt:'2026/09/22 08:50am', type:'Chilled', size:21, status:'Created', units:21, remaining:'08:30:00'},
+  {id:'FRS-8LD1', createdAt:'2026/09/22 08:15am', type:'Ambient', size:36, status:'Created', units:36, remaining:'09:05:00'},
 ];
 
 function storeDashboardScreen(){
@@ -1960,8 +2096,8 @@ function storeDashboardScreen(){
       </div>
       <div class="actions">
         <button class="store-create-btn" id="openCreateOrderModal">Create Order</button>
-        <button class="icon-btn">${ICON.search}</button>
-        <button class="icon-btn">${ICON.account}</button>
+        <button class="icon-btn" title="Search">${ICON.search}</button>
+        <button class="icon-btn" title="Account">${ICON.account}</button>
       </div>
     </div>
 
@@ -2007,7 +2143,7 @@ function storeDashboardScreen(){
         </div>
         <div id="orderRows">
           ${storeOrdersData.map((o, idx)=>`
-            <div class="d-row store-order-row" data-idx="${idx}">
+            <div class="d-row store-order-row" data-idx="${idx}" data-oid="${o.id}">
               <span style="width:16%;font-size:14px;font-weight:700;color:#111;">${o.id}</span>
               <span style="width:28%;font-size:14px;font-weight:500;color:#111;">${o.createdAt}</span>
               <span style="width:18%;"><span class="pill ${o.type}">${o.type}</span></span>
@@ -2045,6 +2181,13 @@ function attachStoreDashboard(){
         storeActiveNav = el.dataset.snav;
         render();
       }
+    });
+  });
+
+  document.querySelectorAll('.store-order-row').forEach(row => {
+    row.addEventListener('click', ()=>{
+      const oid = row.dataset.oid || 'FRS-2HG3';
+      nav({name:'store-order-detail', orderId: oid, role:'store-manager'});
     });
   });
 
@@ -2118,11 +2261,275 @@ function attachStoreDashboard(){
             createdAt: dateStr,
             type: type,
             size: size,
-            status: 'Created'
+            status: 'Created',
+            units: size,
+            remaining: '05:00:00'
           });
           backdrop.remove();
           render();
           showToast(`Order ${id} created successfully!`);
+        });
+      }
+    });
+  }
+}
+
+/* ================= STORE MANAGER: ORDER DETAILS ================= */
+function openStoreReportModal(orderId){
+  let backdrop = document.getElementById('storeReportModalBackdrop');
+  if(!backdrop){
+    backdrop = document.createElement('div');
+    backdrop.id = 'storeReportModalBackdrop';
+    backdrop.className = 'sm-modal-backdrop';
+    backdrop.innerHTML = `
+      <div class="sm-modal">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+          <span class="report-badge-dot" style="width:20px;height:20px;font-size:12px;display:inline-flex;align-items:center;justify-content:center;background:#111;color:#fff;border-radius:50%;font-weight:700;">!</span>
+          <h3 style="margin:0;">Report Issue · ${orderId}</h3>
+        </div>
+        <p>Log an issue or request deferral for this store order</p>
+        <label class="field-label">Message</label>
+        <textarea id="storeReportMessage" style="width:100%;min-height:76px;background:#f5f5f5;border:1px solid #ddd;border-radius:10px;padding:10px 14px;font-size:13px;font-family:inherit;margin-bottom:14px;outline:none;box-sizing:border-box;resize:vertical;" placeholder="Describe the issue..."></textarea>
+        <label class="field-label">Action</label>
+        <select id="storeReportAction" style="width:100%;background:#f5f5f5;border:1px solid #ddd;border-radius:10px;padding:10px 14px;font-size:14px;font-family:inherit;margin-bottom:20px;outline:none;">
+          <option value="deffer">Deffer Item/s</option>
+          <option value="damage">Damaged Item/s</option>
+          <option value="missing">Missing Item/s</option>
+        </select>
+        <div class="sm-modal-actions">
+          <button class="sm-modal-btn-cancel" id="cancelStoreReportModal">Cancel</button>
+          <button class="sm-modal-btn-submit" id="submitStoreReport">Submit Report</button>
+        </div>
+      </div>`;
+    document.body.appendChild(backdrop);
+    document.getElementById('cancelStoreReportModal').addEventListener('click', ()=> backdrop.remove());
+    document.getElementById('submitStoreReport').addEventListener('click', ()=>{
+      const act = document.getElementById('storeReportAction').value;
+      const actText = act === 'deffer' ? 'Deffered' : act === 'damage' ? 'Damaged' : 'Missing';
+      backdrop.remove();
+      showToast(`Report submitted: ${actText} logged for ${orderId}`);
+    });
+  }
+}
+
+function storeOrderDetailScreen(orderId){
+  const oid = orderId || 'FRS-2HG3';
+  const o = storeOrdersData.find(x=>x.id===oid) || storeOrdersData[0];
+  const items = [
+    {id:'ITM-2HG3', name:'Broccoli', type:'Ambient', count:26},
+    {id:'ITM-2HG3', name:'Something else', type:'Ambient', count:26},
+    {id:'ITM-2HG3', name:'Broccoli', type:'Ambient', count:26},
+    {id:'ITM-2HG3', name:'Something else', type:'Ambient', count:26},
+  ];
+
+  return `
+  <div class="store-shell active">
+    <div class="store-topbar">
+      <div style="display:flex;align-items:center;">
+        <div class="brand"><span class="wp-logo">WAYPOINT</span><span class="wp-role">&nbsp;STORE</span></div>
+        <div class="store-top-center">
+          <span class="store-title">Colombo 8 - Waypoint Fresh</span>
+          <span class="pill Fresh">Fresh</span>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="store-create-btn" id="storeDetailCreateOrder">Create Order</button>
+        <button class="icon-btn" title="Search">${ICON.search}</button>
+        <button class="icon-btn" title="Account">${ICON.account}</button>
+      </div>
+    </div>
+
+    <div class="store-body">
+      <!-- Slim icon rail matching the screenshot -->
+      <div class="d-sidebar-rail" id="storeRail">
+        <button class="icon-btn panel-toggle-btn" id="storeRailToggle" title="Back to Full Navigation">${ICON.panelLeft}</button>
+        <div class="d-rail-item active" data-snav="live" title="Live Orders">${ICON.circleStar}</div>
+        <div class="d-rail-item" data-snav="deferred" title="Deffered Orders">${ICON.circleStar}<span class="d-rail-badge"></span></div>
+        <div class="d-rail-item" data-snav="history" title="Order History">${ICON.circleStar}</div>
+        <div class="d-rail-item" data-snav="items" title="Items" style="margin-top:14px;">${ICON.circleStar}</div>
+        <div class="d-rail-item" data-snav="vehicles" title="Vehicles">${ICON.circleStar}</div>
+      </div>
+
+      <!-- Main Order Details Card -->
+      <div class="store-detail-main">
+        <div class="store-detail-head">
+          <div class="store-detail-left">
+            <button class="cluster-back-arrow" id="storeOrderBackBtn" title="Back to orders">${ICON.arrowLeft}</button>
+            <span class="store-detail-oid">${oid}</span>
+          </div>
+          <span class="store-detail-status">${o.status}</span>
+        </div>
+
+        <div class="store-detail-table-head">
+          <span style="width:20%;">Item ID</span>
+          <span style="width:36%;">Item Name</span>
+          <span style="width:24%;">Order Type</span>
+          <span style="width:20%;text-align:right;">Item count</span>
+        </div>
+
+        <div class="store-detail-items-list" id="storeOrderItemsList">
+          ${items.map(it=>`
+            <div class="store-detail-item-row">
+              <span class="sdir-id">${it.id}</span>
+              <span class="sdir-name">${it.name}</span>
+              <span class="sdir-type"><span class="pill ${it.type}">${it.type}</span></span>
+              <span class="sdir-count">X ${it.count}</span>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="store-detail-bottom">
+          <button class="store-report-pill-btn" id="storeReportBtn">
+            <span class="report-badge-dot">!</span>
+            <span>Report</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Summary Panel -->
+      <div class="d-summary store-detail-summary" id="storeOrderDetailSummary">
+        <div class="d-summary-head">
+          <h3>Order Details</h3>
+          <button class="icon-btn panel-toggle-btn" id="storeOrderSummaryToggle" title="Toggle summary">${ICON.panelRight}</button>
+        </div>
+
+        <div class="store-stat-split-row">
+          <div class="stat-block-left">
+            <p class="big">${o.units || '22'}</p>
+            <div class="biglabel">Total<br>Units</div>
+          </div>
+          <div class="stat-block-right">
+            <div class="stat-time-val">${o.remaining || '04:45:32'}</div>
+            <div class="stat-time-lbl">Time Remaining</div>
+          </div>
+        </div>
+
+        <div class="store-spec-list">
+          <div class="stat"><span>Handler</span><span class="val-bold">Warehouse - Peliyagoda</span></div>
+          <div class="stat"><span>Estimated arrival</span><span class="val-bold">2026/10/01 07:35am</span></div>
+          <div class="stat"><span>Order Type</span><span><span class="pill Chilled">Chilled</span></span></div>
+          <div class="stat"><span>Order Size</span><span class="val-bold">25 Items</span></div>
+          <div class="stat"><span>Estimated Weight</span><span class="val-bold">250kg</span></div>
+          <div class="stat"><span>Estimated Volume</span><span class="val-bold">88m³</span></div>
+        </div>
+
+        <div class="store-stepper-track">
+          <div class="stepper-step completed">
+            <div class="stepper-dot"></div>
+            <span class="stepper-label">Created</span>
+          </div>
+          <div class="stepper-line"></div>
+          <div class="stepper-step">
+            <div class="stepper-dot"></div>
+            <span class="stepper-label">Processing</span>
+          </div>
+          <div class="stepper-line"></div>
+          <div class="stepper-step">
+            <div class="stepper-dot"></div>
+            <span class="stepper-label">Dispatched</span>
+          </div>
+          <div class="stepper-line"></div>
+          <div class="stepper-step">
+            <div class="stepper-dot"></div>
+            <span class="stepper-label">Delivered</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function attachStoreOrderDetail(orderId){
+  const oid = orderId || 'FRS-2HG3';
+
+  const backBtn = document.getElementById('storeOrderBackBtn');
+  if(backBtn){
+    backBtn.addEventListener('click', ()=> nav({name:'store-dashboard', role:'store-manager'}));
+  }
+
+  const railToggle = document.getElementById('storeRailToggle');
+  if(railToggle){
+    railToggle.addEventListener('click', ()=> nav({name:'store-dashboard', role:'store-manager'}));
+  }
+
+  document.querySelectorAll('#storeRail .d-rail-item').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const snav = el.dataset.snav;
+      if (snav === 'vehicles') {
+        nav({name:'dispatch-vehicles', role:'store-manager', fromStore:true});
+      } else {
+        storeActiveNav = snav;
+        nav({name:'store-dashboard', role:'store-manager'});
+      }
+    });
+  });
+
+  const reportBtn = document.getElementById('storeReportBtn');
+  if(reportBtn){
+    reportBtn.addEventListener('click', ()=> openStoreReportModal(oid));
+  }
+
+  const summaryToggle = document.getElementById('storeOrderSummaryToggle');
+  const summary = document.getElementById('storeOrderDetailSummary');
+  if(summaryToggle && summary){
+    summaryToggle.addEventListener('click', ()=>{
+      summary.classList.toggle('collapsed');
+    });
+  }
+
+  const createBtn = document.getElementById('storeDetailCreateOrder');
+  if(createBtn){
+    createBtn.addEventListener('click', ()=>{
+      let backdrop = document.getElementById('createOrderModalBackdrop');
+      if(!backdrop){
+        backdrop = document.createElement('div');
+        backdrop.id = 'createOrderModalBackdrop';
+        backdrop.className = 'sm-modal-backdrop';
+        backdrop.innerHTML = `
+          <div class="sm-modal">
+            <h3>Create New Order</h3>
+            <p>Store: Colombo 8 - Waypoint Fresh</p>
+            <label class="field-label">Category / Item</label>
+            <select id="modalItem">
+              <option value="Broccoli">Broccoli (Fresh Produce)</option>
+              <option value="Organic Apples">Organic Apples (Produce)</option>
+              <option value="Farm Fresh Milk">Farm Fresh Milk (Dairy)</option>
+              <option value="Greek Yogurt Pack">Greek Yogurt Pack (Chilled)</option>
+            </select>
+            <label class="field-label">Order Type / Temperature</label>
+            <select id="modalType">
+              <option value="Ambient">Ambient</option>
+              <option value="Chilled">Chilled</option>
+              <option value="Fresh">Fresh</option>
+              <option value="Fragile">Fragile</option>
+            </select>
+            <label class="field-label">Order Size (Units)</label>
+            <input type="number" id="modalSize" value="25" min="1" max="500" />
+            <div class="sm-modal-actions">
+              <button class="sm-modal-btn-cancel" id="cancelOrderModal">Cancel</button>
+              <button class="sm-modal-btn-submit" id="submitCreateOrder">Submit Order</button>
+            </div>
+          </div>`;
+        document.body.appendChild(backdrop);
+        document.getElementById('cancelOrderModal').addEventListener('click', ()=> backdrop.remove());
+        document.getElementById('submitCreateOrder').addEventListener('click', ()=>{
+          const type = document.getElementById('modalType').value;
+          const size = parseInt(document.getElementById('modalSize').value, 10) || 25;
+          const id = 'FRS-' + Math.random().toString(36).substring(2,6).toUpperCase();
+          const now = new Date();
+          const dateStr = now.getFullYear() + '/' + String(now.getMonth()+1).padStart(2,'0') + '/' + String(now.getDate()).padStart(2,'0') + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + (now.getHours()>=12?'pm':'am');
+          storeOrdersData.unshift({
+            id: id,
+            createdAt: dateStr,
+            type: type,
+            size: size,
+            status: 'Created',
+            units: size,
+            remaining: '05:00:00'
+          });
+          backdrop.remove();
+          showToast(`Order ${id} created successfully!`);
+          nav({name:'store-dashboard', role:'store-manager'});
         });
       }
     });
@@ -3842,7 +4249,7 @@ function createRipple(e, el){
 }
 
 document.addEventListener('pointerdown', (e) => {
-  const target = e.target.closest('button, .icon-btn, .back-btn, .cluster-back-arrow, .staging-btn-stage, .staging-btn-deffer, .trip-save-btn, .trip-continue-btn, .trip-confirm-btn, .trip-order-chip, .trip-mini-pill, .staging-check-circle, .check-box, .pill, .cluster-pill, .d-row, .cluster-row, .staging-order-card, .trip-order-card, .load-row-card, .v-row, .t-row, .batch-row, .stop-card, .staging-assign-rail, .d-select, .signin-btn, .sm-signin-btn, .store-create-btn, .d-assign-btn, .load-dispatch-btn, .trip-add-order-box, .loader-back-btn, .loader-load-toggle, .loader-order-card, .loader-btn-start, .loader-btn-finish, .loader-item-card, .lic-checkbox, .loader-report-save-btn, .loader-radio');
+  const target = e.target.closest('button, .icon-btn, .back-btn, .cluster-back-arrow, .staging-btn-stage, .staging-btn-deffer, .trip-save-btn, .trip-continue-btn, .trip-confirm-btn, .trip-order-chip, .trip-mini-pill, .staging-check-circle, .check-box, .pill, .cluster-pill, .d-row, .cluster-row, .staging-order-card, .trip-order-card, .load-row-card, .v-row, .t-row, .batch-row, .stop-card, .staging-assign-rail, .d-select, .signin-btn, .sm-signin-btn, .store-create-btn, .d-assign-btn, .load-dispatch-btn, .trip-add-order-box, .loader-back-btn, .loader-load-toggle, .loader-order-card, .loader-btn-start, .loader-btn-finish, .loader-item-card, .lic-checkbox, .loader-report-save-btn, .loader-radio, .store-order-row, .store-detail-item-row, .store-report-pill-btn, .d-rail-item');
   if(!target) return;
   createRipple(e, target);
 });
@@ -3861,6 +4268,10 @@ try {
     route = {name:'loader-load', loadId: urlParams.get('loadId') || 'LDS-2HG3', role:'loader', collapsed: isCol};
   } else if(routeParam === 'loader-checklist'){
     route = {name:'loader-checklist', loadId: urlParams.get('loadId') || 'LDS-2HG3', orderId: urlParams.get('orderId') || 'FRS-2HG3', role:'loader'};
+  } else if(routeParam === 'store-dashboard'){
+    route = {name:'store-dashboard', role:'store-manager'};
+  } else if(routeParam === 'store-order-detail'){
+    route = {name:'store-order-detail', orderId: urlParams.get('orderId') || 'FRS-2HG3', role:'store-manager'};
   } else if(routeParam){
     route = {name: routeParam, role: urlParams.get('role') || 'dispatch', clusterId: urlParams.get('clusterId') || 'CLS-BF785', loadId: urlParams.get('loadId') || 'LDS-2HG3', orderId: urlParams.get('orderId') || 'FRS-2HG3'};
   }
