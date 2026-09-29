@@ -286,14 +286,108 @@
   .d-filters{display:flex;gap:12px;align-items:center;margin-bottom:14px;flex-wrap:wrap;}
   .d-filters .lbl{color:#666;font-size:13px;font-weight:500;margin-right:2px;}
   .d-select{
+    position:relative;
     background:#fff;border:1px solid #dfdfdf;border-radius:10px;
     padding:6px 14px;font-size:13px;color:#444;font-weight:500;
-    display:flex;align-items:center;gap:8px;min-width:105px;justify-content:space-between;
-    cursor:pointer;
+    display:inline-flex;align-items:center;gap:8px;min-width:105px;justify-content:space-between;
+    cursor:pointer;user-select:none;
+    transition:border-color .18s ease, background-color .18s ease, box-shadow .18s ease;
   }
   .d-select:hover{border-color:#b7b7b7;background:#fcfcfc;}
+  .d-select.open{border-color:#000;background:#fff;box-shadow:0 0 0 1.5px #000;color:#000;}
   .d-select svg{transition:transform .2s ease;width:14px;height:14px;}
-  .d-select:hover svg{transform:translateY(1px);}
+  .d-select.open svg{transform:rotate(180deg);color:#000;}
+
+  /* ================= CUSTOM SUBMENUS & SELECTS ================= */
+  .wp-custom-select{
+    position:relative;display:inline-block;width:auto;
+  }
+  .wp-custom-select.block{
+    display:block;width:100%;
+  }
+  .wp-select-trigger{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    background:#fff;border:1px solid #dfdfdf;border-radius:10px;
+    padding:6px 12px;font-family:inherit;font-size:12.5px;font-weight:500;
+    color:#222;cursor:pointer;outline:none;user-select:none;
+    box-shadow:0 1px 3px rgba(0,0,0,0.03);
+    transition:border-color .18s ease, background-color .18s ease, box-shadow .18s ease, transform .14s ease;
+  }
+  .wp-custom-select.block .wp-select-trigger{
+    width:100%;padding:10px 14px;box-sizing:border-box;border-radius:10px;
+    font-size:14px;background:#f5f5f5;border:1px solid #ddd;
+  }
+  .wp-custom-select.block.open .wp-select-trigger{
+    background:#fff;
+  }
+  .wp-select-trigger:hover{
+    border-color:#000;background:#fafafa;
+  }
+  .wp-custom-select.open .wp-select-trigger{
+    border-color:#000;background:#fff;box-shadow:0 0 0 1.5px #000;color:#000;
+  }
+  .wp-select-trigger:active{
+    transform:scale(0.985);
+  }
+  .wp-select-label{
+    display:inline-flex;align-items:center;gap:8px;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  }
+  .wp-select-chevron{
+    display:inline-flex;align-items:center;justify-content:center;
+    transition:transform .22s cubic-bezier(.34,1.3,.4,1);
+    color:#666;flex-shrink:0;
+  }
+  .wp-custom-select.open .wp-select-chevron{
+    transform:rotate(180deg);color:#000;
+  }
+  .wp-select-dropdown, .d-dropdown-menu{
+    position:absolute;top:calc(100% + 6px);left:0;min-width:100%;
+    width:max-content;max-width:320px;
+    background:#ffffff;border:1px solid #e4e4e7;
+    border-radius:14px;padding:6px;
+    box-shadow:0 12px 30px rgba(0,0,0,0.14), 0 2px 6px rgba(0,0,0,0.04);
+    z-index:9999;display:none;flex-direction:column;gap:3px;
+    box-sizing:border-box;
+    transform-origin:top center;
+  }
+  .wp-custom-select.drop-up .wp-select-dropdown,
+  .d-select.drop-up .d-dropdown-menu{
+    top:auto;bottom:calc(100% + 6px);
+    transform-origin:bottom center;
+  }
+  .wp-custom-select.open .wp-select-dropdown,
+  .d-select.open .d-dropdown-menu{
+    display:flex;animation:selectPopIn .18s cubic-bezier(.16,1,.3,1) both;
+  }
+  @keyframes selectPopIn{
+    from{opacity:0;transform:translateY(-4px) scale(.98);}
+    to{opacity:1;transform:translateY(0) scale(1);}
+  }
+  .wp-select-option, .d-dropdown-item{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:8px 12px;border-radius:9px;font-size:13px;font-weight:500;
+    color:#27272a;cursor:pointer;user-select:none;
+    transition:background-color .14s ease, color .14s ease;
+  }
+  .wp-select-option:hover, .d-dropdown-item:hover{
+    background:#f4f4f5;color:#000;
+  }
+  .wp-select-option.selected, .d-dropdown-item.selected{
+    background:#111;color:#fff;font-weight:600;
+  }
+  .wp-select-option.selected .pill, .d-dropdown-item.selected .pill{
+    border:1px solid rgba(255,255,255,0.3);
+  }
+  .wp-select-option .wp-opt-left, .d-dropdown-item .d-opt-left{
+    display:flex;align-items:center;gap:8px;
+  }
+  .wp-select-option .wp-opt-check, .d-dropdown-item .d-opt-check{
+    display:none;width:14px;height:14px;flex-shrink:0;
+  }
+  .wp-select-option.selected .wp-opt-check, .d-dropdown-item.selected .d-opt-check{
+    display:inline-flex;stroke:#fff;
+  }
   .d-table-head{display:flex;padding:0 20px;margin-bottom:8px;align-items:center;}
   .d-table-head span{color:#8c8c8c;font-size:13px;font-weight:500;}
   .d-col-id{width:16%;flex:0 0 16%;min-width:0;}
@@ -994,7 +1088,7 @@
   .co-oid-sub{font-size:11px;color:#999;font-weight:400;margin-left:6px;}
   .co-fields{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;}
   .co-field label{display:block;font-size:12px;color:#777;font-weight:500;margin-bottom:5px;}
-  .co-field select,.co-field .co-count-display{
+  .co-field select,.co-field .co-count-display,.co-field .wp-select-trigger{
     background:#f5f5f5;border:1px solid #ddd;border-radius:10px;
     padding:8px 14px;font-size:13px;font-family:inherit;min-width:120px;
   }
@@ -2377,30 +2471,246 @@ function render(){
     b.classList.toggle('active', route.role===b.dataset.role);
   });
 
-  if(route.name==='landing'){ app.innerHTML = landingScreen(); return; }
-  if(route.name==='login'){ app.innerHTML = loginScreen(route.role); return; }
-  if(route.name==='store-login'){ app.innerHTML = storeLoginScreen(); attachStoreLogin(); return; }
-  if(route.name==='store-dashboard'){ app.innerHTML = storeDashboardScreen(); attachStoreDashboard(); return; }
-  if(route.name==='store-order-detail'){ app.innerHTML = storeOrderDetailScreen(route.orderId); attachStoreOrderDetail(route.orderId); return; }
-  if(route.name==='store-create-order'){ app.innerHTML = storeCreateOrderScreen(); attachStoreCreateOrder(); return; }
-  if(route.name==='store-add-item'){ app.innerHTML = storeAddItemScreen(); attachStoreAddItem(); return; }
-  if(route.name==='dispatch-list'){ app.innerHTML = dispatchListScreen(route.nav||'live'); attachDispatchList(); return; }
-  if(route.name==='dispatch-order'){ app.innerHTML = dispatchOrderScreen(route.uid); attachDispatchOrder(); return; }
-  if(route.name==='dispatch-vehicles'){ app.innerHTML = dispatchVehiclesScreen(route.vid); attachDispatchVehicles(); return; }
-  if(route.name==='dispatch-clustering'){ app.innerHTML = dispatchClusteringScreen(); attachDispatchClustering(); return; }
-  if(route.name==='dispatch-staging'){ app.innerHTML = dispatchStagingScreen(route.clusterId); attachDispatchStaging(route.clusterId); return; }
-  if(route.name==='dispatch-trip-assigning'){ app.innerHTML = dispatchTripAssigningScreen(route.clusterId); attachDispatchTripAssigning(route.clusterId); return; }
-  if(route.name==='dispatch-load-assigning'){ app.innerHTML = dispatchLoadAssigningScreen(route.clusterId); attachDispatchLoadAssigning(route.clusterId); return; }
-  if(route.name==='dispatch-progress'){ app.innerHTML = dispatchProgressScreen(); attachDispatchProgress(); return; }
-  if(route.name==='dispatch-runsheets'){ app.innerHTML = dispatchRunSheetsScreen(); attachDispatchRunSheets(); return; }
-  if(route.name==='store-receipt'){ app.innerHTML = storeReceiptScreen(route.orderId); attachStoreReceipt(route.orderId); return; }
-  if(route.name==='loader-list'){ app.innerHTML = loaderListScreen(); attachLoaderList(); return; }
-  if(route.name==='loader-load'){ app.innerHTML = loaderLoadScreen(route.loadId); attachLoaderLoad(route.loadId); return; }
-  if(route.name==='loader-checklist'){ app.innerHTML = loaderChecklistScreen(route.loadId, route.orderId); attachLoaderChecklist(route.loadId, route.orderId); return; }
-  if(route.name==='driver-list'){ app.innerHTML = driverListScreen(); attachDriverList(); return; }
-  if(route.name==='driver-stop'){ app.innerHTML = driverStopScreen(route.stopId); attachDriverStop(route.stopId); return; }
-  if(route.name==='driver-checklist'){ app.innerHTML = driverChecklistScreen(route.stopId); attachDriverChecklist(route.stopId); return; }
+  if(route.name==='landing'){ app.innerHTML = landingScreen(); }
+  else if(route.name==='login'){ app.innerHTML = loginScreen(route.role); }
+  else if(route.name==='store-login'){ app.innerHTML = storeLoginScreen(); attachStoreLogin(); }
+  else if(route.name==='store-dashboard'){ app.innerHTML = storeDashboardScreen(); attachStoreDashboard(); }
+  else if(route.name==='store-order-detail'){ app.innerHTML = storeOrderDetailScreen(route.orderId); attachStoreOrderDetail(route.orderId); }
+  else if(route.name==='store-create-order'){ app.innerHTML = storeCreateOrderScreen(); attachStoreCreateOrder(); }
+  else if(route.name==='store-add-item'){ app.innerHTML = storeAddItemScreen(); attachStoreAddItem(); }
+  else if(route.name==='dispatch-list'){ app.innerHTML = dispatchListScreen(route.nav||'live'); attachDispatchList(); }
+  else if(route.name==='dispatch-order'){ app.innerHTML = dispatchOrderScreen(route.uid); attachDispatchOrder(); }
+  else if(route.name==='dispatch-vehicles'){ app.innerHTML = dispatchVehiclesScreen(route.vid); attachDispatchVehicles(); }
+  else if(route.name==='dispatch-clustering'){ app.innerHTML = dispatchClusteringScreen(); attachDispatchClustering(); }
+  else if(route.name==='dispatch-staging'){ app.innerHTML = dispatchStagingScreen(route.clusterId); attachDispatchStaging(route.clusterId); }
+  else if(route.name==='dispatch-trip-assigning'){ app.innerHTML = dispatchTripAssigningScreen(route.clusterId); attachDispatchTripAssigning(route.clusterId); }
+  else if(route.name==='dispatch-load-assigning'){ app.innerHTML = dispatchLoadAssigningScreen(route.clusterId); attachDispatchLoadAssigning(route.clusterId); }
+  else if(route.name==='dispatch-progress'){ app.innerHTML = dispatchProgressScreen(); attachDispatchProgress(); }
+  else if(route.name==='dispatch-runsheets'){ app.innerHTML = dispatchRunSheetsScreen(); attachDispatchRunSheets(); }
+  else if(route.name==='store-receipt'){ app.innerHTML = storeReceiptScreen(route.orderId); attachStoreReceipt(route.orderId); }
+  else if(route.name==='loader-list'){ app.innerHTML = loaderListScreen(); attachLoaderList(); }
+  else if(route.name==='loader-load'){ app.innerHTML = loaderLoadScreen(route.loadId); attachLoaderLoad(route.loadId); }
+  else if(route.name==='loader-checklist'){ app.innerHTML = loaderChecklistScreen(route.loadId, route.orderId); attachLoaderChecklist(route.loadId, route.orderId); }
+  else if(route.name==='driver-list'){ app.innerHTML = driverListScreen(); attachDriverList(); }
+  else if(route.name==='driver-stop'){ app.innerHTML = driverStopScreen(route.stopId); attachDriverStop(route.stopId); }
+  else if(route.name==='driver-checklist'){ app.innerHTML = driverChecklistScreen(route.stopId); attachDriverChecklist(route.stopId); }
+
+  initCustomSelects();
+  initFilterDropdowns();
 }
+
+
+/* ================= CUSTOM SELECTS & SUBMENUS CONTROLLER ================= */
+function initCustomSelects(){
+  document.querySelectorAll('.wp-custom-select').forEach(wrapper => {
+    if(wrapper._selectInit) return;
+    wrapper._selectInit = true;
+
+    const trigger = wrapper.querySelector('.wp-select-trigger');
+    const hidden = wrapper.querySelector('input[type="hidden"]');
+    const label = wrapper.querySelector('.wp-select-label');
+    const dropdown = wrapper.querySelector('.wp-select-dropdown');
+    const options = wrapper.querySelectorAll('.wp-select-option');
+
+    if(!trigger || !dropdown) return;
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = wrapper.classList.contains('open');
+
+      // Close all other selects & filter dropdowns
+      document.querySelectorAll('.wp-custom-select.open, .d-select.open').forEach(w => {
+        if(w !== wrapper) {
+          w.classList.remove('open');
+          const t = w.querySelector('.wp-select-trigger');
+          if(t) t.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      if(!isOpen){
+        const rect = trigger.getBoundingClientRect();
+        const spaceBelow = window.innerHeight - rect.bottom;
+        if(spaceBelow < 220 && rect.top > 200){
+          wrapper.classList.add('drop-up');
+        } else {
+          wrapper.classList.remove('drop-up');
+        }
+        wrapper.classList.add('open');
+        trigger.setAttribute('aria-expanded', 'true');
+      } else {
+        wrapper.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    options.forEach(opt => {
+      opt.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const val = opt.dataset.value;
+        if(hidden){
+          hidden.value = val;
+          hidden.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+        if(label){
+          const optContent = opt.querySelector('.wp-opt-text') || opt.querySelector('.wp-opt-left');
+          if(optContent){
+            label.innerHTML = optContent.innerHTML;
+          } else {
+            label.textContent = opt.textContent.trim();
+          }
+        }
+        options.forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        wrapper.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      });
+    });
+  });
+}
+
+const FILTER_MENUS = {
+  'Brand': [
+    { label: 'All Brands', val: 'All' },
+    { label: 'Waypoint Fresh', val: 'Waypoint Fresh' },
+    { label: 'Super Center', val: 'Super Center' },
+    { label: 'Express Outlet', val: 'Express Outlet' }
+  ],
+  'District': [
+    { label: 'All Districts', val: 'All' },
+    { label: 'Colombo', val: 'Colombo' },
+    { label: 'Dehiwala', val: 'Dehiwala' },
+    { label: 'Kandy', val: 'Kandy' },
+    { label: 'Gampaha', val: 'Gampaha' }
+  ],
+  'Temperature': [
+    { label: 'All Temperatures', val: 'All' },
+    { label: 'Ambient', val: 'Ambient', pill: 'Ambient' },
+    { label: 'Chilled', val: 'Chilled', pill: 'Chilled' },
+    { label: 'Fresh', val: 'Fresh', pill: 'Fresh' },
+    { label: 'Fragile', val: 'Fragile', pill: 'Fragile' }
+  ],
+  'Status': [
+    { label: 'All Statuses', val: 'All' },
+    { label: 'Created', val: 'Created' },
+    { label: 'Allocated', val: 'Allocated' },
+    { label: 'Loaded', val: 'Loaded' },
+    { label: 'Deferred', val: 'Deferred' }
+  ]
+};
+
+function initFilterDropdowns(){
+  document.querySelectorAll('.d-select').forEach(sel => {
+    if(sel._filterInit) return;
+    sel._filterInit = true;
+
+    const span = sel.querySelector('span');
+    if(!span) return;
+    const key = span.textContent.trim();
+    const items = FILTER_MENUS[key] || [
+      { label: 'All ' + key, val: 'All' },
+      { label: 'Active', val: 'Active' },
+      { label: 'Pending', val: 'Pending' }
+    ];
+
+    let menu = sel.querySelector('.d-dropdown-menu');
+    if(!menu){
+      menu = document.createElement('div');
+      menu.className = 'd-dropdown-menu';
+      menu.setAttribute('role', 'listbox');
+      menu.innerHTML = items.map((it, idx) => `
+        <div class="d-dropdown-item ${idx === 0 ? 'selected' : ''}" data-val="${it.val}" data-orig="${key}">
+          <span class="d-opt-left">
+            ${it.pill ? `<span class="pill ${it.pill}">${it.label}</span>` : it.label}
+          </span>
+          <span class="d-opt-check">${ICON.check}</span>
+        </div>
+      `).join('');
+      sel.appendChild(menu);
+    }
+
+    sel.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = sel.classList.contains('open');
+
+      document.querySelectorAll('.wp-custom-select.open, .d-select.open').forEach(w => {
+        if(w !== sel) {
+          w.classList.remove('open');
+          const t = w.querySelector('.wp-select-trigger');
+          if(t) t.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      if(!isOpen){
+        const rect = sel.getBoundingClientRect();
+        const spaceBelow = window.innerHeight - rect.bottom;
+        if(spaceBelow < 220 && rect.top > 200){
+          sel.classList.add('drop-up');
+        } else {
+          sel.classList.remove('drop-up');
+        }
+        sel.classList.add('open');
+      } else {
+        sel.classList.remove('open');
+      }
+    });
+
+    menu.querySelectorAll('.d-dropdown-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const val = item.dataset.val;
+        const origKey = item.dataset.orig;
+
+        menu.querySelectorAll('.d-dropdown-item').forEach(i => i.classList.remove('selected'));
+        item.classList.add('selected');
+
+        if(val === 'All'){
+          span.textContent = origKey;
+        } else {
+          const pill = item.querySelector('.pill');
+          if(pill){
+            span.innerHTML = pill.outerHTML;
+          } else {
+            span.textContent = val;
+          }
+        }
+        sel.classList.remove('open');
+
+        // Filter dispatch list rows if on dispatch table
+        if(origKey === 'Temperature' && document.getElementById('orderRows')){
+          document.querySelectorAll('#orderRows .d-row').forEach(row => {
+            const rowType = row.querySelector('.d-col-type .pill')?.textContent.trim();
+            if(val === 'All' || rowType === val){
+              row.style.display = 'flex';
+            } else {
+              row.style.display = 'none';
+            }
+          });
+        }
+        if(origKey === 'Status' && document.getElementById('orderRows')){
+          document.querySelectorAll('#orderRows .d-row').forEach(row => {
+            const rowStatus = row.querySelector('.d-col-status')?.textContent.trim();
+            if(val === 'All' || (rowStatus && rowStatus.toLowerCase().includes(val.toLowerCase()))){
+              row.style.display = 'flex';
+            } else {
+              row.style.display = 'none';
+            }
+          });
+        }
+        showToast(`Filtered by ${origKey}: ${val}`);
+      });
+    });
+  });
+}
+
+document.addEventListener('click', (e) => {
+  if(!e.target.closest('.wp-custom-select') && !e.target.closest('.d-select')){
+    document.querySelectorAll('.wp-custom-select.open, .d-select.open').forEach(w => {
+      w.classList.remove('open');
+      const t = w.querySelector('.wp-select-trigger');
+      if(t) t.setAttribute('aria-expanded', 'false');
+    });
+  }
+});
 
 /* ================= LANDING ================= */
 function landingScreen(){
@@ -2815,12 +3125,31 @@ function storeCreateOrderScreen(){
           <div class="co-fields">
             <div class="co-field">
               <label>Order type</label>
-              <select id="coOrderType">
-                <option value="Chilled" ${createOrderType==='Chilled'?'selected':''}>Chilled</option>
-                <option value="Ambient" ${createOrderType==='Ambient'?'selected':''}>Ambient</option>
-                <option value="Fresh" ${createOrderType==='Fresh'?'selected':''}>Fresh</option>
-                <option value="Fragile" ${createOrderType==='Fragile'?'selected':''}>Fragile</option>
-              </select>
+              <div class="wp-custom-select" id="coOrderTypeSelect" data-id="coOrderType">
+                <input type="hidden" id="coOrderType" value="${createOrderType}" />
+                <button type="button" class="wp-select-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="wp-select-label"><span class="pill ${createOrderType}">${createOrderType}</span></span>
+                  <span class="wp-select-chevron">${ICON.chevronDown}</span>
+                </button>
+                <div class="wp-select-dropdown" role="listbox">
+                  <div class="wp-select-option ${createOrderType==='Chilled'?'selected':''}" data-value="Chilled">
+                    <span class="wp-opt-left"><span class="pill Chilled">Chilled</span></span>
+                    <span class="wp-opt-check">${ICON.check}</span>
+                  </div>
+                  <div class="wp-select-option ${createOrderType==='Ambient'?'selected':''}" data-value="Ambient">
+                    <span class="wp-opt-left"><span class="pill Ambient">Ambient</span></span>
+                    <span class="wp-opt-check">${ICON.check}</span>
+                  </div>
+                  <div class="wp-select-option ${createOrderType==='Fresh'?'selected':''}" data-value="Fresh">
+                    <span class="wp-opt-left"><span class="pill Fresh">Fresh</span></span>
+                    <span class="wp-opt-check">${ICON.check}</span>
+                  </div>
+                  <div class="wp-select-option ${createOrderType==='Fragile'?'selected':''}" data-value="Fragile">
+                    <span class="wp-opt-left"><span class="pill Fragile">Fragile</span></span>
+                    <span class="wp-opt-check">${ICON.check}</span>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="co-field">
               <label>Item count</label>
@@ -3241,11 +3570,27 @@ function openStoreReportModal(orderId){
         <label class="field-label">Message</label>
         <textarea id="storeReportMessage" style="width:100%;min-height:76px;background:#f5f5f5;border:1px solid #ddd;border-radius:10px;padding:10px 14px;font-size:13px;font-family:inherit;margin-bottom:14px;outline:none;box-sizing:border-box;resize:vertical;" placeholder="Describe the issue..."></textarea>
         <label class="field-label">Issue type</label>
-        <select id="storeReportAction" style="width:100%;background:#f5f5f5;border:1px solid #ddd;border-radius:10px;padding:10px 14px;font-size:14px;font-family:inherit;margin-bottom:14px;outline:none;">
-          <option value="deffer">Request deferral</option>
-          <option value="damage">Damaged item/s</option>
-          <option value="missing">Missing / shortfall</option>
-        </select>
+        <div class="wp-custom-select block" id="storeReportActionSelect" data-id="storeReportAction" style="margin-bottom:14px;">
+          <input type="hidden" id="storeReportAction" value="deffer" />
+          <button type="button" class="wp-select-trigger" aria-haspopup="listbox" aria-expanded="false">
+            <span class="wp-select-label">Request deferral</span>
+            <span class="wp-select-chevron">${ICON.chevronDown}</span>
+          </button>
+          <div class="wp-select-dropdown" role="listbox">
+            <div class="wp-select-option selected" data-value="deffer">
+              <span class="wp-opt-text">Request deferral</span>
+              <span class="wp-opt-check">${ICON.check}</span>
+            </div>
+            <div class="wp-select-option" data-value="damage">
+              <span class="wp-opt-text">Damaged item/s</span>
+              <span class="wp-opt-check">${ICON.check}</span>
+            </div>
+            <div class="wp-select-option" data-value="missing">
+              <span class="wp-opt-text">Missing / shortfall</span>
+              <span class="wp-opt-check">${ICON.check}</span>
+            </div>
+          </div>
+        </div>
         <label class="field-label">Evidence note</label>
         <input type="text" id="storeReportEvidence" placeholder="Optional photo ref or note" style="width:100%;background:#f5f5f5;border:1px solid #ddd;border-radius:10px;padding:10px 14px;font-size:13px;font-family:inherit;margin-bottom:20px;outline:none;box-sizing:border-box;" />
         <div class="sm-modal-actions">
@@ -3254,6 +3599,7 @@ function openStoreReportModal(orderId){
         </div>
       </div>`;
     document.body.appendChild(backdrop);
+    initCustomSelects();
     document.getElementById('cancelStoreReportModal').addEventListener('click', ()=> backdrop.remove());
     document.getElementById('submitStoreReport').addEventListener('click', ()=>{
       const act = document.getElementById('storeReportAction').value;
@@ -3460,19 +3806,57 @@ function attachStoreOrderDetail(orderId){
             <h3>Create New Order</h3>
             <p>Store: Colombo 8 - Waypoint Fresh</p>
             <label class="field-label">Category / Item</label>
-            <select id="modalItem">
-              <option value="Broccoli">Broccoli (Fresh Produce)</option>
-              <option value="Organic Apples">Organic Apples (Produce)</option>
-              <option value="Farm Fresh Milk">Farm Fresh Milk (Dairy)</option>
-              <option value="Greek Yogurt Pack">Greek Yogurt Pack (Chilled)</option>
-            </select>
+            <div class="wp-custom-select block" id="modalItemSelect" data-id="modalItem" style="margin-bottom:14px;">
+              <input type="hidden" id="modalItem" value="Broccoli" />
+              <button type="button" class="wp-select-trigger" aria-haspopup="listbox" aria-expanded="false">
+                <span class="wp-select-label">Broccoli (Fresh Produce)</span>
+                <span class="wp-select-chevron">${ICON.chevronDown}</span>
+              </button>
+              <div class="wp-select-dropdown" role="listbox">
+                <div class="wp-select-option selected" data-value="Broccoli">
+                  <span class="wp-opt-text">Broccoli (Fresh Produce)</span>
+                  <span class="wp-opt-check">${ICON.check}</span>
+                </div>
+                <div class="wp-select-option" data-value="Organic Apples">
+                  <span class="wp-opt-text">Organic Apples (Produce)</span>
+                  <span class="wp-opt-check">${ICON.check}</span>
+                </div>
+                <div class="wp-select-option" data-value="Farm Fresh Milk">
+                  <span class="wp-opt-text">Farm Fresh Milk (Dairy)</span>
+                  <span class="wp-opt-check">${ICON.check}</span>
+                </div>
+                <div class="wp-select-option" data-value="Greek Yogurt Pack">
+                  <span class="wp-opt-text">Greek Yogurt Pack (Chilled)</span>
+                  <span class="wp-opt-check">${ICON.check}</span>
+                </div>
+              </div>
+            </div>
             <label class="field-label">Order Type / Temperature</label>
-            <select id="modalType">
-              <option value="Ambient">Ambient</option>
-              <option value="Chilled">Chilled</option>
-              <option value="Fresh">Fresh</option>
-              <option value="Fragile">Fragile</option>
-            </select>
+            <div class="wp-custom-select block" id="modalTypeSelect" data-id="modalType" style="margin-bottom:14px;">
+              <input type="hidden" id="modalType" value="Ambient" />
+              <button type="button" class="wp-select-trigger" aria-haspopup="listbox" aria-expanded="false">
+                <span class="wp-select-label"><span class="pill Ambient">Ambient</span></span>
+                <span class="wp-select-chevron">${ICON.chevronDown}</span>
+              </button>
+              <div class="wp-select-dropdown" role="listbox">
+                <div class="wp-select-option selected" data-value="Ambient">
+                  <span class="wp-opt-left"><span class="pill Ambient">Ambient</span></span>
+                  <span class="wp-opt-check">${ICON.check}</span>
+                </div>
+                <div class="wp-select-option" data-value="Chilled">
+                  <span class="wp-opt-left"><span class="pill Chilled">Chilled</span></span>
+                  <span class="wp-opt-check">${ICON.check}</span>
+                </div>
+                <div class="wp-select-option" data-value="Fresh">
+                  <span class="wp-opt-left"><span class="pill Fresh">Fresh</span></span>
+                  <span class="wp-opt-check">${ICON.check}</span>
+                </div>
+                <div class="wp-select-option" data-value="Fragile">
+                  <span class="wp-opt-left"><span class="pill Fragile">Fragile</span></span>
+                  <span class="wp-opt-check">${ICON.check}</span>
+                </div>
+              </div>
+            </div>
             <label class="field-label">Order Size (Units)</label>
             <input type="number" id="modalSize" value="25" min="1" max="500" />
             <div class="sm-modal-actions">
@@ -3481,6 +3865,7 @@ function attachStoreOrderDetail(orderId){
             </div>
           </div>`;
         document.body.appendChild(backdrop);
+        initCustomSelects();
         document.getElementById('cancelOrderModal').addEventListener('click', ()=> backdrop.remove());
         document.getElementById('submitCreateOrder').addEventListener('click', ()=>{
           const type = document.getElementById('modalType').value;
@@ -5256,11 +5641,27 @@ function loaderChecklistScreen(loadId, orderId){
       <div class="loader-report-action-row">
         <div class="loader-report-action-left">
           <span class="loader-report-action-lbl">Action</span>
-          <select id="loaderReportAction" class="loader-report-select">
-            <option value="deffer">Deffer Item/s</option>
-            <option value="damage">Damaged Item/s</option>
-            <option value="missing">Missing Item/s</option>
-          </select>
+          <div class="wp-custom-select" id="loaderReportActionSelect" data-id="loaderReportAction">
+            <input type="hidden" id="loaderReportAction" value="deffer" />
+            <button type="button" class="wp-select-trigger" aria-haspopup="listbox" aria-expanded="false">
+              <span class="wp-select-label">Deffer Item/s</span>
+              <span class="wp-select-chevron">${ICON.chevronDown}</span>
+            </button>
+            <div class="wp-select-dropdown" role="listbox">
+              <div class="wp-select-option selected" data-value="deffer">
+                <span class="wp-opt-text">Deffer Item/s</span>
+                <span class="wp-opt-check">${ICON.check}</span>
+              </div>
+              <div class="wp-select-option" data-value="damage">
+                <span class="wp-opt-text">Damaged Item/s</span>
+                <span class="wp-opt-check">${ICON.check}</span>
+              </div>
+              <div class="wp-select-option" data-value="missing">
+                <span class="wp-opt-text">Missing Item/s</span>
+                <span class="wp-opt-check">${ICON.check}</span>
+              </div>
+            </div>
+          </div>
         </div>
         <button class="loader-report-save-btn" id="loaderReportSaveBtn">Save</button>
       </div>
