@@ -1448,26 +1448,47 @@
   .t-topbar .brand{font-size:19px;letter-spacing:.2px;}
   .t-topbar .actions{display:flex;gap:14px;align-items:center;}
   .t-topbar .actions .icon-btn{width:32px;height:32px;}
-  .t-title{text-align:center;color:var(--muted);font-size:24px;font-weight:500;margin:14px 0 28px;}
-  .t-list{padding:0 44px 30px;flex:1 1 auto;overflow-y:auto;}
+  .t-title{text-align:center;color:var(--muted);font-size:22px;font-weight:500;margin:18px 0 22px;}
+  .t-list{padding:0 36px 30px;flex:1 1 auto;overflow-y:auto;}
   .t-row{
-    display:flex;align-items:center;justify-content:space-between;gap:10px;
-    background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);
-    padding:18px 22px;margin-bottom:16px;cursor:pointer;animation:rowIn .35s cubic-bezier(.22,.85,.32,1) both;
+    display:flex;align-items:center;gap:8px;
+    background:#f7f7f8;border:1px solid #e8e8ec;border-radius:18px;
+    padding:15px 18px;margin-bottom:12px;cursor:pointer;animation:rowIn .35s cubic-bezier(.22,.85,.32,1) both;
   }
-  .t-row:hover{background:#eceff0;transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.07);}
+  .t-row:hover{background:#f0f0f2;transform:translateY(-1px);box-shadow:0 6px 14px rgba(0,0,0,.05);}
   .t-row:active{transform:translateY(0) scale(.995);box-shadow:none;}
-  .t-row .cell{font-size:16px;font-weight:500;}
-  .t-row .id{font-size:12px;font-weight:500;color:#000;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .t-row .store{font-size:12px;font-weight:500;flex:2;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:8px;}
-  .t-row .win{font-size:12px;font-weight:500;flex:1.3;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .t-row .size{color:var(--muted);font-size:16px;font-weight:500;flex:1;min-width:0;text-align:right;}
-  .t-head-row{display:flex;padding:0 22px;margin-bottom:6px;color:var(--muted-58);font-size:16px;font-weight:500;}
-  .t-head-row span{flex:1;}
-  .t-head-row span:first-child{flex:1;}
-  .t-head-row span:nth-child(2){flex:2;}
-  .t-head-row span:nth-child(3){flex:1.3;}
-  .t-head-row span:last-child{text-align:right;flex:1;}
+  .t-row .lr-id{font-size:13px;font-weight:700;color:#111;width:14%;flex:0 0 14%;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .t-row .lr-store{font-size:13px;font-weight:500;color:#222;width:24%;flex:0 0 24%;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:6px;}
+  .t-row .lr-win{font-size:13px;font-weight:500;color:#333;width:18%;flex:0 0 18%;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .t-row .lr-type{width:14%;flex:0 0 14%;display:flex;align-items:center;}
+  .t-row .lr-size{font-size:13px;font-weight:500;color:#333;width:14%;flex:0 0 14%;text-align:left;}
+  .t-row .lr-loading{width:12%;flex:0 0 12%;display:flex;align-items:center;justify-content:flex-end;}
+  .t-head-row{
+    display:flex;align-items:center;padding:0 20px;margin-bottom:10px;
+    color:#8e8e93;font-size:12.5px;font-weight:500;
+  }
+  .t-head-row .lh-id{width:14%;flex:0 0 14%;}
+  .t-head-row .lh-store{width:24%;flex:0 0 24%;}
+  .t-head-row .lh-win{width:18%;flex:0 0 18%;}
+  .t-head-row .lh-type{width:14%;flex:0 0 14%;}
+  .t-head-row .lh-size{width:14%;flex:0 0 14%;}
+  .t-head-row .lh-loading{width:12%;flex:0 0 12%;text-align:right;}
+
+  /* iOS-style toggle switch */
+  .load-toggle{
+    position:relative;width:44px;height:26px;border-radius:13px;border:none;
+    background:#d1d1d6;cursor:pointer;flex-shrink:0;padding:0;
+    transition:background-color .22s ease;
+  }
+  .load-toggle::after{
+    content:'';position:absolute;top:2px;left:2px;width:22px;height:22px;
+    border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.18);
+    transition:transform .22s cubic-bezier(.34,1.3,.4,1);
+  }
+  .load-toggle.on{background:#1c1c1e;}
+  .load-toggle.on::after{transform:translateX(18px);}
+  .load-toggle:active::after{transform:scale(.92);}
+  .load-toggle.on:active::after{transform:translateX(18px) scale(.92);}
 
   /* Loader Subheader (Back arrow + Title/Toggle) */
   .loader-subbar{
@@ -1535,7 +1556,7 @@
     display:flex;gap:6px;flex-wrap:wrap;margin-top:2px;
   }
   .loader-oid-pill{
-    background:#def0fa;color:#0284c7;font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:12px;
+    background:#d4f0e8;color:#0d6b4c;font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:12px;
   }
   .loader-bold-veh{
     font-size:14px;font-weight:700;color:#111;letter-spacing:.2px;
@@ -1543,14 +1564,14 @@
 
   /* Table head */
   .loader-table-head{
-    display:flex;align-items:center;padding:0 56px;margin-bottom:8px;color:#8e8e93;
+    display:flex;align-items:center;padding:0 56px 0 56px;margin-bottom:8px;color:#8e8e93;
     font-size:12.5px;font-weight:500;flex-shrink:0;
   }
   .lth-num{width:46px;flex:0 0 46px;}
   .lth-id{width:115px;flex:0 0 115px;}
   .lth-window{flex:1;min-width:0;}
-  .lth-type{width:95px;flex:0 0 95px;text-align:center;}
-  .lth-size{width:80px;flex:0 0 80px;text-align:right;}
+  .lth-type{width:100px;flex:0 0 100px;text-align:center;}
+  .lth-size{width:90px;flex:0 0 90px;text-align:right;}
 
   /* Batch order list */
   .loader-batch-list{
@@ -1573,8 +1594,8 @@
   .loc-num{width:46px;flex:0 0 46px;font-size:13.5px;font-weight:500;color:#555;}
   .loc-id{width:115px;flex:0 0 115px;font-size:14px;font-weight:700;color:#111;}
   .loc-name{flex:1;min-width:0;font-size:14px;font-weight:500;color:#222;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .loc-type{width:95px;flex:0 0 95px;display:flex;justify-content:center;}
-  .loc-size{width:80px;flex:0 0 80px;font-size:13px;font-weight:500;color:#555;text-align:right;}
+  .loc-type{width:100px;flex:0 0 100px;display:flex;justify-content:center;}
+  .loc-size{width:90px;flex:0 0 90px;font-size:13px;font-weight:500;color:#555;text-align:right;}
   .loc-radio{margin-left:18px;flex:0 0 22px;}
 
   /* Tactile Radio for Loader */
@@ -1628,7 +1649,7 @@
   .loader-items-list::-webkit-scrollbar-thumb{background:#d4d4d4;border-radius:10px;}
   .loader-item-card{
     display:flex;align-items:center;background:#fff;border:1px solid #e5e5ea;
-    border-radius:18px;padding:13px 20px;
+    border-radius:18px;padding:14px 20px;cursor:pointer;
     transition:background-color .18s ease, border-color .18s ease, transform .18s cubic-bezier(.2,.9,.3,1), box-shadow .18s ease;
     animation:rowIn .32s cubic-bezier(.22,.85,.32,1) both;
   }
@@ -1636,32 +1657,75 @@
     background:#fafafa;border-color:#c7c7cc;
   }
   .loader-item-card.selected-report{
-    border-color:#b5b5ba;background:#fafbfc;
+    border-color:#c0c0c6;background:#fafbfc;
+    box-shadow:0 4px 14px rgba(0,0,0,0.04);
   }
-  .lic-radio{margin-right:14px;flex:0 0 20px;}
   .lic-id{width:110px;flex:0 0 110px;font-size:14px;font-weight:700;color:#111;}
   .lic-name{flex:1;min-width:0;font-size:14px;font-weight:500;color:#222;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
   .lic-type{width:95px;flex:0 0 95px;display:flex;justify-content:center;}
-  .lic-qty{width:60px;flex:0 0 60px;font-size:14px;font-weight:600;color:#222;text-align:center;}
+  .lic-qty{width:56px;flex:0 0 56px;font-size:14px;font-weight:600;color:#222;text-align:center;}
   .lic-checkbox{
-    width:22px;height:22px;border:1.5px solid #d1d1d6;border-radius:6px;
+    width:24px;height:24px;border:1.5px solid #d1d1d6;border-radius:7px;
     background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;
-    margin-left:14px;flex:0 0 22px;transition:all .15s ease;
+    margin-left:12px;flex:0 0 24px;transition:all .18s cubic-bezier(.34,1.3,.4,1);
+    box-sizing:border-box;
   }
-  .lic-checkbox:hover{border-color:#888;transform:scale(1.08);}
+  .lic-checkbox:hover{border-color:#999;transform:scale(1.06);}
   .lic-checkbox:active{transform:scale(.9);}
   .lic-checkbox.checked{
-    background:#000;border-color:#000;color:#fff;
+    background:#9a9a9e;border-color:#9a9a9e;
     animation:popIn .25s cubic-bezier(.34,1.4,.4,1);
   }
-  .lic-checkbox svg{width:14px;height:14px;stroke-width:2.5;}
-
-  /* Screen 3: Checklist - Report Drawer */
-  .loader-report-card{
-    margin:0 34px 28px;background:#eeeff1;border:1px solid #e0e1e5;
-    border-radius:20px;padding:18px 22px;box-sizing:border-box;
-    flex-shrink:0;animation:rowIn .35s cubic-bezier(.22,.85,.32,1) both;
+  .lic-checkbox.checked::after{
+    content:'';width:10px;height:10px;border-radius:2px;background:transparent;display:block;
   }
+
+  /* Checklist bottom bar */
+  .loader-checklist-bottom{
+    padding:16px 34px 28px;display:flex;flex-direction:column;gap:14px;
+    flex-shrink:0;margin-top:auto;position:relative;
+  }
+  .loader-mark-loaded-btn{
+    background:#111;color:#fff;font-size:15px;font-weight:600;padding:14px 20px;
+    border-radius:28px;border:none;cursor:pointer;width:100%;text-align:center;
+    transition:background-color .18s, transform .16s cubic-bezier(.2,.9,.3,1), box-shadow .18s;
+    animation:rowIn .3s cubic-bezier(.22,.85,.32,1) both;
+  }
+  .loader-mark-loaded-btn:hover{background:#222;transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,0.18);}
+  .loader-mark-loaded-btn:active{transform:translateY(1px) scale(.98)!important;}
+  .loader-report-float-wrap{
+    display:flex;justify-content:flex-end;
+  }
+  .loader-report-pill-btn{
+    display:inline-flex;align-items:center;gap:8px;background:#fff;
+    border:1px solid #d4d4d4;border-radius:22px;padding:8px 18px;
+    font-size:13px;font-weight:600;color:#222;cursor:pointer;
+    transition:all .18s ease;box-shadow:0 1px 4px rgba(0,0,0,0.04);
+  }
+  .loader-report-pill-btn:hover{
+    background:#f7f7f8;border-color:#999;transform:translateY(-1px);
+    box-shadow:0 3px 8px rgba(0,0,0,0.08);
+  }
+  .loader-report-pill-btn:active{transform:scale(.96);}
+  .loader-report-pill-btn.expanded{
+    background:#111;border-color:#111;color:#fff;
+  }
+  .loader-report-pill-btn.expanded .report-badge-dot{
+    background:#fff;color:#111;
+  }
+  .loader-report-pill-btn .report-badge-dot{
+    width:16px;height:16px;border-radius:50%;background:#111;color:#fff;
+    display:inline-flex;align-items:center;justify-content:center;
+    font-size:10px;font-weight:700;font-family:sans-serif;line-height:1;
+  }
+
+  /* Report sheet (expandable) */
+  .loader-report-sheet{
+    margin:0 34px 12px;background:#eeeff1;border:1px solid #e0e1e5;
+    border-radius:20px;padding:18px 22px;box-sizing:border-box;
+    flex-shrink:0;animation:rowIn .3s cubic-bezier(.22,.85,.32,1) both;
+  }
+  .loader-report-sheet.hidden{display:none!important;}
   .loader-report-head{
     display:flex;align-items:center;gap:8px;margin-bottom:12px;
   }
@@ -1822,26 +1886,32 @@ const dispatchOrders = [
 ], detail:{weight:'250kg', volume:'88m³', dock:'Rear dock', parking:'Normal', window:'03:00 am - 08:00am', remaining:'04:45:32'}}));
 
 const loaderLoads = [
-  {id:'LDS-2HG3', store:'Colombo 8 - Waypoint Fresh', window:'3:00am - 8:00am', type:'Fresh', size:25,
-    vehicle:'VEH-T&78DOJB', closeTime:'08:45am', closeRemaining:'3hrs 34min remaining',
-    orderIds:['FRS-2HG3','FRS-YUD6','FRS-WYED'],
+  {key:'load1', id:'LDS-2HG3', store:'Colombo 8 - Waypoint Fresh', window:'3:00am - 8:00am', type:'Chilled', size:'3 Orders',
+    loading:true,
+    vehicle:'VEH-T678DOJB', closeTime:'08:45am', closeRemaining:'3hrs 34min remaining',
+    orderIds:['FRS-2HG3','FRS-YUD4','FRS-WY10'],
     batch:[
       {id:'FRS-2HG3', name:'Something else', type:'Ambient', count:26},
       {id:'STY-2HG3', name:'Another something', type:'Ambient', count:26},
       {id:'FRS-2HG3', name:'Completely different', type:'Ambient', count:26},
     ]},
-  {id:'LDS-3JT9', store:'Dehiwala - Waypoint Fresh', window:'4:00am - 9:00am', type:'Fresh', size:19,
-    vehicle:'VEH-K&12M0PL', closeTime:'09:10am', closeRemaining:'4hrs 05min remaining',
-    orderIds:['FRS-6BC4','FRS-1JH6'],
+  {key:'load2', id:'LDS-2HG3', store:'Colombo 8 - Waypoint Fresh', window:'3:00am - 8:00am', type:'Chilled', size:'5 Orders',
+    loading:false,
+    vehicle:'VEH-T678DOJB', closeTime:'08:45am', closeRemaining:'3hrs 34min remaining',
+    orderIds:['FRS-2HG3','FRS-YUD4','FRS-WY10','FRS-AB12','FRS-CD34'],
     batch:[
-      {id:'FRS-6BC4', name:'Broccoli', type:'Ambient', count:18},
-      {id:'FRS-1JH6', name:'Something else', type:'Ambient', count:21},
+      {id:'FRS-2HG3', name:'Something else', type:'Ambient', count:26},
+      {id:'STY-2HG3', name:'Another something', type:'Ambient', count:26},
+      {id:'FRS-AB12', name:'Fresh produce', type:'Ambient', count:18},
+      {id:'FRS-CD34', name:'Dairy pack', type:'Ambient', count:12},
+      {id:'FRS-EF56', name:'Bakery items', type:'Ambient', count:8},
     ]},
-  {id:'LDS-5QW1', store:'Kandy - Lake Road', window:'5:00am - 10:00am', type:'Fresh', size:32,
-    vehicle:'VEH-R&99X4TN', closeTime:'10:20am', closeRemaining:'5hrs 40min remaining',
-    orderIds:['FRS-7MN2'],
+  {key:'load3', id:'LDS-2HG3', store:'Colombo 8 - Waypoint Fresh', window:'3:00am - 8:00am', type:'Fragile', size:'1 Orders',
+    loading:false,
+    vehicle:'VEH-T678DOJB', closeTime:'08:45am', closeRemaining:'3hrs 34min remaining',
+    orderIds:['FRS-2HG3'],
     batch:[
-      {id:'FRS-7MN2', name:'Completely different', type:'Ambient', count:32},
+      {id:'FRS-2HG3', name:'Glassware set', type:'Fragile', count:14},
     ]},
 ];
 // per-order item lists for loader checklist screen
@@ -1873,7 +1943,8 @@ const checkState = {};
 const loaderState = {
   collapsed: false,
   selectedOrderIdx: 0,
-  selectedItemIdx: 0
+  selectedItemIdx: 0,
+  showReport: false
 };
 
 /* ---------------------------------------------------------------
@@ -3817,41 +3888,65 @@ function loaderListScreen(){
     <div class="t-topbar">
       <div class="brand"><span class="wp-logo">WAYPOINT</span><span class="wp-role">&nbsp;LOADER</span></div>
       <div class="actions">
-        <button class="icon-btn">${ICON.search}</button>
-        <button class="icon-btn">${ICON.account}</button>
-        <button class="icon-btn">${ICON.menu}</button>
+        <button class="icon-btn" title="Search">${ICON.search}</button>
+        <button class="icon-btn" title="Account">${ICON.account}</button>
+        <button class="icon-btn" title="Menu">${ICON.menu}</button>
       </div>
     </div>
     <div class="t-title">Assigned Loads</div>
-    <div class="t-head-row" style="padding:0 66px;">
-      <span>Order ID</span><span>Store Name</span><span>Window</span><span style="text-align:right;">Order Type</span><span style="text-align:right;">Order Size</span>
+    <div class="t-head-row" style="padding:0 54px;">
+      <span class="lh-id">Load ID</span>
+      <span class="lh-store">Store Name</span>
+      <span class="lh-win">Window</span>
+      <span class="lh-type">Order Type</span>
+      <span class="lh-size">Load Size</span>
+      <span class="lh-loading">Loading</span>
     </div>
     <div class="t-list" id="loadRows">
-      ${loaderLoads.map(l=>`
-        <div class="t-row" data-load="${l.id}">
-          <span class="id">${l.id}</span>
-          <span class="store">${l.store}</span>
-          <span class="win">${l.window}</span>
-          <span class="pill ${l.type}">${l.type}</span>
-          <span class="size">${l.size} items</span>
+      ${loaderLoads.map((l, idx)=>`
+        <div class="t-row" data-key="${l.key}" data-idx="${idx}">
+          <span class="lr-id">${l.id}</span>
+          <span class="lr-store">${l.store}</span>
+          <span class="lr-win">${l.window}</span>
+          <span class="lr-type"><span class="pill ${l.type}">${l.type}</span></span>
+          <span class="lr-size">${l.size}</span>
+          <span class="lr-loading">
+            <button class="load-toggle ${l.loading ? 'on' : ''}" data-idx="${idx}" title="Toggle loading" aria-label="Toggle loading"></button>
+          </span>
         </div>`).join('')}
     </div>
   </div>`;
 }
 function attachLoaderList(){
   document.querySelectorAll('#loadRows .t-row').forEach(el=>{
-    el.addEventListener('click', ()=> nav({name:'loader-load', loadId:el.dataset.load}));
+    el.addEventListener('click', (e)=>{
+      if(e.target.closest('.load-toggle')) return;
+      const idx = parseInt(el.dataset.idx, 10);
+      const l = loaderLoads[idx];
+      if(l) nav({name:'loader-load', loadId:l.key, role:'loader'});
+    });
+  });
+  document.querySelectorAll('#loadRows .load-toggle').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      const idx = parseInt(btn.dataset.idx, 10);
+      if(loaderLoads[idx]){
+        loaderLoads[idx].loading = !loaderLoads[idx].loading;
+        btn.classList.toggle('on', loaderLoads[idx].loading);
+        showToast(loaderLoads[idx].loading ? 'Loading started' : 'Loading stopped');
+      }
+    });
   });
 }
 
 /* ================= LOADER: LOAD DETAIL (Expanded & Collapsed) ================= */
 function loaderLoadScreen(loadId){
-  const l = loaderLoads.find(x=>x.id===loadId) || loaderLoads[0];
+  const l = loaderLoads.find(x=>x.key===loadId || x.id===loadId) || loaderLoads[0];
   const isCollapsed = route.collapsed !== undefined ? route.collapsed : loaderState.collapsed;
 
   // Check if all batch items are completed to activate finish loading
   const batchChecked = l.batch.every(b => {
-    const scope = 'loader-'+l.id+'-'+b.id;
+    const scope = 'loader-'+l.key+'-'+b.id;
     const items = loaderItemsFor(b.id);
     return items.every((_, i) => !!checkState[scope+'-'+i]);
   });
@@ -3868,7 +3963,7 @@ function loaderLoadScreen(loadId){
 
     <div class="loader-subbar">
       <button class="loader-back-btn" id="loaderBackBtn" title="Back">${ICON.arrowLeft}</button>
-      <button class="loader-load-toggle" id="loaderToggleBtn" title="Toggle summary">
+      <button class="loader-load-toggle" id="loaderToggleBtn" title="Toggle summary" style="margin-left:auto;">
         <span>${l.id}</span>
         <span class="loader-chevron ${isCollapsed ? 'collapsed' : ''}">${ICON.chevronDown}</span>
       </button>
@@ -3937,7 +4032,7 @@ function loaderLoadScreen(loadId){
 }
 
 function attachLoaderLoad(loadId){
-  const l = loaderLoads.find(x=>x.id===loadId) || loaderLoads[0];
+  const l = loaderLoads.find(x=>x.key===loadId || x.id===loadId) || loaderLoads[0];
   const isCollapsed = route.collapsed !== undefined ? route.collapsed : loaderState.collapsed;
 
   const backBtn = document.getElementById('loaderBackBtn');
@@ -3964,11 +4059,13 @@ function attachLoaderLoad(loadId){
           render();
         } else {
           const ord = l.batch[idx] || l.batch[0];
-          nav({name:'loader-checklist', loadId: l.id, orderId: ord.id, role:'loader'});
+          loaderState.showReport = false;
+          nav({name:'loader-checklist', loadId: l.key, orderId: ord.id, role:'loader'});
         }
       } else {
         const ord = l.batch[idx] || l.batch[0];
-        nav({name:'loader-checklist', loadId: l.id, orderId: ord.id, role:'loader'});
+        loaderState.showReport = false;
+        nav({name:'loader-checklist', loadId: l.key, orderId: ord.id, role:'loader'});
       }
     });
   });
@@ -3978,7 +4075,8 @@ function attachLoaderLoad(loadId){
     startBtn.addEventListener('click', ()=>{
       const selIdx = loaderState.selectedOrderIdx || 0;
       const ord = l.batch[selIdx] || l.batch[0];
-      nav({name:'loader-checklist', loadId: l.id, orderId: ord.id, role:'loader'});
+      loaderState.showReport = false;
+      nav({name:'loader-checklist', loadId: l.key, orderId: ord.id, role:'loader'});
     });
   }
 
@@ -3997,10 +4095,12 @@ function attachLoaderLoad(loadId){
 
 /* ================= LOADER: ITEM CHECKLIST & REPORTING ================= */
 function loaderChecklistScreen(loadId, orderId){
-  const l = loaderLoads.find(x=>x.id===loadId) || loaderLoads[0];
-  const orderLabel = orderId ? orderId.split('-').slice(0,2).join('-') : 'FRS-2HG3';
+  const l = loaderLoads.find(x=>x.key===loadId || x.id===loadId) || loaderLoads[0];
+  const orderLabel = orderId || 'FRS-2HG3';
   const items = loaderItemsFor(orderLabel);
-  const scope = 'loader-'+l.id+'-'+orderLabel;
+  const scope = 'loader-'+l.key+'-'+orderLabel;
+  const allChecked = items.every((_, i) => !!checkState[scope+'-'+i]);
+  const showReport = !!loaderState.showReport;
 
   return `
   <div class="device-tablet active">
@@ -4030,25 +4130,23 @@ function loaderChecklistScreen(loadId, orderId){
         const isSelected = i === loaderState.selectedItemIdx;
         return `
         <div class="loader-item-card ${isSelected ? 'selected-report' : ''}" data-itemidx="${i}">
-          <span class="loader-radio lic-radio ${isSelected ? 'checked' : ''}" data-itemidx="${i}" title="Select for reporting"></span>
           <span class="lic-id">${it.id}</span>
           <span class="lic-name">${it.name}</span>
           <span class="lic-type"><span class="pill Ambient">Ambient</span></span>
           <span class="lic-qty">X ${it.count}</span>
-          <span class="lic-checkbox ${checked ? 'checked' : ''}" data-key="${key}" title="Toggle verified">
-            ${checked ? ICON.check : ''}
-          </span>
+          <span class="lic-checkbox ${checked ? 'checked' : ''}" data-key="${key}" title="Toggle verified"></span>
         </div>`;
       }).join('')}
     </div>
 
-    <div class="loader-report-card">
+    ${showReport ? `
+    <div class="loader-report-sheet" id="loaderReportSheet">
       <div class="loader-report-head">
         <span class="loader-report-badge">!</span>
         <span class="loader-report-title">Report</span>
       </div>
       <label class="loader-report-lbl" for="loaderReportMsg">Message</label>
-      <textarea id="loaderReportMsg" class="loader-report-textarea" placeholder=""></textarea>
+      <textarea id="loaderReportMsg" class="loader-report-textarea" placeholder="Describe the issue..."></textarea>
       <div class="loader-report-action-row">
         <div class="loader-report-action-left">
           <span class="loader-report-action-lbl">Action</span>
@@ -4061,25 +4159,42 @@ function loaderChecklistScreen(loadId, orderId){
         <button class="loader-report-save-btn" id="loaderReportSaveBtn">Save</button>
       </div>
     </div>
+    ` : ''}
+
+    <div class="loader-checklist-bottom">
+      ${allChecked ? `
+        <button class="loader-mark-loaded-btn" id="markLoadedBtn">Mark Loaded</button>
+      ` : ''}
+      <div class="loader-report-float-wrap">
+        <button class="loader-report-pill-btn ${showReport ? 'expanded' : ''}" id="loaderReportPillBtn">
+          <span class="report-badge-dot">!</span>
+          <span>${showReport ? 'Close' : 'Report'}</span>
+        </button>
+      </div>
+    </div>
   </div>`;
 }
 
 function attachLoaderChecklist(loadId, orderId){
-  const l = loaderLoads.find(x=>x.id===loadId) || loaderLoads[0];
-  const orderLabel = orderId ? orderId.split('-').slice(0,2).join('-') : 'FRS-2HG3';
-  const scope = 'loader-'+l.id+'-'+orderLabel;
+  const l = loaderLoads.find(x=>x.key===loadId || x.id===loadId) || loaderLoads[0];
+  const orderLabel = orderId || 'FRS-2HG3';
+  const scope = 'loader-'+l.key+'-'+orderLabel;
+  const items = loaderItemsFor(orderLabel);
 
   const backBtn = document.getElementById('loaderChecklistBackBtn');
   if(backBtn){
-    backBtn.addEventListener('click', ()=> nav({name:'loader-load', loadId: l.id, role:'loader'}));
+    backBtn.addEventListener('click', ()=> nav({name:'loader-load', loadId: l.key, role:'loader'}));
   }
 
-  // Radio button / item selection for reporting
+  // Row click selects item (for reporting context)
   document.querySelectorAll('#loaderItemsList .loader-item-card').forEach(card => {
     card.addEventListener('click', (e)=>{
       if(e.target.closest('.lic-checkbox')) return;
       const idx = parseInt(card.dataset.itemidx, 10);
       loaderState.selectedItemIdx = idx;
+      // Also toggle checkbox when tapping the row
+      const key = scope+'-'+idx;
+      checkState[key] = !checkState[key];
       render();
     });
   });
@@ -4094,17 +4209,35 @@ function attachLoaderChecklist(loadId, orderId){
     });
   });
 
+  // Mark Loaded
+  const markBtn = document.getElementById('markLoadedBtn');
+  if(markBtn){
+    markBtn.addEventListener('click', ()=>{
+      showToast(`Order ${orderLabel} marked as loaded!`);
+      setTimeout(()=> nav({name:'loader-load', loadId: l.key, role:'loader'}), 400);
+    });
+  }
+
+  // Report pill toggle
+  const reportPill = document.getElementById('loaderReportPillBtn');
+  if(reportPill){
+    reportPill.addEventListener('click', ()=>{
+      loaderState.showReport = !loaderState.showReport;
+      render();
+    });
+  }
+
   // Save report
   const saveBtn = document.getElementById('loaderReportSaveBtn');
   if(saveBtn){
     saveBtn.addEventListener('click', ()=>{
-      const msg = document.getElementById('loaderReportMsg').value;
-      const act = document.getElementById('loaderReportAction').value;
+      const msg = document.getElementById('loaderReportMsg')?.value || '';
+      const act = document.getElementById('loaderReportAction')?.value || 'deffer';
       const actText = act === 'deffer' ? 'Deffered' : act === 'damage' ? 'Damaged' : 'Missing';
-      const items = loaderItemsFor(orderLabel);
       const curItem = items[loaderState.selectedItemIdx] || items[0];
       showToast(`Report saved: ${actText} logged for ${curItem.id}`);
-      document.getElementById('loaderReportMsg').value = '';
+      loaderState.showReport = false;
+      render();
     });
   }
 }
@@ -4265,9 +4398,9 @@ try {
   } else if(routeParam === 'loader-load'){
     const isCol = urlParams.get('collapsed') === 'true';
     loaderState.collapsed = isCol;
-    route = {name:'loader-load', loadId: urlParams.get('loadId') || 'LDS-2HG3', role:'loader', collapsed: isCol};
+    route = {name:'loader-load', loadId: urlParams.get('loadId') || 'load1', role:'loader', collapsed: isCol};
   } else if(routeParam === 'loader-checklist'){
-    route = {name:'loader-checklist', loadId: urlParams.get('loadId') || 'LDS-2HG3', orderId: urlParams.get('orderId') || 'FRS-2HG3', role:'loader'};
+    route = {name:'loader-checklist', loadId: urlParams.get('loadId') || 'load1', orderId: urlParams.get('orderId') || 'FRS-2HG3', role:'loader'};
   } else if(routeParam === 'store-dashboard'){
     route = {name:'store-dashboard', role:'store-manager'};
   } else if(routeParam === 'store-order-detail'){
